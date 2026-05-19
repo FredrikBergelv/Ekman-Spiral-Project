@@ -1,0 +1,34 @@
+\section{Theory of the Ekman spiral}
+We know that the wind can be written as 
+\begin{equation}
+\mathbf{u} = u \hat{x} + v \hat{y} + w \hat{z}, \text{ where } {u}={u}_0+u'. 
+\end{equation} 
+In te Ekman layer we assume that $w=0$ and that the flow is steady, i.e. $\partial/\partial t = 0$. The equations of motion in a rotating frame of reference are then given by
+\begin{equation}
+    \begin{cases}
+        \frac{\partial^2 v}{\partial z^2} = \frac{f}{\nu} u, \\
+\frac{\partial^2 u}{\partial z^2} = -\frac{f}{\nu} v.
+    \end{cases}
+\end{equation}
+with the boundary conditions
+\begin{equation}
+    \begin{cases}
+        u(z=0) = 0, \\
+v(z=0) = 0, \\
+        u(z \to \infty) = u_g, \\
+v(z \to \infty) = v_g.
+    \end{cases}
+\end{equation}
+Here, $f$ is the Coriolis parameter and $\nu$ is the kinematic viscosity. 
+
+If the kinematic viscosity is assumed to be constant with height, the solution to these equations is the well-known Ekman spiral. 
+\begin{equation}
+    \begin{cases}
+        u'(z) = -u_0  \exp\left({-\frac{z}{\delta}}\right) \cos\left(\frac{z}{\delta}\right), \\
+v(z) = u_0  \exp\left({-\frac{z}{\delta}}\right) \sin\left(\frac{z}{\delta}\right),
+    \end{cases}
+\end{equation}
+where $\delta = \sqrt{2\nu/f}$ is the Ekman depth.However, in reality the viscosity varies with height. 
+
+
+
