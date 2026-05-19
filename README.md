@@ -37,10 +37,10 @@ $$
 
 where
 
-- $(U = u + iv)$ is the complex velocity
-- $(f)$ is the Coriolis parameter
-- $(\nu(z))$ is the eddy viscosity profile
-- $(U_g)$ is the geostrophic wind
+- $U = u + iv$ is the complex velocity
+- $f$ is the Coriolis parameter
+- $\nu(z)$ is the eddy viscosity profile
+- $U_g$ is the geostrophic wind
 
 Boundary conditions:
 
