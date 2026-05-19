@@ -32,9 +32,7 @@ The numerical solutions are obtained using boundary value problem solvers in Pyt
 The governing equation is
 
 $$
-\frac{d}{dz}\left(\nu(z)\frac{dU}{dz}\right)
-=
-if(U-U_g)
+\frac{d}{dz}\left(\nu(z)\frac{dU}{dz}\right)=if(U-U_g)
 $$
 
 where
@@ -51,7 +49,7 @@ U(0)=0
 $$
 
 $$
-\frac{dU}{dz}(H)=0
+U(z\rightarrow \infty)=0
 $$
 
 ---
