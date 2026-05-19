@@ -31,28 +31,28 @@ The numerical solutions are obtained using boundary value problem solvers in Pyt
 
 The governing equation is
 
-```math
+$$
 \frac{d}{dz}\left(\nu(z)\frac{dU}{dz}\right)
 =
 if(U-U_g)
-```
+$$
 
 where
 
-- \(U = u + iv\) is the complex velocity
-- \(f\) is the Coriolis parameter
-- \(\nu(z)\) is the eddy viscosity profile
-- \(U_g\) is the geostrophic wind
+- $(U = u + iv)$ is the complex velocity
+- $(f)$ is the Coriolis parameter
+- $(\nu(z))$ is the eddy viscosity profile
+- $(U_g)$ is the geostrophic wind
 
 Boundary conditions:
 
-```math
+$$
 U(0)=0
-```
+$$
 
-```math
+$$
 \frac{dU}{dz}(H)=0
-```
+$$
 
 ---
 
