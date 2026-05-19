@@ -31,11 +31,11 @@ The numerical solutions are obtained using boundary value problem solvers in Pyt
 
 The governing equation is
 
-\[
+```math
 \frac{d}{dz}\left(\nu(z)\frac{dU}{dz}\right)
 =
 if(U-U_g)
-\]
+```
 
 where
 
@@ -46,13 +46,13 @@ where
 
 Boundary conditions:
 
-\[
+```math
 U(0)=0
-\]
+```
 
-\[
+```math
 \frac{dU}{dz}(H)=0
-\]
+```
 
 ---
 
