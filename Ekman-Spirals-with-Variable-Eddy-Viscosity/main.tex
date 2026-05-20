@@ -1,0 +1,56 @@
+\documentclass[a4paper,10pt]{article}
+
+\input{Other/Premable}
+
+\input{Other/Information}
+
+\ifthenelse{\equal{\draftmode}{y}}{
+\usepackage{environ} 
+\RenewEnviron{figure}[1][]{}
+}{}
+
+\begin{document}
+
+\input{Other/Title}
+
+\ifthenelse{\equal{\draftmode}{y}}{
+\makeatletter
+\renewcommand{\section}[1]{
+  \refstepcounter{section}
+  \addcontentsline{toc}{section}{\thesection\quad #1}
+  \par\bigskip
+  \textbf{#1}\par\medskip}
+\renewcommand{\subsection}[1]{%
+  \refstepcounter{subsection}
+  \addcontentsline{toc}{subsection}{\thesubsection\quad #1}
+  \par\smallskip
+  \textbf{#1}\par\smallskip}
+\makeatother
+\renewcommand{\newpage}{}
+}{}
+
+\ifthenelse{\equal{\draftmode}{n}}{
+\ifthenelse{\equal{\IncludeTab}{y}}{
+\tableofcontents
+\newpage}{}}{}
+
+\input{Textfiles/0.Abstract.tex}
+\input{Textfiles/1.Background.tex}
+\input{Textfiles/2.Theory.tex}
+\input{Textfiles/3.Methodology.tex}
+\input{Textfiles/4.Results.tex}
+\input{Textfiles/5.Discussion.tex}
+\input{Textfiles/6.Conclusion.tex}
+
+\input{Textfiles/Appendix}
+
+\ifthenelse{\equal{\IncludeBib}{y}}{\bibliography{Textfiles/References.bib}}{}
+
+
+\end{document}
+
+
+
+
+
+

@@ -1,0 +1,44 @@
+\subsection{Theory}
+\subsubsection{problem formultation}
+The Ekman equation is derived from the steady-state Navier--Stokes equations on a rotating frame with shear flow. Assuming friction, incompressible flow, negligible vertical motion, gives the horizontal momentum equations as
+\begin{subequations}
+\begin{empheq}[left=\empheqlbrace]{align}
+    -fv &= -\frac{1}{\rho}\frac{\partial p}{\partial x}
+    + \frac{\partial}{\partial z}\left(\nu \frac{\partial u}{\partial z}\right), \\
+    fu &= -\frac{1}{\rho}\frac{\partial p}{\partial y}
+    + \frac{\partial}{\partial z}\left(\nu \frac{\partial v}{\partial z}\right),
+\end{empheq}
+\label{eq:NavierStokes}
+\end{subequations}
+where $u$ and $v$ are the horizontal velocity components, $f$ is the Coriolis parameter, $\rho$ is the fluid density, and $\nu$ is the viscosity. Far away from the surface, shear flow and friction becomes negligible and the flow will thus approach geostrophic balance as,
+\begin{align}
+    -fv_g &= -\frac{1}{\rho}\frac{\partial p}{\partial x}, \\
+    fu_g &= -\frac{1}{\rho}\frac{\partial p}{\partial y}.
+\end{align}
+Subtracting the geostrophic balance from \autoref{eq:NavierStokes} gives
+\begin{subequations}
+\begin{empheq}[left=\empheqlbrace]{align}
+    -f(v-v_g) &=
+    \frac{\partial}{\partial z}\left(\nu \frac{\partial u}{\partial z}\right), \\
+    f(u-u_g) &=
+    \frac{\partial}{\partial z}\left(\nu \frac{\partial v}{\partial z}\right).
+\end{empheq}
+\label{eq:subtractedNavierStokes}
+\end{subequations}
+This problem can be formulated with one equation if one introduces a complex velocity defined as 
+\begin{align}
+    U \equiv u + iv,
+\end{align}
+and a complex geostrophic velocity as $U_g = u_g + iv_g$. Using \autoref{eq:subtractedNavierStokes} with the complex velocities $U$ and $U_g$ the coupled equations can be combined into the Ekman equation
+\begin{equation}
+    \frac{\partial}{\partial z}
+    \left(
+    \nu \frac{\partial U}{\partial z}
+    \right)
+    =
+    if(U-U_g).
+    \label{eq:EkmanEquation}
+\end{equation}
+
+\subsubsection{The classical solution}
+The classical solution to the Ekman equation is when we have a constant viscosity with altitude as $\nu=\text{constant}$.
