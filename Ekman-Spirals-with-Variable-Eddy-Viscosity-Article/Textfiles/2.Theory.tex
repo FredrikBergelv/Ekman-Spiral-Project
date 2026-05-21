@@ -1,0 +1,99 @@
+\section{Theory}
+\subsection{Problem formultation}
+The Ekman equation is derived from the steady-state Navier--Stokes equations on a rotating frame with shear flow. Assuming friction, incompressible flow, negligible vertical motion, gives the horizontal momentum equations as
+\begin{subequations}
+\begin{empheq}[left=\empheqlbrace]{align}
+    -fv &= -\frac{1}{\rho}\frac{\partial p}{\partial x}
+    + \frac{\partial}{\partial z}\left(\nu \frac{\partial u}{\partial z}\right), \\
+    fu &= -\frac{1}{\rho}\frac{\partial p}{\partial y}
+    + \frac{\partial}{\partial z}\left(\nu \frac{\partial v}{\partial z}\right),
+    \label{eq:NavierStokes}
+\end{empheq}
+\end{subequations}
+where $u$ and $v$ are the horizontal velocity components, $f$ is the Coriolis parameter, $\rho$ is the fluid density, and $\nu$ is the viscosity. Far away from the surface, shear flow and friction becomes negligible and the flow will thus approach geostrophic balance, $(u,v)\rightarrow (u_g,v_g)$, as were one can neglect the friction term in \autoref{eq:NavierStokes}. Subtracting the geostrophic balance from \autoref{eq:NavierStokes} thus gives
+\begin{subequations}
+\begin{empheq}[left=\empheqlbrace]{align}
+    -f(v-v_g) &=
+    \frac{\partial}{\partial z}\left(\nu \frac{\partial u}{\partial z}\right), \\
+    f(u-u_g) &=
+    \frac{\partial}{\partial z}\left(\nu \frac{\partial v}{\partial z}\right).
+    \label{eq:subtractedNavierStokes}
+\end{empheq}
+\end{subequations}
+This problem can be formulated with one equation if one introduces a complex velocity defined as 
+\begin{align}
+    U \equiv u + iv,
+\end{align}
+and a complex geostrophic velocity as $U_g = u_g + iv_g$. Using \autoref{eq:subtractedNavierStokes} with the complex velocities $U$ and $U_g$ the coupled equations can be combined into the Ekman equation
+\begin{empheq}[box=\fbox]{equation}
+    \frac{\partial}{\partial z}
+    \left(
+    \nu \frac{\partial U}{\partial z}
+    \right)
+    =
+    if(U-U_g).
+    \label{eq:EkmanEquation}
+\end{empheq}
+With the boundary conditions
+\begin{subequations}
+\begin{align}
+    U(0) &= 0,
+    \label{eq:BoundaryCondition1}
+    \\
+    U(z\to\infty) &= U_g.
+    \label{eq:BoundaryCondition2}
+\end{align}
+\label{eq:BoundaryConditions}
+\end{subequations}
+\subsection{The classical solution}
+The classical solution to the Ekman equation is obtained when the viscosity is assumed to be constant with altitude, $\nu=\text{constant}$, and can be found in \citet{Ekman1905}. In this case he classical Ekman spiral solution from \autoref{eq:EkmanEquation} can obtained as
+\begin{equation}
+    U(z)=U_g\left(1-e^{-\frac{1+i}{\sqrt{2}}\frac{z}{h_\text{Ek}}}\right),
+    \label{eq:EkmanConstant}
+\end{equation}
+where
+\begin{equation}
+    h_\text{Ek}\equiv\sqrt{\frac{\nu}{f}}
+    \label{eq:EkmanHeight}
+\end{equation}
+is the Ekman depth scale. One can note that by taking the argument of the change by altitude $\tfrac{\partial U}{\partial z}|_{z=0}$, one can measure the angle of \autoref{eq:EkmanConstant} as \SI{45}{\degr}.
+
+\subsection{The two layer model}
+The next natural step from a constant viscosity profile is to assume two layers of constant viscosity in each layer. One can label the lower level as having the viscosity $\nu_1$ up until a height of $H$, where the next viscosity of $\nu_2$ takes over. From this assumption one would obtain a superimposed solution similar to \autoref{eq:EkmanConstant} as 
+\begin{subequations}
+\begin{empheq}[left=\empheqlbrace]{align}
+    U_1(z)&=A_1\left(1-e^{\frac{1+i}{\sqrt{2}}\frac{z}{h_\text{Ek1}}}\right)+B_1\left(1-e^{-\frac{1+i}{\sqrt{2}}\frac{z}{h_\text{Ek1}}}\right), \\
+    U_2(z)&=B_2\left(1-e^{-\frac{1+i}{\sqrt{2}}\frac{z}{h_\text{Ek2}}}\right) + U_g
+\end{empheq}
+\end{subequations}
+where the Ekman depth scales are defined for each layer like in \autoref{eq:EkmanHeight}. To solve for the constants above one has to use the fact that the material flux has to be constant. This gives the jump condition as 
+\begin{subequations}
+\begin{align}
+    U_1&=U_2 \quad \text{at } z=H, \\
+    \nu_1\frac{\partial U_1}{\partial z}&=\nu_2\frac{\partial U_2}{\partial z}  \quad \text{at } z=H.
+\end{align}
+\end{subequations}
+Using this and the boundary conditions at \autoref{eq:BoundaryConditions} one obtains a relation between the factors as
+\begin{equation}
+    A_1-B_1=U_g\frac{e^{\sqrt{2}\left(1+i\right)\varphi}-R}{e^{\sqrt{2}\left(1+i\right)\varphi}-R}
+\end{equation}
+where $\varphi$ is the non-dimensional height defined as 
+\begin{equation}
+    \varphi = \frac{H}{h_\text{EK1}}.
+\end{equation}
+The constant $R$ is defined as 
+\begin{equation}
+    R = \frac{1-\tfrac{\nu_1}{\nu_2}}{1+\tfrac{\nu_1}{\nu_2}}.
+\end{equation}
+Using this one can define the surface angle as 
+\begin{equation}
+    \theta=\arg \left.\frac{\partial U_1}{\partial z}\right|_{z=0} =45\degr + 
+    \arctan\left[\frac{2R e^{\sqrt{2}\,\varphi}\sin(\sqrt{2}\,\varphi)}{e^{2\sqrt{2}\,\varphi} -R^2}\right]
+    \label{eq:2layerAngle}
+\end{equation}
+
+\subsection{The exponential decaying viscosity}
+
+\subsection{The 1.5 layer model}
+
+\subsubsection{Simple viscosity pofiles for the 1.5 layer model}
