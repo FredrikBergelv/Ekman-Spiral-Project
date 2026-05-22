@@ -11,7 +11,7 @@
 \contentsline {section}{\numberline {3}Methodology}{6}{section.3}%
 \contentsline {section}{\numberline {4}Results}{6}{section.4}%
 \contentsline {subsection}{\numberline {4.1}The theoretical models}{6}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}The 1.5 model}{7}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.2}The numerical 1.5 model}{7}{subsection.4.2}%
 \contentsline {section}{\numberline {5}Discussion}{7}{section.5}%
 \contentsline {section}{\numberline {6}Conclusion}{7}{section.6}%
 \contentsline {section}{\numberline {A}The Source Code}{7}{appendix.A}%
