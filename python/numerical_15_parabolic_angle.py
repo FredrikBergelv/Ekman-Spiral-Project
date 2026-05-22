@@ -15,7 +15,6 @@ import matplotlib.pyplot as plt
 u0 = 10.0
 f = 1e-4
 
-
 # -------------------------
 # ν(z)
 # -------------------------
@@ -79,11 +78,8 @@ def surface_angle(z, Y):
     return np.degrees(angle)
 
 
-phi_values = np.logspace(-6, 0.3, 100)
+phi_values = np.logspace(-6, np.log10(3), 1000)
 
-
-plt.close("all")
-plt.figure()
 
 angles = []
 for i, phi in enumerate(phi_values):
@@ -91,22 +87,27 @@ for i, phi in enumerate(phi_values):
         z, Y = solve_profile(phi)
         surf_angle = surface_angle(z, Y)
         angles.append(surf_angle)
-        
 
         percent = 100* i / len(phi_values)
         print(f"{percent:.2f}% (angle = {surf_angle:.2f} deg)")
 
+#%%
+plt.figure(figsize=(8,5))
 plt.plot(phi_values, angles, c="C2")
 
 plt.hlines(45, min(phi_values), max(phi_values), color="black", linestyle='--', label="45° reference")
 
-plt.xlabel(r"Lower layer thickness, $\varphi$ [-]")
-plt.ylabel(r"Surface angle, $\hat\theta$ [deg]")
-plt.suptitle("Surface Angle for 1.5 parabolic model", fontsize=14)
-plt.title("Surface angle vs Lower layer thickness")
+plt.xlabel(r"Dimensionless layer thickness, $\varphi$ [-]",fontsize=11)
+plt.ylabel(r"Surface angle, $\hat\theta$ [deg]",fontsize=11)
+plt.suptitle("Surface Angle for 1.5 Parabolic Model", fontsize=14)
+plt.title("Surface angle vs layer thickness",fontsize=13)
 plt.grid(True, linestyle='--', alpha=0.6)
 plt.legend(fontsize=11)
-#plt.xscale("log")
 plt.ylim(0,95)
-plt.savefig("numerical_15_parabolic_noramlized.png", dpi=400)
+plt.yticks([0,15,30,45,60,75,90])
+save_name="numerical_15_parabolic_noramlized"
+plt.savefig(f"plots/{save_name}.png", dpi=400)
+plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{save_name}.png", dpi=400)
+
 plt.show()
+

@@ -12,6 +12,6 @@
 \contentsline {section}{\numberline {4}Results}{4}{section.4}%
 \contentsline {subsection}{\numberline {4.1}The theoretical models}{4}{subsection.4.1}%
 \contentsline {subsection}{\numberline {4.2}The 1.5 model}{5}{subsection.4.2}%
-\contentsline {section}{\numberline {5}Discussion}{6}{section.5}%
-\contentsline {section}{\numberline {6}Conclusion}{6}{section.6}%
-\contentsline {section}{\numberline {A}The Source Code}{6}{appendix.A}%
+\contentsline {section}{\numberline {5}Discussion}{5}{section.5}%
+\contentsline {section}{\numberline {6}Conclusion}{5}{section.6}%
+\contentsline {section}{\numberline {A}The Source Code}{5}{appendix.A}%

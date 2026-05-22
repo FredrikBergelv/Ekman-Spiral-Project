@@ -93,11 +93,11 @@ def surface_angle(z, Y):
     return np.degrees(angle)
 
 
-phi_values = np.logspace(-6, 0.3, 100)
+phi_values = np.logspace(-6, np.log10(3), 1000)
 
 
 plt.close("all")
-plt.figure()
+plt.figure(figsize=(8,5))
 
 angles_d = []
 angles_i = []
@@ -116,19 +116,25 @@ for i, phi in enumerate(phi_values):
         percent = 100* i / len(phi_values)
         print(f"{percent:.2f}% (angle = {surf_angle_i:.2f} deg and {surf_angle_d:.2f} deg)")
 
+#%%
+plt.figure(figsize=(8,5))
 plt.plot(phi_values, angles_i, label="linear increasing")
 plt.plot(phi_values, angles_d, label="linear decreasing")
 
 
 plt.hlines(45, min(phi_values), max(phi_values), color="black", linestyle='--', label="45° reference")
 
-plt.xlabel(r"Lower layer thickness, $\varphi$ [-]")
-plt.ylabel(r"Surface angle, $\hat\theta$ [deg]")
-plt.suptitle("Surface Angle for 1.5 linear model", fontsize=14)
-plt.title("Surface angle vs Lower layer thickness")
+plt.xlabel(r"Dimensionless layer thickness, $\varphi$ [-]",fontsize=11)
+plt.ylabel(r"Surface angle, $\hat\theta$ [deg]",fontsize=11)
+plt.suptitle("Surface Angle for 1.5 Linear Model", fontsize=14)
+plt.title("Surface angle vs layer thickness", fontsize=13)
 plt.grid(True, linestyle='--', alpha=0.6)
 plt.legend(fontsize=11)
-#plt.xscale("log")
 plt.ylim(0,95)
-plt.savefig("numerical_15_linear_noramlized.png", dpi=400)
+plt.yticks([0,15,30,45,60,75,90])
+save_name="numerical_15_linear_noramlized"
+plt.savefig(f"plots/{save_name}.png", dpi=400)
+plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{save_name}.png", dpi=400)
+
 plt.show()
+
