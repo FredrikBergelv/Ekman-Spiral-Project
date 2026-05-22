@@ -125,7 +125,7 @@ plt.plot(phi_values, angles_d, label="linear decreasing")
 plt.hlines(45, min(phi_values), max(phi_values), color="black", linestyle='--', label="45° reference")
 
 plt.xlabel(r"Dimensionless layer thickness, $\varphi$ [-]",fontsize=11)
-plt.ylabel(r"Surface angle, $\hat\theta$ [deg]",fontsize=11)
+plt.ylabel(r"Surface angle, $\theta$ [deg]",fontsize=11)
 plt.suptitle("Surface Angle for 1.5 Linear Model", fontsize=14)
 plt.title("Surface angle vs layer thickness", fontsize=13)
 plt.grid(True, linestyle='--', alpha=0.6)

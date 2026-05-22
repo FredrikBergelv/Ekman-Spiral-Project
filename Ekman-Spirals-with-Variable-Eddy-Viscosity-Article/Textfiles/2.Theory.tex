@@ -1,5 +1,5 @@
 \section{Theory}
-\subsection{Problem formultation}
+\subsection{Problem formulation}
 The Ekman equation is derived from the steady-state Navier--Stokes equations on a rotating frame with shear flow. Assuming friction, incompressible flow, negligible vertical motion, gives the horizontal momentum equations as
 \begin{subequations}
 \begin{empheq}[left=\empheqlbrace]{align}
@@ -23,6 +23,7 @@ where $u$ and $v$ are the horizontal velocity components, $f$ is the Coriolis pa
 This problem can be formulated with one equation if one introduces a complex velocity defined as 
 \begin{align}
     U \equiv u + iv,
+    \label{eq:ComplexVelocity}
 \end{align}
 and a complex geostrophic velocity as $U_g = u_g + iv_g$. Using \autoref{eq:subtractedNavierStokes} with the complex velocities $U$ and $U_g$ the coupled equations can be combined into the Ekman equation
 \begin{empheq}[box=\fbox]{equation}
@@ -71,6 +72,7 @@ where the Ekman depth scales are defined for each layer like in \autoref{eq:Ekma
 \begin{align}
     U_1&=U_2 \quad \text{at } z=H, \\
     \nu_1\frac{\partial U_1}{\partial z}&=\nu_2\frac{\partial U_2}{\partial z}  \quad \text{at } z=H.
+    \label{eq:JumpCondition}
 \end{align}
 \end{subequations}
 Using this and the boundary conditions at \autoref{eq:BoundaryConditions} one obtains a relation between the factors as
@@ -91,9 +93,92 @@ Using this one can define the surface angle as
     \arctan\left[\frac{2R e^{\sqrt{2}\,\varphi}\sin(\sqrt{2}\,\varphi)}{e^{2\sqrt{2}\,\varphi} -R^2}\right]
     \label{eq:2layerAngle}
 \end{equation}
+Observing \autoref{eq:2layerAngle}, and assuming that $\nu_1>\nu_2$, one can see that the solution will always provide a result greater than \SI{45}{\degr}, except between the $\varphi\in\left(\tfrac{\pi}{\sqrt{2}},\sqrt{2}\pi\right)$ were a angle below \SI{45}{\degr} can be observed.
 
 \subsection{The exponential decaying viscosity}
+Another viscosity profile that can provide a fully analytical solution is an exponentially decaying viscosity with altitude. Here the viscosity is set to decay from an initial viscosity of $\nu_0$, with a decay rate of $k$ as $\nu(z)=\nu_0\exp\left(-kz\right)$. To solve \autoref{eq:EkmanEquation} with this viscosity profile one can introduce two new parameters 
+\begin{equation}
+    t=2\sqrt{i}\,\varphi\, e^{\frac{kz}{2}}, \quad U^\prime = \frac{U-U_g}{t}. 
+\end{equation}
+The nondimensional parameter $\varphi$ was introduced above in this problem, just like in the 2-layer model, but here it is defined as 
+\begin{equation}
+    \varphi=\frac{1}{k\,h_\text{EK0}}=\frac{1}{k}\sqrt{\frac{f}{\nu_0}}.
+\end{equation}
+Using these newly defined variables \autoref{eq:EkmanEquation} transforms into 
+\begin{equation}
+    t^2\frac{\partial^2 U^\prime}{\partial t^2}-t\frac{\partial U^\prime}{\partial t}-t^2U^\prime=0,
+\end{equation}
+which is a differential equation with a standard solution. The standard solution is a modified Bessel equation as 
+\begin{equation}
+    U^\prime=C_1I_1(t)+C_2K_1(t),
+\end{equation}
+where $C_1$ and $C_2$ are constants, while $I_1(t)$ and $K_1(t)$ are well-defined modified Bessel functions of the first and second kind of order one, respectively. By applying the previously defined boundary conditions from \autoref{eq:BoundaryConditions} one can find the two constants. Applying the geostrophic boundary condition from \autoref{eq:BoundaryCondition2} one can see that $C_1=0$ since $I_1(t)$ does not go to zero when $t\rightarrow\infty$ (which occurs when $z\rightarrow\infty$). Applying the surface boundary condition from \autoref{eq:BoundaryCondition1} one can find an expression for the second constant. Transforming the solution to the normal complex velocity as in \autoref{eq:ComplexVelocity} one can obtain the solution
+\begin{equation}
+    U(z)=U_g\left[1-\frac{e^{\frac{kz}{2}}K_1\left(2\sqrt{i}\,\varphi\, e^{\frac{kz}{2}}\right)}{K_1\left(2\sqrt{i}\,\varphi\,\right)}\right].
+    \label{eq:exponetial}
+\end{equation}
+Using \autoref{eq:exponetial} one can derive the surface angle of this model as 
+\begin{equation}
+    \theta = \arg \left.\frac{\partial U}{\partial z}\right|_{z=0} = \arg\left[\frac{K_0\left(2\sqrt{i}\,\varphi\,\right)}{K_1\left(2\sqrt{i}\,\varphi\,\right)}\right],
+    \label{eq:ExponetialAngle}
+\end{equation} 
+where $K_0$ is the modified Bessel function of the second kind of order zero.
 
 \subsection{The 1.5 layer model}
+In the previous sections two completely analytical solutions for two different altitude-varying viscosity profiles were derived. The difficulty in solving \autoref{eq:EkmanEquation} comes from the altitude dependence of the viscosity profile $\nu(z)$. This introduces variable coefficients into the complex second-order ordinary differential equation, which in general prevents closed-form analytical solutions. Analytical solutions therefore exist only for specific viscosity profiles that allow the equation to be transformed into a solvable form.
 
-\subsubsection{Simple viscosity pofiles for the 1.5 layer model}
+\autoref{eq:EkmanEquation} is furthermore also difficult to solve in a numerical setting, as the upper boundary condition is a limit. This will put limits on the viscosity profiles one can study, as the viscosity cannot increase with altitude continuously. In the physical world, this makes sense, since we assume that high up in the atmosphere (or deep down in the ocean), friction and shear stress become negligible. This was what was labelled as the geostrophic limit. However, by limiting ourselves to only upper-level decreasing viscosity profiles, the differential equation becomes more difficult to solve. Furthermore, if one wants to solve for a dimensionless height parameter, too complex viscosity profiles become hard to deal with.
+
+A solution to this problem is to introduce the 1.5 layer model, which is like the 2-layer model, except that we assume that the upper-level viscosity is negligible $\nu_2\approx0$. This also makes physical sense, since we know that both the atmosphere and the ocean consist of a boundary layer where turbulent mixing takes place. Reducing the problem to a 1.5 model will thus make it possible to test viscosity profiles that do not converge at $z\rightarrow\infty$, since the new domain is between $z\in[0,H]$. This modifies the boundary conditions to \autoref{eq:EkmanEquation} as 
+\begin{subequations}
+\label{eq:NewBoundaryConditions}
+\begin{align}
+    U(0) &= 0,
+    \label{eq:NewBoundaryCondition1}
+    \\
+    \left.\frac{\partial U}{\partial z}\right|_{z=H} &= 0.
+    \label{eq:NewBoundaryCondition2}
+\end{align}
+\end{subequations}
+Above, $H$ becomes the height of the boundary layer, and the upper boundary condition was argued from the jump condition in the two-layer model, as seen in \autoref{eq:JumpCondition}.
+
+\subsubsection{Simple viscosity profiles for the 1.5 layer model}
+Using the 1.5 layer model one can study some simple viscosity profiles to be evaluated numerically. The easiest, except for the constant viscosity, is a linearly varying viscosity with height as 
+\begin{subequations}
+ \begin{align}
+    \label{eq:LinearIncreasing}
+    \nu_\uparrow(z)&=\frac{\nu_\text{max}}{H}z, \\
+    \label{eq:LinearDecreasing}
+    \nu_\downarrow(z)&=\frac{\nu_\text{max}}{H}\left(H-z\right), 
+\end{align}
+\label{eq:LinearProfiles}   
+\end{subequations}
+where $\nu_\text{max}$ is the maximal viscosity. For both of these profiles one can define a dimensionless height coordinate as 
+\begin{equation}
+    \tilde z = \frac{z}{H} \implies 
+    \begin{cases}
+        \nu_\uparrow(z)=\nu_\text{max}\tilde z \\
+        \nu_\downarrow(z)=\nu_\text{max}\left(1-\tilde z\right). 
+    \end{cases}
+\end{equation}
+One must note that this new coordinate changes the previous $z$-derivative, as a factor of $1/H$ appears when taking the derivative with respect to $\tilde z$. Using these linear viscosity profiles, together with the new dimensionless height coordinate, one can rewrite \autoref{eq:EkmanEquation} for the two profiles as 
+\begin{subequations}
+\label{eq:15Linear}
+\begin{align}
+    \label{eq:15LinearIncreasing}
+    \frac{\partial}{\partial \tilde z}\left(\underbrace{\tilde z }_{\equiv\tilde\nu_\uparrow}\frac{\partial U}{\partial \tilde z}\right)&=i\underbrace{\frac{Hf^2}{\nu_\text{max}}}_{=\varphi^2}(U-U_g),\\
+    \label{eq:15LinearDecreasing}
+    \frac{\partial}{\partial \tilde z}\left(\underbrace{\left[1-\tilde z \right]}_{\equiv\tilde\nu_\downarrow}\frac{\partial U}{\partial \tilde z}\right)&=i\underbrace{\frac{Hf^2}{\nu_\text{max}}}_{=\varphi^2}(U-U_g).
+\end{align}
+\end{subequations}
+Above the dimensionless height $\varphi$ was again introduced following the logic from before.
+
+Another simple profile to evaluate is a parabolic increasing viscosity as 
+\begin{equation}
+    \nu_p=\frac{4\nu_\text{max}}{H^2}\left(H-z\right)z.
+    \label{eq:ParabolicProfile}
+\end{equation} 
+Again, using the non-dimensional height coordinate $\tilde z$ and the dimensionless height $\varphi$, one can rewrite \autoref{eq:EkmanEquation} as 
+\begin{equation}
+    \frac{\partial}{\partial \tilde z}\left(\underbrace{4\tilde z\left[1-\tilde z \right]}_{\equiv\tilde\nu_p}\frac{\partial U}{\partial \tilde z}\right)=i\underbrace{\frac{Hf^2}{\nu_\text{max}}}_{=\varphi^2}(U-U_g).
+\end{equation}
