@@ -6,7 +6,7 @@ Both analytical and numerical approaches are used to study several viscosity pro
 
 - Constant viscosity
 - Two-layer step-function viscosity
-- "1.5-layer"" step-function viscosity
+- "1.5-layer" step-function viscosity
 - Exponentially decaying viscosity
 - Linearly varying viscosity
 - Parabolic viscosity
