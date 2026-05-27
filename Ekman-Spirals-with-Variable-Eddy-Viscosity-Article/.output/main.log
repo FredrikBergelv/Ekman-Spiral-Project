@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2024.11.25)  22 MAY 2026 20:22
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2024.11.25)  27 MAY 2026 11:00
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -951,7 +951,7 @@ File: translations-basic-dictionary-english.trsl (english translation file `tran
 Package translations Info: loading dictionary `translations-basic-dictionary' for `english'. on input line 12.
 \c@lstlisting=\count408
  (./Other/Title.tex
-<Figures/logo_MISU_EN.pdf, id=71, 590.76207pt x 629.01883pt>
+<Figures/logo_MISU_EN.pdf, id=83, 590.76207pt x 629.01883pt>
 File: Figures/logo_MISU_EN.pdf Graphic file (type pdf)
 <use Figures/logo_MISU_EN.pdf>
 Package pdftex.def Info: Figures/logo_MISU_EN.pdf  used on input line 40.
@@ -983,30 +983,41 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has b
 <to be read again> 
                    \relax 
 l.35 \newpage}{}}{}
-                    [1] (./Textfiles/0.Abstract.tex) (./Textfiles/1.Background.tex) (./Textfiles/2.Theory.tex [2] [3] [4]) (./Textfiles/3.Methodology.tex) (./Textfiles/4.Results.tex
-<Figures/2layer_angle.png, id=212, 963.3591pt x 361.35pt>
+                    [1] (./Textfiles/0.Abstract.tex) (./Textfiles/1.Background.tex) (./Textfiles/2.Theory.tex [2] [3] [4] [5]) (./Textfiles/3.Methodology.tex) (./Textfiles/4.Results.tex
+<Figures/2layer_angle.png, id=247, 963.3591pt x 361.35pt>
 File: Figures/2layer_angle.png Graphic file (type png)
 <use Figures/2layer_angle.png>
 Package pdftex.def Info: Figures/2layer_angle.png  used on input line 7.
 (pdftex.def)             Requested size: 449.05983pt x 168.4381pt.
- [5]
-<Figures/exponential_angle.png, id=230, 578.16pt x 361.35pt>
+ [6]
+<Figures/exponential_angle.png, id=266, 578.16pt x 361.35pt>
 File: Figures/exponential_angle.png Graphic file (type png)
 <use Figures/exponential_angle.png>
 Package pdftex.def Info: Figures/exponential_angle.png  used on input line 14.
 (pdftex.def)             Requested size: 269.50327pt x 168.4381pt.
-<Figures/numerical_15_linear_noramlized.png, id=231, 578.16pt x 361.35pt>
-File: Figures/numerical_15_linear_noramlized.png Graphic file (type png)
-<use Figures/numerical_15_linear_noramlized.png>
-Package pdftex.def Info: Figures/numerical_15_linear_noramlized.png  used on input line 23.
+<Figures/numerical_15_linear_angle.png, id=267, 578.16pt x 361.35pt>
+File: Figures/numerical_15_linear_angle.png Graphic file (type png)
+<use Figures/numerical_15_linear_angle.png>
+Package pdftex.def Info: Figures/numerical_15_linear_angle.png  used on input line 23.
 (pdftex.def)             Requested size: 269.50327pt x 168.4381pt.
- [6 <./Figures/2layer_angle.png> <./Figures/exponential_angle.png>]
-<Figures/numerical_15_parabolic_noramlized.png, id=247, 578.16pt x 361.35pt>
-File: Figures/numerical_15_parabolic_noramlized.png Graphic file (type png)
-<use Figures/numerical_15_parabolic_noramlized.png>
-Package pdftex.def Info: Figures/numerical_15_parabolic_noramlized.png  used on input line 31.
+ [7 <./Figures/2layer_angle.png> <./Figures/exponential_angle.png>]
+<Figures/numerical_15_parabolic_angle.png, id=283, 578.16pt x 361.35pt>
+File: Figures/numerical_15_parabolic_angle.png Graphic file (type png)
+<use Figures/numerical_15_parabolic_angle.png>
+Package pdftex.def Info: Figures/numerical_15_parabolic_angle.png  used on input line 31.
 (pdftex.def)             Requested size: 269.50327pt x 168.4381pt.
-) (./Textfiles/5.Discussion.tex) (./Textfiles/6.Conclusion.tex) (./Textfiles/Appendix.tex) (.output/main.bbl [7 <./Figures/numerical_15_linear_noramlized.png> <./Figures/numerical_15_parabolic_noramlized.png>]) [8] 
+<Figures/numerical_15_linear_transport.png, id=284, 578.16pt x 361.35pt>
+File: Figures/numerical_15_linear_transport.png Graphic file (type png)
+<use Figures/numerical_15_linear_transport.png>
+Package pdftex.def Info: Figures/numerical_15_linear_transport.png  used on input line 40.
+(pdftex.def)             Requested size: 269.50327pt x 168.4381pt.
+ [8 <./Figures/numerical_15_linear_angle.png> <./Figures/numerical_15_parabolic_angle.png>]
+<Figures/numerical_15_parabolic_transport.png, id=293, 578.16pt x 361.35pt>
+File: Figures/numerical_15_parabolic_transport.png Graphic file (type png)
+<use Figures/numerical_15_parabolic_transport.png>
+Package pdftex.def Info: Figures/numerical_15_parabolic_transport.png  used on input line 48.
+(pdftex.def)             Requested size: 269.50327pt x 168.4381pt.
+) (./Textfiles/5.Discussion.tex) (./Textfiles/6.Conclusion.tex) (./Textfiles/Appendix.tex) (.output/main.bbl [9 <./Figures/numerical_15_linear_transport.png> <./Figures/numerical_15_parabolic_transport.png>]) [10] 
 enddocument/afterlastpage: lastpage setting LastPage.
 (.output/main.aux)
  ***********
@@ -1014,21 +1025,21 @@ LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 30D97BB141464E6F6914820F7A6F0459;2350.
+(rerunfilecheck)             Checksum: 4FF9E30541625E49E599FB7699DC97FE;2819.
  ) 
 Here is how much of TeX's memory you used:
- 34915 strings out of 474222
- 680552 string characters out of 5748732
+ 34956 strings out of 474222
+ 681615 string characters out of 5748732
  1946975 words of memory out of 5000000
- 56493 multiletter control sequences out of 15000+600000
+ 56516 multiletter control sequences out of 15000+600000
  575644 words of font info for 74 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 99i,18n,96p,2463b,1040s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 99i,18n,96p,2463b,1038s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx2074.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0500.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0600.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0700.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on .output/main.pdf (9 pages, 1409755 bytes).
+Output written on .output/main.pdf (11 pages, 1796695 bytes).
 PDF statistics:
- 409 PDF objects out of 1000 (max. 8388607)
- 322 compressed objects within 4 object streams
- 77 named destinations out of 1000 (max. 500000)
- 166 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 457 PDF objects out of 1000 (max. 8388607)
+ 364 compressed objects within 4 object streams
+ 95 named destinations out of 1000 (max. 500000)
+ 200 words of extra memory for PDF output out of 10000 (max. 10000000)
 

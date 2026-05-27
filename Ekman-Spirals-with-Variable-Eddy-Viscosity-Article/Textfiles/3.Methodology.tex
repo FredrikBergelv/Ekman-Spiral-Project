@@ -1,1 +1,61 @@
 \section{Methodology}
+\subsection{Numerical method}
+For arbitrary viscosity profiles, \autoref{eq:EkmanEquation} generally does not admit a closed-form analytical solution. The equation was therefore solved numerically as a boundary value problem using the \texttt{solve\_bvp} routine available in \texttt{SciPy} \citep{virtanen2020}. However, it was previously shown that the equation could be rewritten for a dimensionless layer thickness $\varphi$. Thus, using an arbitrary height-normalized height-dependent eddy viscosity profile, $\tilde\nu(z)$, one can write a simpler differential equation. Separating the equation into the zonal and meridional velocity components, one obtains 
+\begin{subequations}
+    \begin{align}
+    \frac{\partial}{\partial z}
+    \left(
+    \tilde\nu(z)\frac{\partial u}{\partial z}
+    \right)
+    &=
+    -\varphi^2 v,
+    \\
+    \frac{\partial}{\partial z}
+    \left(
+    \tilde\nu(z)\frac{\partial v}{\partial z}
+    \right)
+    &=
+    \varphi^2 (u-u_g),
+    \label{eq:Method}
+\end{align}
+\end{subequations}
+where the wind aloft was set as a purely zonal wind $u_g$. To apply the numerical boundary value solver, the equations were rewritten as a first-order system by introducing the new variables
+\begin{equation}
+    u^\prime = \frac{\partial u}{\partial z},
+    \qquad
+    v^\prime = \frac{\partial v}{\partial z}.
+\end{equation}
+Thus one can expand \autoref{eq:Method} into four coupled first-order equations
+\begin{align}
+    \begin{cases} 
+    \frac{\partial u}{\partial z}
+    &= u^\prime,
+    \\
+    \frac{\partial u^\prime}{\partial z}
+    &=
+    \frac{-\varphi^2 v - \tilde\nu^\prime u^\prime}
+    {\tilde\nu},
+    \\
+    \frac{\partial v}{\partial z}
+    &= v^\prime,
+    \\
+    \frac{\partial v^\prime}{\partial z}
+    &=
+    \frac{\varphi^2(u-u_g)-\tilde\nu^\prime v^\prime}
+    {\tilde\nu},
+    \end{cases}
+\end{align}
+with the boundary conditions
+\begin{subequations}
+    \begin{align}
+    u(\varphi=0) &= 0,
+    &
+    u^\prime(\varphi=1) &= 0,
+    \\
+    v(\varphi=0) &= 0,
+    &
+    v^\prime(\varphi=1) &= 0.
+\end{align}
+\end{subequations}
+
+The equations were solved iteratively on a vertical grid. The solver required an initial guess, which was chosen based on the initial setup of the system. The initial guess was therefore set as the classical solution for a constant viscosity. The final solution was found when the iterative solution reached a steady state for the differential equations with the imposed boundary conditions.

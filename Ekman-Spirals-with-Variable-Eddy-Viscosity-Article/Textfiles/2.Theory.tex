@@ -98,7 +98,7 @@ Observing \autoref{eq:2layerAngle}, and assuming that $\nu_1>\nu_2$, one can see
 \subsection{The exponential decaying viscosity}
 Another viscosity profile that can provide a fully analytical solution is an exponentially decaying viscosity with altitude. Here the viscosity is set to decay from an initial viscosity of $\nu_0$, with a decay rate of $k$ as $\nu(z)=\nu_0\exp\left(-kz\right)$. To solve \autoref{eq:EkmanEquation} with this viscosity profile one can introduce two new parameters 
 \begin{equation}
-    t=2\sqrt{i}\,\varphi\, e^{\frac{kz}{2}}, \quad U^\prime = \frac{U-U_g}{t}. 
+    t=2\sqrt{i}\,\varphi\, e^{\frac{kz}{2}}, \quad U^\ast = \frac{U-U_g}{t}. 
 \end{equation}
 The nondimensional parameter $\varphi$ was introduced above in this problem, just like in the 2-layer model, but here it is defined as 
 \begin{equation}
@@ -106,11 +106,11 @@ The nondimensional parameter $\varphi$ was introduced above in this problem, jus
 \end{equation}
 Using these newly defined variables \autoref{eq:EkmanEquation} transforms into 
 \begin{equation}
-    t^2\frac{\partial^2 U^\prime}{\partial t^2}-t\frac{\partial U^\prime}{\partial t}-t^2U^\prime=0,
+    t^2\frac{\partial^2 U^\ast}{\partial t^2}-t\frac{\partial U^\ast}{\partial t}-t^2U^\ast=0,
 \end{equation}
 which is a differential equation with a standard solution. The standard solution is a modified Bessel equation as 
 \begin{equation}
-    U^\prime=C_1I_1(t)+C_2K_1(t),
+    U^\ast=C_1I_1(t)+C_2K_1(t),
 \end{equation}
 where $C_1$ and $C_2$ are constants, while $I_1(t)$ and $K_1(t)$ are well-defined modified Bessel functions of the first and second kind of order one, respectively. By applying the previously defined boundary conditions from \autoref{eq:BoundaryConditions} one can find the two constants. Applying the geostrophic boundary condition from \autoref{eq:BoundaryCondition2} one can see that $C_1=0$ since $I_1(t)$ does not go to zero when $t\rightarrow\infty$ (which occurs when $z\rightarrow\infty$). Applying the surface boundary condition from \autoref{eq:BoundaryCondition1} one can find an expression for the second constant. Transforming the solution to the normal complex velocity as in \autoref{eq:ComplexVelocity} one can obtain the solution
 \begin{equation}
@@ -181,4 +181,15 @@ Another simple profile to evaluate is a parabolic increasing viscosity as
 Again, using the non-dimensional height coordinate $\tilde z$ and the dimensionless height $\varphi$, one can rewrite \autoref{eq:EkmanEquation} as 
 \begin{equation}
     \frac{\partial}{\partial \tilde z}\left(\underbrace{4\tilde z\left[1-\tilde z \right]}_{\equiv\tilde\nu_p}\frac{\partial U}{\partial \tilde z}\right)=i\underbrace{\frac{Hf^2}{\nu_\text{max}}}_{=\varphi^2}(U-U_g).
+\end{equation}
+
+
+\subsection{The Ekman transport}
+For a theoretically or numerically derived solution, one can derive the Ekman transport, which may be a more useful quantity. The Ekman transport is defined as the mass flux per meter for the entire Ekman spiral. In the classical solution the Ekman transport is \SI{90}{\degr} to the right of the geostrophic flow. However, for an obtained solution $U(\tilde z, \varphi)$ as a function of the dimensionless height and layer thickness, one can obtain the mass flux as 
+\begin{equation}
+    \Phi_T(\varphi) = \int_0^1\left[U(\tilde z,\varphi)-U_g\right]d\tilde z. 
+\end{equation}
+To obtain the transport angle one can simply compute the argument as 
+\begin{equation}
+    \theta_T(\varphi) = \arg\left[\Phi_T(\varphi)\right].
 \end{equation}

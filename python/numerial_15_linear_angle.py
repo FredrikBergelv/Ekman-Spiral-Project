@@ -92,34 +92,53 @@ def surface_angle(z, Y):
     angle = np.arctan2(vp[idx], up[idx])
     return np.degrees(angle)
 
+def transport_angle(z, Y):
+
+    u, up, v, vp = Y
+
+    # transport relative to geostrophic flow
+    transport_u = np.trapz(u - u0, z)
+    transport_v = np.trapz(v, z)
+
+    angle = np.arctan2(transport_v, transport_u)
+
+    return np.degrees(angle)
+
 
 phi_values = np.logspace(-6, np.log10(3), 1000)
 
 
-plt.close("all")
-plt.figure(figsize=(8,5))
+surface_angles_d = []
+surface_angles_i = []
+transport_angles_d = []
+transport_angles_i = []
 
-angles_d = []
-angles_i = []
+
 
 for i, phi in enumerate(phi_values):
 
         z_i, Y_i = solve_profile(phi, "increasing")
         surf_angle_i = surface_angle(z_i, Y_i)
-        angles_i.append(surf_angle_i)
+        surface_angles_i.append(surf_angle_i)
+        
+        trans_angle_i = transport_angle(z_i, Y_i)
+        transport_angles_i.append(trans_angle_i)
         
         z_d, Y_d = solve_profile(phi, "decreasing")
         surf_angle_d = surface_angle(z_d, Y_d)
-        angles_d.append(surf_angle_d)
+        surface_angles_d.append(surf_angle_d)
+        
+        trans_angle_d = transport_angle(z_d, Y_d)
+        transport_angles_d.append(trans_angle_d)
         
         
         percent = 100* i / len(phi_values)
-        print(f"{percent:.2f}% (angle = {surf_angle_i:.2f} deg and {surf_angle_d:.2f} deg)")
+        print(f"{percent:.2f}% (surf = {surf_angle_i:.2f} deg and {surf_angle_d:.2f} deg) (trans = {trans_angle_i:.2f} deg and {trans_angle_d:.2f} deg)")
 
 #%%
 plt.figure(figsize=(8,5))
-plt.plot(phi_values, angles_i, label="linear increasing")
-plt.plot(phi_values, angles_d, label="linear decreasing")
+plt.plot(phi_values, surface_angles_i, label="linear increasing")
+plt.plot(phi_values, surface_angles_d, label="linear decreasing")
 
 
 plt.hlines(45, min(phi_values), max(phi_values), color="black", linestyle='--', label="45° reference")
@@ -132,9 +151,31 @@ plt.grid(True, linestyle='--', alpha=0.6)
 plt.legend(fontsize=11)
 plt.ylim(0,95)
 plt.yticks([0,15,30,45,60,75,90])
-save_name="numerical_15_linear_noramlized"
+save_name="numerical_15_linear_angle"
 plt.savefig(f"plots/{save_name}.png", dpi=400)
 plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{save_name}.png", dpi=400)
 
 plt.show()
+
+#%%
+plt.figure(figsize=(8,5))
+plt.plot(phi_values, transport_angles_i, label="linear increasing")
+plt.plot(phi_values, transport_angles_d, label="linear decreasing")
+
+#plt.hlines(90, min(phi_values), max(phi_values), color="black", linestyle='--', label="90° reference")
+
+plt.xlabel(r"Dimensionless layer thickness, $\varphi$ [-]", fontsize=11)
+plt.ylabel(r"Transport angle, $\theta_T$ [deg]", fontsize=11)
+plt.suptitle("Ekman Transport Angle for 1.5 Linear Model", fontsize=14)
+plt.title("Transport angle vs layer thickness", fontsize=13)
+plt.grid(True, linestyle='--', alpha=0.6)
+plt.legend(fontsize=11)
+plt.ylim(90,185)
+plt.yticks([90,105,120,135,150,165,180])
+save_name="numerical_15_linear_transport"
+plt.savefig(f"plots/{save_name}.png", dpi=400)
+plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{save_name}.png", dpi=400)
+
+plt.show()
+
 
