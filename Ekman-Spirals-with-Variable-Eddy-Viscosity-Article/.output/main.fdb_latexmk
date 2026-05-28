@@ -1,17 +1,17 @@
 # Fdb version 4
-["bibtex .output/main"] 1779972838.34098 ".output/main.aux" ".output/main.bbl" ".output/main" 1779972843.75354 0
+["bibtex .output/main"] 1779972838.34098 ".output/main.aux" ".output/main.bbl" ".output/main" 1779977108.63905 0
   "./Textfiles/References.bib" 1779783286.70822 3737 a4f8331caa7731cc60241296bc7decf8 ""
-  ".output/main.aux" 1779972843.32087 11605 8931f81c6e2354ec662d556ce9b84403 "pdflatex"
+  ".output/main.aux" 1779977108.34206 11605 8931f81c6e2354ec662d556ce9b84403 "pdflatex"
   "/usr/share/texlive/texmf-dist/bibtex/bst/natbib/plainnat.bst" 1233624470 26816 ffe5423d2019860bad9f54bc402fac15 ""
   (generated)
   ".output/main.bbl"
   ".output/main.blg"
   (rewritten before read)
-["pdflatex"] 1779972838.4999 "/home/fredrik/Documents/Ekman-Spiral-Project/Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/main.tex" ".output/main.pdf" "main" 1779972843.75373 0
-  ".output/main.aux" 1779972843.32087 11605 8931f81c6e2354ec662d556ce9b84403 "pdflatex"
+["pdflatex"] 1779977100.53605 "/home/fredrik/Documents/Ekman-Spiral-Project/Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/main.tex" ".output/main.pdf" "main" 1779977108.63922 0
+  ".output/main.aux" 1779977108.34206 11605 8931f81c6e2354ec662d556ce9b84403 "pdflatex"
   ".output/main.bbl" 1779972838.48883 3825 5aa1f9ec6ecab66410ac069cf4165b18 "bibtex .output/main"
-  ".output/main.out" 1779972843.32287 2819 4ff9e30541625e49e599fb7699dc97fe "pdflatex"
-  ".output/main.toc" 1779972843.32387 1580 3e6cb8c4566586ea7921ffb060660e4a "pdflatex"
+  ".output/main.out" 1779977108.34306 2819 4ff9e30541625e49e599fb7699dc97fe "pdflatex"
+  ".output/main.toc" 1779977108.34306 1580 3e6cb8c4566586ea7921ffb060660e4a "pdflatex"
   "/etc/texmf/web2c/texmf.cnf" 1732548902.53758 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/fredrik/Documents/Ekman-Spiral-Project/Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/main.tex" 1779263692.54216 1108 58d52e7a888985decad3f2410f81e598 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -268,12 +268,12 @@
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1732548924.46665 5472669 54eaf61a88b6b7896ebd0dac973cb29c ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1732548954 8213821 17cddad2c49ccf63e58ec66c69761292 ""
   "Figures/2layer_angle.png" 1779963859.86828 420174 be6238fe276cf8d42fa382fc380aa5b9 ""
-  "Figures/2layer_transport.png" 1779971832.9075 358849 090c3c22ac05dda8e88a1ed7408e55f0 ""
+  "Figures/2layer_transport.png" 1779976458.97946 412388 7213969acc7c7186b2ceb6f446eebf61 ""
   "Figures/exponential_angle.png" 1779872993.86648 190327 28253286fc167471fdae397bb3677043 ""
   "Figures/exponential_transport.png" 1779972764.86214 186557 782becbb7583fac056b7ce77f4b9a5a9 ""
   "Figures/logo_MISU_EN.pdf" 1779178211.39458 40858 fc7ad205eb72aa9d1e9d1763e562ccd7 ""
   "Figures/numerical_15_linear_angle.png" 1779872971.1771 244430 3628909d5435c349e31fe2f38642fc64 ""
-  "Figures/numerical_15_linear_transport.png" 1779967485.44351 184027 06ada0be31f0ea1692e42f8a4ead3278 ""
+  "Figures/numerical_15_linear_transport.png" 1779977099.84693 241163 2725b55f91d5a4bf7dd99ae525e889ec ""
   "Figures/numerical_15_parabolic_angle.png" 1779872901.25671 206476 efb16678bb45f523e2290885c4e60902 ""
   "Figures/numerical_15_parabolic_transport.png" 1779967575.90152 202566 5c2b20b9bd2b8c422f069e1cd896fb94 ""
   "Other/Information.tex" 1779349227.39733 576 0239bb663a44c13d5c68920162151aa4 ""
