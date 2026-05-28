@@ -63,8 +63,8 @@ is the Ekman depth scale. One can note that by taking the argument of the change
 The next natural step from a constant viscosity profile is to assume two layers of constant viscosity in each layer. One can label the lower level as having the viscosity $\nu_1$ up until a height of $H$, where the next viscosity of $\nu_2$ takes over. From this assumption one would obtain a superimposed solution similar to \autoref{eq:EkmanConstant} as 
 \begin{subequations}
 \begin{empheq}[left=\empheqlbrace]{align}
-    U_1(z)&=A_1\left(1-e^{\frac{1+i}{\sqrt{2}}\frac{z}{h_\text{Ek1}}}\right)+B_1\left(1-e^{-\frac{1+i}{\sqrt{2}}\frac{z}{h_\text{Ek1}}}\right), \\
-    U_2(z)&=B_2\left(1-e^{-\frac{1+i}{\sqrt{2}}\frac{z}{h_\text{Ek2}}}\right) + U_g
+    U_1(z)&=A_1e^{\frac{1+i}{\sqrt{2}}\frac{z}{h_\text{Ek1}}}+B_1e^{-\frac{1+i}{\sqrt{2}}\frac{z}{h_\text{Ek1}}} + U_g, \\
+    U_2(z)&=B_2e^{-\frac{1+i}{\sqrt{2}}\frac{z}{h_\text{Ek2}}} + U_g
 \end{empheq}
 \end{subequations}
 where the Ekman depth scales are defined for each layer like in \autoref{eq:EkmanHeight}. To solve for the constants above one has to use the fact that the material flux has to be constant. This gives the jump condition as 
@@ -75,17 +75,21 @@ where the Ekman depth scales are defined for each layer like in \autoref{eq:Ekma
     \label{eq:JumpCondition}
 \end{align}
 \end{subequations}
-Using this and the boundary conditions at \autoref{eq:BoundaryConditions} one obtains a relation between the factors as
-\begin{equation}
-    A_1-B_1=U_g\frac{e^{\sqrt{2}\left(1+i\right)\varphi}-R}{e^{\sqrt{2}\left(1+i\right)\varphi}-R}
-\end{equation}
+Using this and the boundary conditions at \autoref{eq:BoundaryConditions} one obtains a expression between for factors as
+\begin{subequations}
+\begin{align}
+    A_1&=-U_g\frac{1-\gamma}{1-\gamma+e^{\sqrt{2}\left(1+i\right)\varphi}\left(1+\gamma\right)}, \text{ where }\gamma=\sqrt{\tfrac{\nu_2}{\nu_1}} \\ 
+    B_1&=-U_g\frac{\left(1+\gamma\right)e^{\sqrt{2}\left(1+i\right)\varphi}}{1-\gamma+e^{\sqrt{2}\left(1+i\right)\varphi}\left(1+\gamma\right)}, \\ 
+    B_2&=-U_g\frac{2e^{\tfrac{1+i}{\sqrt{2}}\varphi\left(1+\sqrt{\tfrac{\nu_1}{\nu_2}}\right)}}{1-\gamma+e^{\sqrt{2}\left(1+i\right)\varphi}\left(1+\gamma\right)},
+\end{align}
+\end{subequations}
 where $\varphi$ is the non-dimensional height defined as 
 \begin{equation}
     \varphi = \frac{H}{h_\text{EK1}}.
 \end{equation}
 The constant $R$ is defined as 
 \begin{equation}
-    R = \frac{1-\tfrac{\nu_1}{\nu_2}}{1+\tfrac{\nu_1}{\nu_2}}.
+    R = \frac{1-\gamma}{1+\gamma}.
 \end{equation}
 Using this one can define the surface angle as 
 \begin{equation}
@@ -145,13 +149,13 @@ Above, $H$ becomes the height of the boundary layer, and the upper boundary cond
 \subsubsection{Simple viscosity profiles for the 1.5 layer model}
 Using the 1.5 layer model one can study some simple viscosity profiles to be evaluated numerically. The easiest, except for the constant viscosity, is a linearly varying viscosity with height as 
 \begin{subequations}
+    \label{eq:LinearProfiles}   
  \begin{align}
     \label{eq:LinearIncreasing}
     \nu_\uparrow(z)&=\frac{\nu_\text{max}}{H}z, \\
     \label{eq:LinearDecreasing}
     \nu_\downarrow(z)&=\frac{\nu_\text{max}}{H}\left(H-z\right), 
 \end{align}
-\label{eq:LinearProfiles}   
 \end{subequations}
 where $\nu_\text{max}$ is the maximal viscosity. For both of these profiles one can define a dimensionless height coordinate as 
 \begin{equation}
@@ -185,11 +189,15 @@ Again, using the non-dimensional height coordinate $\tilde z$ and the dimensionl
 
 
 \subsection{The Ekman transport}
-For a theoretically or numerically derived solution, one can derive the Ekman transport, which may be a more useful quantity. The Ekman transport is defined as the mass flux per meter for the entire Ekman spiral. In the classical solution the Ekman transport is \SI{90}{\degr} to the right of the geostrophic flow. However, for an obtained solution $U(\tilde z, \varphi)$ as a function of the dimensionless height and layer thickness, one can obtain the mass flux as 
+For a theoretically or numerically derived solution, one can derive the Ekman transport, which may be a more useful quantity. The Ekman transport is defined as the mass flux per meter for the entire Ekman spiral. In the classical solution the Ekman transport is \SI{90}{\degr} to the right of the surface flow. However one must note that this angle is obtained by subtracting the Ekman transport relative to the geostrophic flow o the surface flow, i.e \SI{135}{\degr}$-$\SI{45}{\degr}$=$\SI{90}{\degr} in classical theory. However, for an obtained solution $U(\tilde z, \varphi)$ as a function of the dimensionless height and layer thickness, one can obtain the mass flux as 
 \begin{equation}
     \Phi_T(\varphi) = \int_0^1\left[U(\tilde z,\varphi)-U_g\right]d\tilde z. 
 \end{equation}
 To obtain the transport angle one can simply compute the argument as 
 \begin{equation}
     \theta_T(\varphi) = \arg\left[\Phi_T(\varphi)\right].
+\end{equation}
+Thus the relative angle between the surface transport and the upper geostrophic flow can be calculated as 
+\begin{equation}
+    \theta_R = \theta_T - \theta.
 \end{equation}

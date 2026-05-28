@@ -461,6 +461,16 @@ INPUT ./Figures/numerical_15_parabolic_angle.png
 INPUT ./Figures/numerical_15_parabolic_angle.png
 INPUT ./Figures/numerical_15_parabolic_angle.png
 INPUT ./Figures/numerical_15_parabolic_angle.png
+INPUT ./Figures/2layer_transport.png
+INPUT ./Figures/2layer_transport.png
+INPUT ./Figures/2layer_transport.png
+INPUT ./Figures/2layer_transport.png
+INPUT ./Figures/2layer_transport.png
+INPUT ./Figures/exponential_transport.png
+INPUT ./Figures/exponential_transport.png
+INPUT ./Figures/exponential_transport.png
+INPUT ./Figures/exponential_transport.png
+INPUT ./Figures/exponential_transport.png
 INPUT ./Figures/numerical_15_linear_transport.png
 INPUT ./Figures/numerical_15_linear_transport.png
 INPUT ./Figures/numerical_15_linear_transport.png
@@ -490,6 +500,7 @@ INPUT .output/main.aux
 INPUT .output/main.out
 INPUT .output/main.out
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
+INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb
