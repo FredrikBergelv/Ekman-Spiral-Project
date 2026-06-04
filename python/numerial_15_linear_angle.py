@@ -131,6 +131,9 @@ for i, phi in enumerate(phi_values):
         trans_angle_d = transport_angle(z_d, Y_d)
         transport_angles_d.append(trans_angle_d)
         
+        #if trans_angle_i<90.0001:
+            #print(phi)
+        
         
         percent = 100* i / len(phi_values)
         print(f"{percent:.2f}% (surf = {surf_angle_i:.2f} deg and {surf_angle_d:.2f} deg) (trans = {trans_angle_i:.2f} deg and {trans_angle_d:.2f} deg)")

@@ -34,7 +34,7 @@ def U(z_tilde, phi, epsilon):
     return np.where(z_tilde < phi, U1, U2)
 
 
-def ekman_transport(phi, epsilon, zmax=150.0, Nz=50000):
+def ekman_transport(phi, epsilon, zmax=1500.0, Nz=500000):
     z = np.linspace(0, zmax, Nz)
     U_vals = U(z, phi, epsilon)
     M = np.trapezoid(U_vals-U0, z)
@@ -78,6 +78,7 @@ plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{sav
 plt.show()
 
 #%%
+phis = np.linspace(0,extent,300)
 nu_ratios = np.array([0.00001, 0.1, 0.5, 1/0.5, 1/0.1, 1/0.00001])
 epsilons = np.sqrt(nu_ratios)
 

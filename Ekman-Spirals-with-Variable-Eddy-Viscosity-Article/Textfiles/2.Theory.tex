@@ -57,7 +57,7 @@ where
     h_\text{Ek}\equiv\sqrt{\frac{\nu}{f}}
     \label{eq:EkmanHeight}
 \end{equation}
-is the Ekman depth scale. One can note that by taking the argument of the change by altitude $\tfrac{\partial U}{\partial z}|_{z=0}$, one can measure the angle of \autoref{eq:EkmanConstant} as \SI{45}{\degr}.
+is the Ekman depth scale. One can note that by taking the argument of the change by altitude $\tfrac{\partial U}{\partial z}|_{z=0}$, one can measure the angle of \autoref{eq:EkmanConstant} as \ang{45}.
 
 \subsection{The two layer model}
 The next natural step from a constant viscosity profile is to assume two layers of constant viscosity in each layer. One can label the lower level as having the viscosity $\nu_1$ up until a height of $H$, where the next viscosity of $\nu_2$ takes over. From this assumption one would obtain a superimposed solution similar to \autoref{eq:EkmanConstant} as 
@@ -97,7 +97,7 @@ Using this one can define the surface angle as
     \arctan\left[\frac{2R e^{\sqrt{2}\,\varphi}\sin(\sqrt{2}\,\varphi)}{e^{2\sqrt{2}\,\varphi} -R^2}\right]
     \label{eq:2layerAngle}
 \end{equation}
-Observing \autoref{eq:2layerAngle}, and assuming that $\nu_1>\nu_2$, one can see that the solution will always provide a result greater than \SI{45}{\degr}, except between the $\varphi\in\left(\tfrac{\pi}{\sqrt{2}},\sqrt{2}\pi\right)$ were a angle below \SI{45}{\degr} can be observed.
+Observing \autoref{eq:2layerAngle}, and assuming that $\nu_1>\nu_2$, one can see that the solution will always provide a result greater than \ang{45}, except between the $\varphi\in\left(\tfrac{\pi}{\sqrt{2}},\sqrt{2}\pi\right)$ were a angle below \ang{45} can be observed.
 
 \subsection{The exponential decaying viscosity}
 Another viscosity profile that can provide a fully analytical solution is an exponentially decaying viscosity with altitude. Here the viscosity is set to decay from an initial viscosity of $\nu_0$, with a decay rate of $k$ as $\nu(z)=\nu_0\exp\left(-kz\right)$. To solve \autoref{eq:EkmanEquation} with this viscosity profile one can introduce two new parameters 
@@ -189,7 +189,7 @@ Again, using the non-dimensional height coordinate $\tilde z$ and the dimensionl
 
 
 \subsection{The Ekman transport}
-For a theoretically or numerically derived solution, one can derive the Ekman transport, which may be a more useful quantity. The Ekman transport is defined as the mass flux per meter for the entire Ekman spiral. In the classical solution the Ekman transport is \SI{90}{\degr} to the right of the surface flow. However one must note that this angle is obtained by subtracting the Ekman transport relative to the geostrophic flow o the surface flow, i.e \SI{135}{\degr}$-$\SI{45}{\degr}$=$\SI{90}{\degr} in classical theory. However, for an obtained solution $U(\tilde z, \varphi)$ as a function of the dimensionless height and layer thickness, one can obtain the mass flux as 
+For a theoretically or numerically derived solution, one can derive the Ekman transport, which may be a more useful quantity. The Ekman transport is defined as the mass flux per meter for the entire Ekman spiral. In the classical solution the Ekman transport is \ang{90} to the right of the surface flow. However one must note that this angle is obtained by subtracting the Ekman transport relative to the geostrophic flow o the surface flow, i.e \ang{135}$-$\ang{45}$=$\ang{90} in classical theory. However, for an obtained solution $U(\tilde z, \varphi)$ as a function of the dimensionless height and layer thickness, one can obtain the mass flux as 
 \begin{equation}
     \Phi_T(\varphi) = \int_0^1\left[U(\tilde z,\varphi)-U_g\right]d\tilde z. 
 \end{equation}

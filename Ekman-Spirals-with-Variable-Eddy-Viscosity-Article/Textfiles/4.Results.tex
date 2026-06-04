@@ -2,12 +2,16 @@
 
 \subsection{The theoretical models}
 
+The result from the theoretical two layer model, \autoref{eq:2layerAngle}, can be seen in \autoref{fig:2layer_angle}. There one can observe solutions for different viscosity ratios, half of which have an higher upper-level viscosity and the other half a lower one. These are plotted together with a \ang{45} reference point to highlight the difference from the classical Ekman solution. One can observe a convergence towards the classical Ekman value when $\varphi\rightarrow\infty$ for all the viscosity ratios. The zero limit is, however, dependent on the viscosity ratio, where finite ratios approach \ang{45}. However, when $\tfrac{\nu_2}{\nu_1}\rightarrow0$ and $\varphi\rightarrow 0$ one can observe that $\theta\rightarrow\ang{90}$. Respectively, one can observe that when $\tfrac{\nu_2}{\nu_1}\rightarrow\infty$ and $\varphi\rightarrow0$, $\theta\rightarrow\ang{0}$. 
+
 \begin{figure}[H]
     \centering    
     \includegraphics[height=0.37\textwidth]{Figures/2layer_angle.png}
-    \caption{The surface angle as a function of the dimensionless layer thickness $\varphi = H/h_\text{EK1}$ for the two-layer viscosity model. Different coloured curves correspond to different layer viscosity ratios. The classical Ekman angle of \SI{45}{\degr} is shown as a reference.}
+    \caption{The surface angle as a function of the dimensionless layer thickness $\varphi = H/h_\text{EK1}$ for the two-layer viscosity model. Different coloured curves correspond to different layer viscosity ratios. The classical Ekman angle of \ang{45} is shown as a reference.}
     \label{fig:2layer_angle}
 \end{figure}
+
+\autoref{fig:exponential_angle} showcases the result from the exponentially decaying viscosity as in \autoref{eq:ExponetialAngle}. There one can observe a similar limit as in \autoref{fig:2layer_angle} when $\varphi\rightarrow 0$, as \autoref{eq:ExponetialAngle} also approaches \ang{90}. The same limit is also true for $\varphi\rightarrow\infty$, which gives $\theta\rightarrow\ang{45}$, although this exponential solution converges more slowly than the two-layer solution. However, the shape is much more uniform, with an exponential-like shape. However, all angels are here greater then the reference angle of \ang{45}. 
 
 \begin{figure}[H]
     \centering    
@@ -17,6 +21,9 @@
 \end{figure}
 
 \subsection{The numerical 1.5 model}
+The result from the numerical 1.5-layer model can be viewed in \autoref{fig:numerical_15_linear}--\ref{fig:numerical_15_parabolic}. There one can observe similarities between these models, the two-layer model, and the exponentially decaying model. They all have a lower boundary of \ang{90} (except for the decreasing two-layer model, where the lower boundary was \ang{0}). This strengthens the results from these numerical models, as the theoretical ones behave in a similar manner.
+
+The result from the linear 1.5-layer model is shown in \autoref{fig:numerical_15_linear}. There one can observe slightly different behaviour for the linearly increasing and decreasing viscosities. For the linearly decreasing viscosity, the values go smoothly from $\ang{90}\rightarrow\ang{45}$. However, for the linearly increasing viscosity, the upper boundary is instead located at \ang{0}, and the curve is approximately \ang{45} at $\varphi\approx0.210$. One must note that both of these upper limits only occur when $\varphi\rightarrow\infty$.
 
 \begin{figure}[H]
     \centering    
@@ -25,6 +32,7 @@
     \label{fig:numerical_15_linear}
 \end{figure}
 
+The 1.5-layer model with a parabolic viscosity profile gave \autoref{fig:numerical_15_parabolic}. There one can observe very similar behaviour to the increasing viscosity profile in \autoref{fig:numerical_15_linear}, with the main difference being that it crosses the reference line of \ang{45} at $\varphi\approx0.400$.
 
 \begin{figure}[H]
     \centering    
@@ -35,7 +43,9 @@
 
 \subsubsection{The Ekman transport}
 
-One interesting observation in \autoref{fig:2layer_trasnport}--\ref{fig:numerical_15_parabolic_transport} is that if one computes the relative transport angle, i.e. the angle between the surface angle and the transport angle, one obtains a relative value of \SI{90}{\degr}. Thus, these models give the same Ekman transport angle as the classical Ekman theory.
+In \autoref{fig:2layer_trasnport}--\ref{fig:numerical_15_parabolic_transport} one can observe the angle of the integrated transport for both the theoretical two-layer model, the exponentially decaying model, and the numerical 1.5-layer models. One can see identical behaviour in the plots of \autoref{fig:2layer_trasnport}--\ref{fig:numerical_15_parabolic_transport} compared to the surface wind angles in \autoref{fig:2layer_angle}--\ref{fig:numerical_15_parabolic}, with the only difference being that these have a new reference point at \ang{135}. Thus, the plots are merely translated to this new reference point, since their respective shapes remain intact.
+
+Thus one can make the interesting observation that if one computes the relative transport angle, i.e. the angle between the surface angle and the transport angle, one obtains a relative value of \ang{90} for all the different models. Thus, these models give the same Ekman transport angle as in the classical Ekman theory.
 
 \begin{figure}[H]
     \centering    
