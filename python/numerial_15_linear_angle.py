@@ -56,9 +56,9 @@ def solve_profile(phi, scheme):
 
         return np.vstack([
             up,
-            (-phi**2*v - nu_zp*up) / nu_z,
+            (-2*phi**2*v - nu_zp*up) / nu_z,
             vp,
-            ( phi**2*(u - u0) - nu_zp*vp) / nu_z
+            ( 2*phi**2*(u - u0) - nu_zp*vp) / nu_z
         ])
 
     def bc(Y0, YH):
@@ -104,8 +104,8 @@ def transport_angle(z, Y):
 
     return np.degrees(angle)
 
-
-phi_values = np.logspace(-6, np.log10(3), 1000)
+extent=4
+phi_values = np.logspace(-6, np.log10(extent), 1000)
 
 
 surface_angles_d = []
@@ -121,22 +121,21 @@ for i, phi in enumerate(phi_values):
         surf_angle_i = surface_angle(z_i, Y_i)
         surface_angles_i.append(surf_angle_i)
         
-        trans_angle_i = transport_angle(z_i, Y_i)
-        transport_angles_i.append(trans_angle_i)
-        
         z_d, Y_d = solve_profile(phi, "decreasing")
         surf_angle_d = surface_angle(z_d, Y_d)
         surface_angles_d.append(surf_angle_d)
         
-        trans_angle_d = transport_angle(z_d, Y_d)
-        transport_angles_d.append(trans_angle_d)
+        #trans_angle_i = transport_angle(z_i, Y_i)
+        #transport_angles_i.append(trans_angle_i)
+        #trans_angle_d = transport_angle(z_d, Y_d)
+        #transport_angles_d.append(trans_angle_d)
         
-        #if trans_angle_i<90.0001:
-            #print(phi)
-        
+        if surf_angle_i<45.0001:
+            print("Bingo!, varphi = ", phi)
+            #break
         
         percent = 100* i / len(phi_values)
-        print(f"{percent:.2f}% (surf = {surf_angle_i:.2f} deg and {surf_angle_d:.2f} deg) (trans = {trans_angle_i:.2f} deg and {trans_angle_d:.2f} deg)")
+        #print(f"{percent:.2f}% (surf = {surf_angle_i:.2f} deg and {surf_angle_d:.2f} deg) ")
 
 #%%
 plt.figure(figsize=(8,5))
@@ -154,7 +153,7 @@ plt.grid(True, linestyle='--', alpha=0.6)
 plt.legend(fontsize=11)
 plt.ylim(0,95)
 plt.yticks([0, 15, 30, 45, 60, 75, 90])
-plt.xticks([0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0])
+plt.xticks(np.arange(0, extent + 0.5, 0.5))
 save_name="numerical_15_linear_angle"
 plt.savefig(f"plots/{save_name}.png", dpi=400)
 plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{save_name}.png", dpi=400)
@@ -166,7 +165,7 @@ plt.figure(figsize=(8,5))
 plt.plot(phi_values, transport_angles_i, label="linear increasing")
 plt.plot(phi_values, transport_angles_d, label="linear decreasing")
 
-#plt.hlines(90, min(phi_values), max(phi_values), color="black", linestyle='--', label="90° reference")
+plt.hlines(135, min(phi_values), max(phi_values), color="black", linestyle='--', label="135° reference")
 
 plt.xlabel(r"Dimensionless layer thickness, $\varphi$ [-]", fontsize=11)
 plt.ylabel(r"Transport angle, $\theta_T$ [deg]", fontsize=11)
@@ -176,7 +175,8 @@ plt.grid(True, linestyle='--', alpha=0.6)
 plt.legend(fontsize=11)
 plt.ylim(90,185)
 plt.yticks([90, 105, 120, 135, 150, 165, 180])
-plt.xticks([0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0])
+plt.xticks(np.arange(0, extent + 0.5, 0.5))
+
 save_name="numerical_15_linear_transport"
 plt.savefig(f"plots/{save_name}.png", dpi=400)
 plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{save_name}.png", dpi=400)

@@ -16,7 +16,7 @@ def U(z_tilde, phi):
     "Nomrlaized z_tilde=zk"
     
     exp = np.exp(z_tilde/2)
-    alpha = 2 * phi * np.sqrt(1j)
+    alpha = phi * (1+1j)
     num = exp*kv(1, alpha*exp)
     den = kv(1, alpha)
     ans = U0 * (1-num/den)
@@ -25,7 +25,7 @@ def U(z_tilde, phi):
 
 def dUdz(z, phi):
     
-    alpha = 2 * phi * np.sqrt(1j)
+    alpha = phi * (1+1j)
     num = kv(0, alpha * np.exp(k*z/2))
     den = 2*kv(1, alpha)
     ans = U0 * k * alpha * np.exp(k*z) * num /  den
@@ -43,7 +43,8 @@ def calculate_angle(dUdz):
     theta = np.angle(dUdz, deg=True)
     return theta
 
-phis = np.logspace(-50, np.log10(3), 1000)
+extent = 4
+phis = np.logspace(-50, np.log10(extent), 1000)
 
 #%%
 # ===============================
@@ -57,7 +58,7 @@ angles = np.angle(dUdz(0, phis), deg=True)
 
 plt.plot(phis, angles)
 
-plt.xlabel(r"Dimensionless layer thickness, $\varphi$ [-]",fontsize=11)
+plt.xlabel(r"Dimensionless layer thickness, $\varphi_\text{exp}$ [-]",fontsize=11)
 plt.ylabel(r"Surface angle, $\theta$ [deg]",fontsize=11)
 plt.grid(True, linestyle='--', alpha=0.6)
 
@@ -66,7 +67,7 @@ plt.legend(fontsize=11)
 
 plt.ylim(0,95)
 plt.yticks([0, 15, 30, 45, 60, 75, 90])
-plt.xticks([0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0])
+plt.xticks(np.arange(0, extent + 0.5, 0.5))
 
 save_name="exponential_angle"
 plt.savefig(f"plots/{save_name}.png", dpi=400)
@@ -85,6 +86,7 @@ plt.title("Transport angle vs layer thickness",fontsize=13)
 Ms = np.array([ekman_transport(phi) for phi in phis])
 angles = np.angle(Ms, deg=True)
 
+plt.hlines(135, min(phis), max(phis), color="black", linestyle='--', label="135° reference")
 plt.plot(phis, angles)
 
 plt.xlabel(r"Dimensionless layer thickness, $\varphi$ [-]",fontsize=11)
@@ -94,11 +96,11 @@ plt.grid(True, linestyle='--', alpha=0.6)
 plt.ylim(90,185)
 plt.yticks([90, 105, 120, 135, 150, 165, 180])
 plt.xticks([0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0])
+plt.legend(fontsize=11)
 
 save_name="exponential_transport"
 plt.savefig(f"plots/{save_name}.png", dpi=400)
 plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{save_name}.png", dpi=400)
-
 plt.show()
 
 
