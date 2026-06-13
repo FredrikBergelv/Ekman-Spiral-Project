@@ -12,8 +12,9 @@ import matplotlib.pyplot as plt
 # PARAMETERS
 # -------------------------
 u0 = 10.0
+f = 1e-4
 
-min_viscosities = [1e-1, 1e-2, 1e-4, 1e-6, 1e-9, 1e-12]
+min_viscosities = [1e-1, 1e-3, 1e-6, 1e-9, 1e-12, 1e-15]
 
 # -------------------------
 # VISCOCITY SCHEMES
@@ -21,46 +22,46 @@ min_viscosities = [1e-1, 1e-2, 1e-4, 1e-6, 1e-9, 1e-12]
 
 def nu_increasing(z, eps):
     return z + eps
-def nu_p_increasing(z):
-    return 1
+
 # -------------------------
 # SOLVER
 # -------------------------
-
 def solve_profile(phi, eps):
     z = np.linspace(0, 1, 300)
 
     def fun(z, Y):
-        u, up, v, vp = Y
-
+        Fx, Fpx, Fy, Fpy = Y
         nu = nu_increasing(z, eps)
-        nu_p = nu_p_increasing(z)
-
         return np.vstack([
-            up,
-            (-2*phi**2*v - nu_p*up) / nu,
-            vp,
-            (2*phi**2*(u - u0) - nu_p*vp) / nu
+            Fpx,
+            -2*phi**2*Fy / nu,
+            Fpy,
+            2*phi**2*Fx / nu
         ])
 
     def bc(Y0, Y1):
         return np.array([
-            Y0[0],  # u(0)=0
-            Y0[2],  # v(0)=0
-            Y1[1],  # u'(1)=0
-            Y1[3]   # v'(1)=0
+            Y1[0],      # Fx(0) = 0
+            Y1[2],      # Fy(0) = 0
+            Y0[1],      # Fx'(0) = 0
+            Y0[3] + f*u0,  # Fy'(0) = -f*u0
         ])
 
-    k = max(phi, 1e-6)
-    u_guess = u0 * (1 - np.exp(-k*z))
-    v_guess = np.zeros_like(z)
-
+    # Classical Ekman solution as initial guess
+    nu0 = nu_increasing(0.5, eps)
+    h_Ek = np.sqrt(2 * nu0 / f)
+    Fx_guess = (nu0 * u0 / h_Ek) * np.exp(-z / h_Ek) * np.cos(z / h_Ek)
+    Fy_guess = -(nu0 * u0 / h_Ek) * np.exp(-z / h_Ek) * np.sin(z / h_Ek)
+    Fpx_guess = (nu0 * u0 / h_Ek**2) * np.exp(-z / h_Ek) * (-np.cos(z / h_Ek) - np.sin(z / h_Ek))
+    Fpy_guess = (nu0 * u0 / h_Ek**2) * np.exp(-z / h_Ek) * (-np.sin(z / h_Ek) + np.cos(z / h_Ek))
+    
     Y_init = np.vstack([
-        u_guess,
-        np.gradient(u_guess, z),
-        v_guess,
-        np.gradient(v_guess, z)
+        Fx_guess,
+        Fpx_guess,
+        Fy_guess,
+        Fpy_guess
     ])
+
 
     sol = solve_bvp(fun, bc, z, Y_init)
     return sol.x, sol.y
@@ -68,26 +69,23 @@ def solve_profile(phi, eps):
 # -------------------------
 # ANGLE METRIC
 # -------------------------
-
 def surface_angle(z, Y):
-    u, up, v, vp = Y
+    Fx, Fpx, Fy, Fpy = Y
     idx = 1  # surface (top boundary)
 
-    angle = np.arctan2(vp[idx], up[idx])
+    angle = np.arctan2(Fy[idx], Fx[idx])
     return np.degrees(angle)
 
 # -------------------------
 # PLOTTING
 # -------------------------
 def transport_angle(z, Y):
+    Fx, Fpx, Fy, Fpy = Y
 
-    u, up, v, vp = Y
-
-    # transport relative to geostrophic flow
-    transport_u = np.trapz(u - u0, z)
-    transport_v = np.trapz(v, z)
-
-    angle = np.arctan2(transport_v, transport_u)
+    # T = i/f F(z=0) gives
+    Fx0 = Fx[0]
+    Fy0 = Fy[0]
+    angle = np.arctan2(Fx0, -Fy0)
 
     return np.degrees(angle)
 
@@ -104,8 +102,8 @@ for i, phi in enumerate(phi_values):
     transport_angles_i_now = []
     
     for j, epsilon in enumerate(min_viscosities):
-
         z, Y = solve_profile(phi, epsilon)
+        
         surf = surface_angle(z, Y)
         surface_angles_i_now.append(surf)
         
@@ -150,13 +148,15 @@ plt.show()
 
 #%%
 plt.figure(figsize=(8,5))
-plt.plot(phi_values, transport_angles_i, label="linear Increasing")
+transport_angles_i = np.squeeze(np.array(transport_angles_i))
+for j, epsilon in enumerate(min_viscosities):
+    plt.plot(phi_values, transport_angles_i[:, j],  label=fr"$\epsilon={epsilon:.0e}$")
 
 plt.hlines(135, min(phi_values), max(phi_values), color="black", linestyle='--', label="135° reference")
 
 plt.xlabel(r"Dimensionless layer thickness, $\varphi$ [-]", fontsize=11)
 plt.ylabel(r"Transport angle, $\theta_T$ [deg]", fontsize=11)
-plt.suptitle("Ekman Transport Angle for 1.5 Linear Model", fontsize=14)
+plt.suptitle("Ekman Transport Angle the SUBC Linear Increasing Model", fontsize=14)
 plt.title("Transport angle vs layer thickness", fontsize=13)
 plt.grid(True, linestyle='--', alpha=0.6)
 plt.legend(fontsize=11)
@@ -164,7 +164,7 @@ plt.ylim(90,185)
 plt.yticks([90, 105, 120, 135, 150, 165, 180])
 plt.xticks(np.arange(0, extent + 0.5, 0.5))
 
-save_name="numerical_SUBC_linear_transport"
+save_name="numerical_SUBC_linear_i_transport"
 plt.savefig(f"plots/{save_name}.png", dpi=400)
 plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{save_name}.png", dpi=400)
 

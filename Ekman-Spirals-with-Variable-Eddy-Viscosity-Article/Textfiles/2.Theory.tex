@@ -51,6 +51,7 @@ With the boundary conditions
 The Ekman equation can be reformulated in terms by introducing a complex vertical momentum flux as
 \begin{equation}
     F=\nu\frac{\mathrm{d}U}{\mathrm{d}z}.
+    \label{eq:UtoF}
 \end{equation}
 Using this definition, \autoref{eq:EkmanEquation} can be rewritten as
 \begin{empheq}[box=\fbox]{equation}
@@ -197,9 +198,9 @@ One must note that this new coordinate changes the previous $z$-derivative, as a
 \label{eq:15Linear}
 \begin{align}
     \label{eq:15LinearIncreasing}
-    \frac{\mathrm{d}^2F}{\mathrm{d} \tilde z^2}&=i\underbrace{\frac{1}{ \tilde z}}_{\equiv 1/\nu_\uparrow}\underbrace{\frac{Hf^2}{\nu_\text{max}}}_{=2\varphi^2}F,\\
+    \frac{\mathrm{d}^2F}{\mathrm{d} \tilde z^2}&=i\underbrace{\frac{1}{ \tilde z}}_{\equiv 1/\tilde\nu_\uparrow}\underbrace{\frac{Hf^2}{\nu_\text{max}}}_{=2\varphi^2}F,\\
     \label{eq:15LinearDecreasing}
-    \frac{\mathrm{d}^2F}{\mathrm{d} \tilde z^2}&=i\underbrace{\frac{1}{ 1-\tilde z}}_{\equiv 1/\nu_\downarrow}\underbrace{\frac{Hf^2}{\nu_\text{max}}}_{=2\varphi^2}F.
+    \frac{\mathrm{d}^2F}{\mathrm{d} \tilde z^2}&=i\underbrace{\frac{1}{ 1-\tilde z}}_{\equiv 1/\tilde\nu_\downarrow}\underbrace{\frac{Hf^2}{\nu_\text{max}}}_{=2\varphi^2}F.
 \end{align}
 \end{subequations}
 Above the dimensionless height $\varphi$ was again introduced following the logic from before.
@@ -211,20 +212,13 @@ Another simple profile to evaluate is a parabolic increasing viscosity as
 \end{equation} 
 Again, using the non-dimensional height coordinate $\tilde z$ and the dimensionless height $\varphi$, one can rewrite \autoref{eq:EkmanEquation} as 
 \begin{equation}
-    \frac{\mathrm{d}^2F}{\mathrm{d} \tilde z^2}=i \underbrace{\frac{1}{ 4\tilde z \left[1-\tilde z\right]}}_{\equiv 1/\nu_p} \underbrace{\frac{Hf^2}{\nu_\text{max}}}_{=2\varphi^2}(U-U_g).
+    \frac{\mathrm{d}^2F}{\mathrm{d} \tilde z^2}=i \underbrace{\frac{1}{ 4\tilde z \left[1-\tilde z\right]}}_{\equiv 1/\tilde\nu_p} \underbrace{\frac{Hf^2}{\nu_\text{max}}}_{=2\varphi^2}(U-U_g).
 \end{equation}
 
 
 \subsection{The Ekman transport}
-For a theoretically or numerically derived solution, one can derive the Ekman transport, which may be a more useful quantity. The Ekman transport is defined as the mass flux per meter for the entire Ekman spiral. In the classical solution the Ekman transport is \ang{90} to the right of the surface flow. However one must note that this angle is obtained by subtracting the Ekman transport relative to the geostrophic flow o the surface flow, i.e \ang{135}$-$\ang{45}$=$\ang{90} in classical theory. However, for an obtained solution $U(\tilde z, \varphi)$ as a function of the dimensionless height and layer thickness, one can obtain the mass flux as 
+For a theoretically or numerically derived solution, one can derive the Ekman transport, which may be a more useful quantity. The Ekman transport is defined as the mass flux per meter for the entire Ekman spiral. In the classical solution the Ekman transport is \ang{90} to the right of the surface flow, and can be obtained by integrating the the velocity solution with altitude. One can thus define the Ekman transport as 
 \begin{equation}
-    \Phi_T(\varphi) = \int_0^1\left[U(\tilde z,\varphi)-U_g\right]d\tilde z. 
+    T(\varphi) = \int_0^\infty\left[U-U_g\right]d z=\frac{i}{f}F(z=0),
 \end{equation}
-To obtain the transport angle one can simply compute the argument as 
-\begin{equation}
-    \theta_T(\varphi) = \arg\left[\Phi_T(\varphi)\right].
-\end{equation}
-Thus the relative angle between the surface transport and the upper geostrophic flow can be calculated as 
-\begin{equation}
-    \theta_R = \theta_T - \theta.
-\end{equation}
+where the definition of the vertical momentum flux (see \autoref{eq:UtoF}) was used.To obtain the transport angle one can simply compute the argument, $ \arg\left[T(\varphi)\right] $ of the transport.

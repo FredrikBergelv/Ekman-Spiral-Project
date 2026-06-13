@@ -5,50 +5,59 @@ For arbitrary viscosity profiles, \autoref{eq:EkmanEquation} generally does not 
 For the SUBC model, it was shown that the equation could be rewritten for a dimensionless layer thickness $\varphi$. Thus, using an arbitrary height-normalized height-dependent eddy viscosity profile, $\tilde\nu(z)$, one can write a simpler differential equation. Separating the equation into the zonal and meridional velocity components, one obtains 
 \begin{subequations}
     \begin{align}
-    \frac{\mathrm{d^2F_x}}{\mathrm{d} z^2}
+    \frac{\mathrm{d}}{\mathrm{d} z}
+    \left(
+    \tilde\nu(z)\frac{\mathrm{d} u}{\mathrm{d} z}
+    \right)
     &=
-    -\frac{1}{\tilde\nu(z)}2\varphi^2 F_y,
+    -\varphi^2 v,
     \\
-    \frac{\mathrm{d^2F_y}}{\mathrm{d} z^2}
+    \frac{\mathrm{d}}{\mathrm{d} z}
+    \left(
+    \tilde\nu(z)\frac{\mathrm{d} v}{\mathrm{d} z}
+    \right)
     &=
-    \frac{1}{\tilde\nu(z)}2\varphi^2 F_x
+    \varphi^2 (u-u_g),
     \label{eq:Method}
 \end{align}
 \end{subequations}
-Here it was also assumed that the wind aloft was set as a purely zonal $u_g$. To apply the numerical boundary value solver, the equations were rewritten as a first-order system by introducing the new variables
+where the wind aloft was set as a purely zonal wind $u_g$. To apply the numerical boundary value solver, the equations were rewritten as a first-order system by introducing the new variables
 \begin{equation}
-    F_x^\prime = \frac{\mathrm{d} F_x}{\mathrm{d} z},
+    u^\prime = \frac{\mathrm{d} u}{\mathrm{d} z},
     \qquad
-    F_y^\prime = \frac{\mathrm{d} F_y}{\mathrm{d} z}.
+    v^\prime = \frac{\mathrm{d} v}{\mathrm{d} z}.
 \end{equation}
 Thus one can expand \autoref{eq:Method} into four coupled first-order equations
 \begin{align}
     \begin{cases} 
-    \frac{\mathrm{d} F_x}{\mathrm{d} z}
-    &= F_x^\prime,
+    \frac{\mathrm{d} u}{\mathrm{d} z}
+    &= u^\prime,
     \\
-    \frac{\mathrm{d} F_x^\prime}{\mathrm{d} z}
+    \frac{\mathrm{d} u^\prime}{\mathrm{d} z}
     &=
-    -\frac{2\varphi^2 F_y}{\tilde\nu(z)},
+    \frac{-\varphi^2 v - \tilde\nu^\prime u^\prime}
+    {\tilde\nu},
     \\
-    \frac{\mathrm{d} F_y}{\mathrm{d} z}
-    &= F_y^\prime,
+    \frac{\mathrm{d} v}{\mathrm{d} z}
+    &= v^\prime,
     \\
-    \frac{\mathrm{d} F_y^\prime}{\mathrm{d} z}
-    &=\frac{2\varphi^2 F_x}{\tilde\nu(z)}
+    \frac{\mathrm{d} v^\prime}{\mathrm{d} z}
+    &=
+    \frac{\varphi^2(u-u_g)-\tilde\nu^\prime v^\prime}
+    {\tilde\nu},
     \end{cases}
     \label{eq:modelsolver}
 \end{align}
 with the boundary conditions
 \begin{subequations}
     \begin{align}
-    F_x^\prime(\varphi=0) &= 0,
+    u(\varphi=0) &= 0,
     &
-    F_x(\varphi=1) &= 0,
+    u^\prime(\varphi=1) &= 0,
     \\
-    F_y^\prime(\varphi=0) &= -fu_g,
+    v(\varphi=0) &= 0,
     &
-    F_y(\varphi=1) &= 0.
+    v^\prime(\varphi=1) &= 0.
 \end{align}
 \end{subequations}
 If the viscosity profile, $\tilde\nu$, obtains a value of zero in the domain, then the coupled \autoref{eq:modelsolver} becomes unsolvable since we divide by $\hat{\nu}=0$. In this scenario one has to introduce a constant background viscosity, $\epsilon$ as

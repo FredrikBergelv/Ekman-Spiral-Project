@@ -23,59 +23,57 @@ min_viscosity = 1e-13
 def nu_deacreasing(z):
     return (1 - z) + min_viscosity
 
-def nu_p_deacreasing(z):
-    return -1
-
-
 # -------------------------
-# BVP SYSTEM
+# SOLVER
 # -------------------------
 def solve_profile(phi):
-
     z = np.linspace(0, 1, 300)
 
     def fun(z, Y):
-        u, up, v, vp = Y
-
-        nu_z = nu_deacreasing(z)
-        nu_zp = nu_p_deacreasing(z)
-    
+        Fx, Fpx, Fy, Fpy = Y
+        nu = nu_deacreasing(z)
         return np.vstack([
-            up,
-            (-2*phi**2*v - nu_zp*up) / nu_z,
-            vp,
-            ( 2*phi**2*(u - u0) - nu_zp*vp) / nu_z
-            ])
+            Fpx,
+            -2*phi**2*Fy / nu,
+            Fpy,
+            2*phi**2*Fx / nu
+        ])
 
-    def bc(Y0, YH):
+    def bc(Y0, Y1):
         return np.array([
-            Y0[0],   # u_r(0)=0
-            Y0[2],   # u_i(0)=0
-            YH[1],   # u_r'(H)=0
-            YH[3]    # u_i'(H)=0
-            ])
+            Y1[0],      # Fx(0) = 0
+            Y1[2],      # Fy(0) = 0
+            Y0[1],      # Fx'(0) = 0
+            Y0[3] + f*u0,  # Fy'(0) = -f*u0
+        ])
 
-    # initial guess (smooth decay)
-    k = np.sqrt(phi**2 )
-    u_hat = u0 * (1 - np.exp(-k*z))
-    v_hat = np.zeros_like(z)
+    # Classical Ekman solution as initial guess
+    nu0 = nu_deacreasing(0.5)
+    h_Ek = np.sqrt(2 * nu0 / f)
+    Fx_guess = (nu0 * u0 / h_Ek) * np.exp(-z / h_Ek) * np.cos(z / h_Ek)
+    Fy_guess = -(nu0 * u0 / h_Ek) * np.exp(-z / h_Ek) * np.sin(z / h_Ek)
+    Fpx_guess = (nu0 * u0 / h_Ek**2) * np.exp(-z / h_Ek) * (-np.cos(z / h_Ek) - np.sin(z / h_Ek))
+    Fpy_guess = (nu0 * u0 / h_Ek**2) * np.exp(-z / h_Ek) * (-np.sin(z / h_Ek) + np.cos(z / h_Ek))
+    
+    Y_init = np.vstack([
+        Fx_guess,
+        Fpx_guess,
+        Fy_guess,
+        Fpy_guess
+    ])
 
-    Y0 = np.vstack([
-        u_hat,
-        np.gradient(u_hat, z),
-        v_hat,
-        np.gradient(v_hat, z)])
 
-    sol = solve_bvp(fun, bc, z, Y0)
-
+    sol = solve_bvp(fun, bc, z, Y_init)
     return sol.x, sol.y
 
+# -------------------------
+# ANGLE METRIC
+# -------------------------
 def surface_angle(z, Y):
-    u, up, v, vp = Y
+    Fx, Fpx, Fy, Fpy = Y
+    idx = 1  # surface (top boundary)
 
-    idx = 1 # surface 
-
-    angle = np.arctan2(vp[idx], up[idx])
+    angle = np.arctan2(Fy[idx], Fx[idx])
     return np.degrees(angle)
 
 def transport_angle(z, Y):

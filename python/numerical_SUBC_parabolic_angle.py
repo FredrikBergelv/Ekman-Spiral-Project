@@ -12,8 +12,8 @@ import matplotlib.pyplot as plt
 # PARAMETERS
 # -------------------------
 u0 = 10.0
-
-min_viscosities = [1e-1, 1e-2, 1e-4, 1e-6, 1e-9, 1e-12]
+f = 1e-4
+min_viscosities = [1e-1, 1e-3, 1e-6, 1e-9, 1e-12, 1e-15]
 
 # -------------------------
 # VISCOCITY SCHEMES
@@ -22,47 +22,45 @@ min_viscosities = [1e-1, 1e-2, 1e-4, 1e-6, 1e-9, 1e-12]
 def nu_parabolic(z, eps):
     return 4*z*(1 - z) + eps
 
-def nup_parabolic(z):
-    return 4*(1 - 2*z)
-
 # -------------------------
 # SOLVER
 # -------------------------
-
 def solve_profile(phi, eps):
     z = np.linspace(0, 1, 300)
 
     def fun(z, Y):
-        u, up, v, vp = Y
-
+        Fx, Fpx, Fy, Fpy = Y
         nu = nu_parabolic(z, eps)
-        nu_p = nup_parabolic(z)
-
         return np.vstack([
-            up,
-            (-2*phi**2*v - nu_p*up) / nu,
-            vp,
-            (2*phi**2*(u - u0) - nu_p*vp) / nu
+            Fpx,
+            -2*phi**2*Fy / nu,
+            Fpy,
+            2*phi**2*Fx / nu
         ])
 
     def bc(Y0, Y1):
         return np.array([
-            Y0[0],  # u(0)=0
-            Y0[2],  # v(0)=0
-            Y1[1],  # u'(1)=0
-            Y1[3]   # v'(1)=0
+            Y1[0],      # Fx(0) = 0
+            Y1[2],      # Fy(0) = 0
+            Y0[1],      # Fx'(0) = 0
+            Y0[3] + f*u0,  # Fy'(0) = -f*u0
         ])
 
-    k = max(phi, 1e-6)
-    u_guess = u0 * (1 - np.exp(-k*z))
-    v_guess = np.zeros_like(z)
-
+    # Classical Ekman solution as initial guess
+    nu0 = nu_parabolic(0.5, eps)
+    h_Ek = np.sqrt(2 * nu0 / f)
+    Fx_guess = (nu0 * u0 / h_Ek) * np.exp(-z / h_Ek) * np.cos(z / h_Ek)
+    Fy_guess = -(nu0 * u0 / h_Ek) * np.exp(-z / h_Ek) * np.sin(z / h_Ek)
+    Fpx_guess = (nu0 * u0 / h_Ek**2) * np.exp(-z / h_Ek) * (-np.cos(z / h_Ek) - np.sin(z / h_Ek))
+    Fpy_guess = (nu0 * u0 / h_Ek**2) * np.exp(-z / h_Ek) * (-np.sin(z / h_Ek) + np.cos(z / h_Ek))
+    
     Y_init = np.vstack([
-        u_guess,
-        np.gradient(u_guess, z),
-        v_guess,
-        np.gradient(v_guess, z)
+        Fx_guess,
+        Fpx_guess,
+        Fy_guess,
+        Fpy_guess
     ])
+
 
     sol = solve_bvp(fun, bc, z, Y_init)
     return sol.x, sol.y
@@ -70,12 +68,11 @@ def solve_profile(phi, eps):
 # -------------------------
 # ANGLE METRIC
 # -------------------------
-
 def surface_angle(z, Y):
-    u, up, v, vp = Y
+    Fx, Fpx, Fy, Fpy = Y
     idx = 1  # surface (top boundary)
 
-    angle = np.arctan2(vp[idx], up[idx])
+    angle = np.arctan2(Fy[idx], Fx[idx])
     return np.degrees(angle)
 
 # -------------------------
