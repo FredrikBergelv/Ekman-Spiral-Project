@@ -40,65 +40,7 @@ def ekman_transport(phi, epsilon, zmax=1500.0, Nz=500000):
     print(np.angle(M, deg=True), np.angle(M, deg=True)-np.angle(layer_dUdz0(phi, epsilon), deg=True))
     return M
 
-def one_and_half_model(phis):
-    from scipy.integrate import solve_bvp
-    u0=10
-    
-    def solve_profile(phi):
 
-        z = np.linspace(0, 1, 300)
-        
-        def fun(z, Y):
-            u, up, v, vp = Y
-            
-            nu_z = 1
-            nu_zp = 0
-
-            return np.vstack([
-                up,
-                (-2*phi**2*v - nu_zp*up) / nu_z,
-                vp,
-                ( 2*phi**2*(u - u0) - nu_zp*vp) / nu_z
-            ])
-
-        def bc(Y0, YH):
-            return np.array([
-                Y0[0],   # u_r(0)=0
-                Y0[2],   # u_i(0)=0
-                YH[1],   # u_r'(H)=0
-                YH[3]    # u_i'(H)=0
-            ])
-
-        # initial guess (smooth decay)
-        k = np.sqrt(phi**2 + 1e-6)
-        u_hat = u0 * (1 - np.exp(-k*z))
-        v_hat = np.zeros_like(z)
-
-        Y0 = np.vstack([
-            u_hat,
-            np.gradient(u_hat, z),
-            v_hat,
-            np.gradient(v_hat, z)])
-
-        sol = solve_bvp(fun, bc, z, Y0)
-
-        return sol.x, sol.y
-
-    def surface_angle(z, Y):
-        u, up, v, vp = Y
-
-        idx = 1 # surface 
-
-        angle = np.arctan2(vp[idx], up[idx])
-        return np.degrees(angle)
-    
-    angs = []
-    for phi in phis:
-        solh1, solh2 = solve_profile(phi)
-        surf = surface_angle(solh1, solh2)
-        angs.append(surf)
-
-    return angs
 
 
 # Plottin gparameters
@@ -107,7 +49,9 @@ extent = 4
 nu_ratios = np.array([0.001, 0.1, 0.5, 1/0.5, 1/0.1, 1/0.001])
 epsilons = np.sqrt(nu_ratios)
 
-phis = np.linspace(0,extent,10000)
+
+phis =  np.logspace(-6, np.log10(extent), 1000)
+
 
 #%%
 plt.figure(figsize=(8*extent/3,5))
@@ -120,10 +64,13 @@ for epsilon in epsilons:
 
 #plt.hlines(45, min(phis), max(phis), color="black", linestyle='--', label="45° reference")
 ref = np.angle(layer_dUdz0(phis, 1), deg=True)
-plt.plot(phis, ref, label=r'$\nu_2/\nu_1=1$', color="black", linestyle='--')
+plt.plot(phis, ref, label=r'$\nu_2/\nu_1=1$', color="black")
 
-phis_15 = np.logspace(-6, np.log10(extent), 10000)
-plt.plot(phis_15, one_and_half_model(phis_15), label=r'1.5 model', color="black")
+ang_15 = np.angle(layer_dUdz0(phis, 0), deg=True)
+ang_15_reversed = np.angle(layer_dUdz0(phis, 1e32), deg=True)
+plt.plot(phis, ang_15, label=r'1.5 model', color="black", linestyle='--')
+plt.plot(phis, ang_15_reversed, color="black", linestyle='--')
+
 
 
 plt.vlines([np.pi/2, np.pi], 5, 90, color="black", linestyle=":", label=r"$\pi/2$ and $\pi$")

@@ -1,6 +1,8 @@
 \section{Methodology}
 \subsection{Numerical method}
-For arbitrary viscosity profiles, \autoref{eq:EkmanEquation} generally does not admit a closed-form analytical solution. The equation was therefore solved numerically as a boundary value problem using the \texttt{solve\_bvp} routine available in \texttt{SciPy} \citep{virtanen2020}. However, it was previously shown that the equation could be rewritten for a dimensionless layer thickness $\varphi$. Thus, using an arbitrary height-normalized height-dependent eddy viscosity profile, $\tilde\nu(z)$, one can write a simpler differential equation. Separating the equation into the zonal and meridional velocity components, one obtains 
+For arbitrary viscosity profiles, \autoref{eq:EkmanEquation} generally does not admit a closed-form analytical solution. The equation was therefore solved numerically as a boundary value problem using the \texttt{solve\_bvp} routine available in \texttt{SciPy} \citep{virtanen2020}. 
+
+For the SUBC model, it was shown that the equation could be rewritten for a dimensionless layer thickness $\varphi$. Thus, using an arbitrary height-normalized height-dependent eddy viscosity profile, $\tilde\nu(z)$, one can write a simpler differential equation. Separating the equation into the zonal and meridional velocity components, one obtains 
 \begin{subequations}
     \begin{align}
     \frac{\mathrm{d}}{\mathrm{d} z}
@@ -44,6 +46,7 @@ Thus one can expand \autoref{eq:Method} into four coupled first-order equations
     \frac{\varphi^2(u-u_g)-\tilde\nu^\prime v^\prime}
     {\tilde\nu},
     \end{cases}
+    \label{eq:modelsolver}
 \end{align}
 with the boundary conditions
 \begin{subequations}
@@ -57,5 +60,10 @@ with the boundary conditions
     v^\prime(\varphi=1) &= 0.
 \end{align}
 \end{subequations}
+If the viscosity profile, $\tilde\nu$, obtains a value of zero in the domain, then the coupled \autoref{eq:modelsolver} becomes unsolvable since we divide by $\hat{\nu}=0$. In this scenario one has to introduce a constant background viscosity, $\epsilon$ as
+\begin{equation}
+    \hat{\nu}\rightarrow\hat{\nu}+\epsilon,
+\end{equation}
+where $\hat{\nu}/\epsilon\gg1$ was assumed. This background viscosity was thus applied for the linear increasing model and the parabolic model since both have zero viscosity at the surface.
 
-The equations were solved iteratively on a vertical grid. The solver required an initial guess, which was chosen based on the initial setup of the system. The initial guess was therefore set as the classical solution for a constant viscosity. The final solution was found when the iterative solution reached a steady state for the differential equations with the imposed boundary conditions.
+The SUBC model equations were solved iteratively on a vertical grid. The solver required an initial guess, which was chosen based on the initial setup of the system. The initial guess was therefore set as the classical solution for a constant viscosity. The final solution was found when the iterative solution reached a steady state for the differential equations with the imposed boundary conditions.

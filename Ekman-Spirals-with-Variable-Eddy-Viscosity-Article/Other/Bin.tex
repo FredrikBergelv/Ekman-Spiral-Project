@@ -27,3 +27,68 @@ The constant $R$ is defined as
 \begin{equation}
     R = \frac{1-\sqrt{\tfrac{\nu_2}{\nu_1}}}{1+\sqrt{\tfrac{\nu_2}{\nu_1}}}.
 \end{equation}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\subsubsection{The Ekman transport}
+
+In \autoref{fig:2layer_trasnport}--\ref{fig:numerical_15_parabolic_transport} one can observe the angle of the integrated transport for both the theoretical two-layer model, the exponentially decaying model, and the numerical 1.5-layer models. One can see identical behaviour in the plots of \autoref{fig:2layer_trasnport}--\ref{fig:numerical_15_parabolic_transport} compared to the surface wind angles in \autoref{fig:2layer_angle}--\ref{fig:numerical_15_parabolic}, with the only difference being that these have a new reference point at \ang{135}. Thus, the plots are merely translated to this new reference point, since their respective shapes remain intact.
+
+Thus one can make the interesting observation that if one computes the relative transport angle, i.e. the angle between the surface angle and the transport angle, one obtains a relative value of \ang{90} for all the different models. Thus, these models give the same Ekman transport angle as in the classical Ekman theory.
+
+\begin{figure}[H]
+    \centering    
+    \includegraphics[height=0.37\textwidth]{Figures/2layer_transport.png}
+    \caption{Numerically computed transport angles for the two layer viscosity profile. The angle is dependent on the dimensionless parameter $\varphi=H/h_\text{EK}$. Different coloured curves correspond to different layer viscosity ratios. The solution assumed a purely zonal geostrophic flow. }
+    \label{fig:2layer_trasnport}
+\end{figure}
+
+\begin{figure}[H]
+    \centering    
+    \includegraphics[height=0.37\textwidth]{Figures/exponential_transport.png}
+    \caption{Numerically computed transport angles for the exponential viscosity profile. The angle is dependent on the dimensionless parameter $\varphi=H/h_\text{EK}$. The solution assumed a purely zonal geostrophic flow.}
+    \label{fig:exponetial_trasnport}
+\end{figure}
+
+\begin{figure}[H]
+    \centering    
+    \includegraphics[height=0.37\textwidth]{Figures/numerical_15_linear_transport.png}
+    \caption{Numerically computed transport angles for linearly increasing and decreasing viscosity profiles in the 1.5-layer model. The angle is dependent on the dimensionless parameter $\varphi=H/h_\text{EK}$. The solution assumed a purely zonal geostrophic flow.}
+    \label{fig:numerical_15_linear_transport}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering    
+    \includegraphics[height=0.37\textwidth]{Figures/numerical_15_parabolic_transport.png}
+    \caption{Numerically computed transport angles for a parabolic viscosity profile in the 1.5-layer model. The angle is dependent on the dimensionless parameter $\varphi=H/h_\text{EK}$. The solution assumed a purely zonal geostrophic flow.}
+    \label{fig:numerical_15_parabolic_transport}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{The numerical 1.5 model}
+The result from the numerical 1.5-layer model can be viewed in \autoref{fig:numerical_15_linear}--\ref{fig:numerical_15_parabolic}. There one can observe similarities between these models, the two-layer model, and the exponentially decaying model. They all have a lower boundary of \ang{90} (except for the decreasing two-layer model, where the lower boundary was \ang{0}). This strengthens the results from these numerical models, as the theoretical ones behave in a similar manner.
+
+The result from the linear 1.5-layer model is shown in \autoref{fig:numerical_15_linear}. There one can observe slightly different behaviour for the linearly increasing and decreasing viscosities. For the linearly decreasing viscosity, the values go smoothly from $\ang{90}\rightarrow\ang{45}$. However, for the linearly increasing viscosity, the upper boundary is instead located at \ang{0}, and the curve is approximately \ang{45} at $\varphi\approx0.147$. One must note that both of these upper limits only occur when $\varphi\rightarrow\infty$.
+
+\begin{figure}[H]
+    \centering    
+    \includegraphics[height=0.37\textwidth]{Figures/numerical_15_linear_angle.png}
+    \caption{Numerically computed surface angles for linearly increasing and decreasing viscosity profiles in the 1.5-layer model. The angle is dependent on the dimensionless parameter $\varphi=H/h_\text{EK}$. The solution assumed a purely zonal geostrophic flow.}
+    \label{fig:numerical_15_linear}
+\end{figure}
+
+The 1.5-layer model with a parabolic viscosity profile gave \autoref{fig:numerical_15_parabolic}. There one can observe very similar behaviour to the increasing viscosity profile in \autoref{fig:numerical_15_linear}, with the main difference being that it crosses the reference line of \ang{45} at $\varphi\approx0.284$.
+
+\begin{figure}[H]
+    \centering    
+    \includegraphics[height=0.37\textwidth]{Figures/numerical_15_parabolic_angle.png}
+    \caption{Numerically computed surface angles for a parabolic viscosity profile in the 1.5-layer model. The angle is dependent on the dimensionless parameter $\varphi=H/h_\text{EK}$. The solution assumed a purely zonal geostrophic flow.}
+    \label{fig:numerical_15_parabolic}
+\end{figure}
+

@@ -26,7 +26,7 @@ This problem can be formulated with one equation if one introduces a complex vel
     \label{eq:ComplexVelocity}
 \end{align}
 and a complex geostrophic velocity as $U_g = u_g + iv_g$. Using \autoref{eq:subtractedNavierStokes} with the complex velocities $U$ and $U_g$ the coupled equations can be combined into the Ekman equation
-\begin{empheq}{equation}
+\begin{empheq}[box=\fbox]{equation}
     \frac{\mathrm{d}}{\mathrm{d} z}
     \left(
     \nu \frac{\mathrm{d} U}{\mathrm{d} z}
@@ -47,33 +47,10 @@ With the boundary conditions
 \label{eq:BoundaryConditions}
 \end{subequations}
 
-\subsection{The vertical momentum flux}
-The Ekman equation can be reformulated in terms by introducing a complex vertical momentum flux as
-\begin{equation}
-    F=\nu\frac{\mathrm{d}U}{\mathrm{d}z}.
-\end{equation}
-Using this definition, \autoref{eq:EkmanEquation} can be rewritten as
-\begin{empheq}[box=\fbox]{equation}
-    \frac{\mathrm{d}^2F}{\mathrm{d}z^2}=i\underbrace{\lambda}_{\equiv \frac{f}{\nu}}
-    F.
-    \label{eq:MomentumFlux}
-\end{empheq}
-Here, an effective potential $\lambda$ has been introduced. This allows \autoref{eq:MomentumFlux} to be compared with the time-independent Schrödinger equation, where $\lambda$ becomes analogous to a potential. The new equation also has a clear physical interpretation, as it describes the vertical structure of the momentum flux in the classical Ekman problem. Using \autoref{eq:MomentumFlux}, the boundary conditions become
-\begin{subequations}
-\begin{align}
-    \left.\frac{\mathrm{d}F}{\mathrm{d}z}\right|_{z=0} &= -ifU_g,
-    \label{eq:MomentumFluxBoundaryConditions1}
-    \\
-    F(z\to\infty) &= 0.
-    \label{eq:MomentumFluxBoundaryConditions2}
-\end{align}
-\label{eq:MomentumFluxBoundaryConditions}
-\end{subequations}
-
 \subsection{The classical solution}
 The classical solution to the Ekman equation is obtained when the viscosity is assumed to be constant with altitude, $\nu=\text{constant}$, and can be found in \citet{Ekman1905}. In this case he classical Ekman spiral solution from \autoref{eq:EkmanEquation} can obtained as
 \begin{equation}
-    F(z)=\nu U_g \frac{1+i}{h_\text{Ek}} e^{- \frac{1+i}{h_\text{Ek}} z},
+    U(z)=U_g\left(1-e^{-\frac{1+i}{h_\text{Ek}}z}\right),
     \label{eq:EkmanConstant}
 \end{equation}
 where
@@ -81,30 +58,30 @@ where
     h_\text{Ek}\equiv\sqrt{\frac{2\nu}{f}}
     \label{eq:EkmanHeight}
 \end{equation}
-is the Ekman depth scale. One can note that by taking the argument of the complex momentum flux, $\arg\left[F(z=0)\right]$, one can measure the surface angle of \autoref{eq:EkmanConstant} as \ang{45}.
+is the Ekman depth scale. One can note that by taking the argument of the change by altitude $\tfrac{\mathrm{d} U}{\mathrm{d} z}|_{z=0}$, one can measure the angle of \autoref{eq:EkmanConstant} as \ang{45}.
 
 \subsection{The two layer model}
 The next natural step from a constant viscosity profile is to assume two layers of constant viscosity in each layer. One can label the lower level as having the viscosity $\nu_1$ up until a height of $H$, where the next viscosity of $\nu_2$ takes over. From this assumption one would obtain a superimposed solution similar to \autoref{eq:EkmanConstant} as 
 \begin{subequations}
 \begin{empheq}[left=\empheqlbrace]{align}
-    F_1(z)&=A_1e^{\frac{1+i}{h_\text{Ek1}}z}+B_1e^{-\frac{1+i}{h_\text{Ek1}}z}, \\
-    F_2(z)&=B_2e^{-\frac{1+i}{h_\text{Ek2}}z}
+    U_1(z)&=A_1e^{\frac{1+i}{h_\text{Ek1}}z}+B_1e^{-\frac{1+i}{h_\text{Ek1}}z} + U_g, \\
+    U_2(z)&=B_2e^{-\frac{1+i}{h_\text{Ek2}}z} + U_g
 \end{empheq}
 \end{subequations}
 where the Ekman depth scales are defined for each layer like in \autoref{eq:EkmanHeight}. To solve for the constants above one has to use the fact that the material flux has to be constant. This gives the jump condition as 
 \begin{subequations}
 \begin{align}
     U_1&=U_2 \quad \text{at } z=H, \\
-    F_1&=F_2  \quad \text{at } z=H.
+    \nu_1\frac{\mathrm{d} U_1}{\mathrm{d} z}&=\nu_2\frac{\mathrm{d} U_2}{\mathrm{d} z}  \quad \text{at } z=H.
     \label{eq:JumpCondition}
 \end{align}
 \end{subequations}
 Using this and the boundary conditions at \autoref{eq:BoundaryConditions} one obtains a expression between for factors as
 \begin{subequations}
 \begin{align}
-    A_1&=-\nu_1U_g\frac{1+i}{h_\text{Ek1}}\cdot\frac{1-\gamma}{1-\gamma+e^{\left(1+i\right)\varphi}\left(1+\gamma\right)}, \text{ where }\gamma=\sqrt{\tfrac{\nu_2}{\nu_1}} \\ 
-    B_1&=\nu_1U_g\frac{1+i}{h_\text{Ek1}}\cdot\frac{\left(1+\gamma\right)e^{\left(1+i\right)\varphi}}{1-\gamma+e^{\left(1+i\right)\varphi}\left(1+\gamma\right)}, \\ 
-    B_2&=\nu_2U_g\frac{1+i}{h_\text{Ek2}}\cdot\frac{2e^{\left(1+i\right)\varphi\left(1+\gamma^{-1}\right)}}{1-\gamma+e^{\left(1+i\right)\varphi}\left(1+\gamma\right)},
+    A_1&=-U_g\frac{1-\gamma}{1-\gamma+e^{\left(1+i\right)\varphi}\left(1+\gamma\right)}, \text{ where }\gamma=\sqrt{\tfrac{\nu_2}{\nu_1}} \\ 
+    B_1&=-U_g\frac{\left(1+\gamma\right)e^{\left(1+i\right)\varphi}}{1-\gamma+e^{\left(1+i\right)\varphi}\left(1+\gamma\right)}, \\ 
+    B_2&=-U_g\frac{2e^{\left(1+i\right)\varphi\left(1+\gamma^{-1}\right)}}{1-\gamma+e^{\left(1+i\right)\varphi}\left(1+\gamma\right)},
 \end{align}
 \end{subequations}
 where $\varphi$ is the non-dimensional height defined as 
@@ -127,7 +104,7 @@ Observing \autoref{eq:2layerAngle}, and assuming that $\nu_1>\nu_2$, one can see
 \subsection{The exponential decaying viscosity}
 Another viscosity profile that can provide a fully analytical solution is an exponentially decaying viscosity with altitude. Here the viscosity is set to decay from an initial viscosity of $\nu_0$, with a decay rate of $k$ as $\nu(z)=\nu_0\exp\left(-kz\right)$. To solve \autoref{eq:EkmanEquation} with this viscosity profile one can introduce two new parameters 
 \begin{equation}
-    t=4\left(1+i\right)\,\varphi_\text{exp}\, e^{\frac{kz}{4}} 
+    t=\left(1+i\right)\,\varphi_\text{exp}\, e^{\frac{kz}{2}}, \quad U^\ast = \frac{U-U_g}{t}. 
 \end{equation}
 The nondimensional parameter $\varphi_\text{exp}$ was introduced above in this problem, just like in the 2-layer model, but here it is defined as 
 \begin{equation}
@@ -135,39 +112,37 @@ The nondimensional parameter $\varphi_\text{exp}$ was introduced above in this p
 \end{equation}
 Using these newly defined variables \autoref{eq:EkmanEquation} transforms into 
 \begin{equation}
-    t^2\frac{\mathrm{d}^2 F}{\mathrm{d} t^2}+t\frac{\mathrm{d} F}{\mathrm{d} t}-t^2F=0,
+    t^2\frac{\mathrm{d}^2 U^\ast}{\mathrm{d} t^2}-t\frac{\mathrm{d} U^\ast}{\mathrm{d} t}-t^2U^\ast=0,
 \end{equation}
 which is a differential equation with a standard solution. The standard solution is a modified Bessel equation as 
 \begin{equation}
-    F=C_1I_0(t)+C_2K_0(t),
+    U^\ast=C_1I_1(t)+C_2K_1(t),
 \end{equation}
-where $C_1$ and $C_2$ are constants, while $I_0(t)$ and $K_0(t)$ are well-defined modified Bessel functions of the first and second kind of order zero, respectively. By applying the previously defined boundary conditions from \autoref{eq:MomentumFluxBoundaryConditions} one can find the two constants. Applying the geostrophic boundary condition from \autoref{eq:MomentumFluxBoundaryConditions2} one can see that $C_1=0$ since $I_0(t)$ does not go to zero when $t\to\infty$ (which occurs when $z\to\infty$). Applying the surface boundary condition from \autoref{eq:MomentumFluxBoundaryConditions1} one can find an expression for the second constant. Transforming the solution to the normal complex velocity as in \autoref{eq:ComplexVelocity} one can obtain the solution
+where $C_1$ and $C_2$ are constants, while $I_1(t)$ and $K_1(t)$ are well-defined modified Bessel functions of the first and second kind of order one, respectively. By applying the previously defined boundary conditions from \autoref{eq:BoundaryConditions} one can find the two constants. Applying the geostrophic boundary condition from \autoref{eq:BoundaryCondition2} one can see that $C_1=0$ since $I_1(t)$ does not go to zero when $t\rightarrow\infty$ (which occurs when $z\rightarrow\infty$). Applying the surface boundary condition from \autoref{eq:BoundaryCondition1} one can find an expression for the second constant. Transforming the solution to the normal complex velocity as in \autoref{eq:ComplexVelocity} one can obtain the solution
 \begin{equation}
-    F(z)=\frac{\left(1+i\right)fU_g}
-    {2k\varphi}
-    \frac{K_0\left(4\left[1+i\right]\varphi_\text{exp} e^{kz/4}\right)}{K_1\left(4\left[1+i\right]\varphi_\text{exp}\right)}
+    U(z)=U_g\left[1-\frac{e^{\frac{kz}{2}}K_1\left(\left[1+i\right]\,\varphi_\text{exp}\, e^{\frac{kz}{2}}\right)}{K_1\left(\left[1+i\right]\,\varphi_\text{exp}\,\right)}\right].
     \label{eq:exponetial}
 \end{equation}
 Using \autoref{eq:exponetial} one can derive the surface angle of this model as 
 \begin{equation}
-    \theta = \arg \left[F(z=0)\right] = \ang{45} + \arg\left[\frac{K_0\left(4\left[1+i\right]\,\varphi_\text{exp}\,\right)}{K_1\left(4\left[1+i\right]\,\varphi_\text{exp}\,\right)}\right],
+    \theta = \arg \left.\frac{\mathrm{d} U}{\mathrm{d} z}\right|_{z=0} = \arg\left[U_g\sqrt{i}\,\frac{K_0\left(\left[1+i\right]\,\varphi_\text{exp}\,\right)}{K_1\left(\left[1+i\right]\,\varphi_\text{exp}\,\right)}\right],
     \label{eq:ExponetialAngle}
 \end{equation} 
-where $K_1$ is the modified Bessel function of the second kind of order one. 
+where $K_0$ is the modified Bessel function of the second kind of order zero. 
 
 \subsection{The simplified upper boundary condition model}
-In the previous sections two completely analytical solutions for two different altitude-varying viscosity profiles were derived. The difficulty in solving \autoref{eq:MomentumFlux} comes from the altitude dependence of the viscosity profile $\nu(z)$. This introduces variable coefficients into the complex second-order ordinary differential equation, which in general prevents closed-form analytical solutions. Analytical solutions therefore exist only for specific viscosity profiles that allow the equation to be transformed into a solvable form.
+In the previous sections two completely analytical solutions for two different altitude-varying viscosity profiles were derived. The difficulty in solving \autoref{eq:EkmanEquation} comes from the altitude dependence of the viscosity profile $\nu(z)$. This introduces variable coefficients into the complex second-order ordinary differential equation, which in general prevents closed-form analytical solutions. Analytical solutions therefore exist only for specific viscosity profiles that allow the equation to be transformed into a solvable form.
 
-\autoref{eq:MomentumFlux} is furthermore also difficult to solve in a numerical setting, as the upper boundary condition is a limit. This will put limits on the viscosity profiles one can study, as the viscosity cannot increase with altitude continuously. In the physical world, this makes sense, since we assume that high up in the atmosphere (or deep down in the ocean), friction and shear stress become negligible. This was what was labelled as the geostrophic limit. However, by limiting ourselves to only upper-level decreasing viscosity profiles, the differential equation becomes more difficult to solve. Furthermore, if one wants to solve for a dimensionless height parameter, too complex viscosity profiles become hard to deal with.
+\autoref{eq:EkmanEquation} is furthermore also difficult to solve in a numerical setting, as the upper boundary condition is a limit. This will put limits on the viscosity profiles one can study, as the viscosity cannot increase with altitude continuously. In the physical world, this makes sense, since we assume that high up in the atmosphere (or deep down in the ocean), friction and shear stress become negligible. This was what was labelled as the geostrophic limit. However, by limiting ourselves to only upper-level decreasing viscosity profiles, the differential equation becomes more difficult to solve. Furthermore, if one wants to solve for a dimensionless height parameter, too complex viscosity profiles become hard to deal with.
 
-A solution to this problem is to introduce the simplified upper boundary condition model. For the 2-layer model, this is reduced to a 1.5 layer model, since we assume that the upper-level viscosity is negligible $\nu_2\approx0$. This also makes physical sense, since we know that both the atmosphere and the ocean consist of a boundary layer where turbulent mixing takes place. Reducing the problem to a simplified upper boundary condition model will thus make it possible to test viscosity profiles that do not converge at $z\rightarrow\infty$, since the new domain is between $z\in[0,H]$. This modifies the boundary conditions in \autoref{eq:MomentumFluxBoundaryConditions} as 
+A solution to this problem is to introduce the simplified upper boundary condition model. For the 2-layer model, this is reduced to a 1.5 layer model, since we assume that the upper-level viscosity is negligible $\nu_2\approx0$. This also makes physical sense, since we know that both the atmosphere and the ocean consist of a boundary layer where turbulent mixing takes place. Reducing the problem to a simplified upper boundary condition model will thus make it possible to test viscosity profiles that do not converge at $z\rightarrow\infty$, since the new domain is between $z\in[0,H]$. This modifies the boundary conditions to \autoref{eq:EkmanEquation} as 
 \begin{subequations}
 \label{eq:NewBoundaryConditions}
 \begin{align}
-    \left.\frac{\mathrm{d}F}{\mathrm{d}z}\right|_{z=0} &= -ifU_g,
+    U(0) &= 0,
     \label{eq:NewBoundaryCondition1}
     \\
-    F(z=H) &= 0.
+    \left.\frac{\mathrm{d} U}{\mathrm{d} z}\right|_{z=H} &= 0.
     \label{eq:NewBoundaryCondition2}
 \end{align}
 \end{subequations}
@@ -192,14 +167,14 @@ where $\nu_\text{max}$ is the maximal viscosity. For both of these profiles one 
         \nu_\downarrow(z)=\nu_\text{max}\left(1-\tilde z\right). 
     \end{cases}
 \end{equation}
-One must note that this new coordinate changes the previous $z$-derivative, as a factor of $1/H$ appears when taking the derivative with respect to $\tilde z$. Using these linear viscosity profiles, together with the new dimensionless height coordinate, one can rewrite \autoref{eq:MomentumFlux} for the two profiles as 
+One must note that this new coordinate changes the previous $z$-derivative, as a factor of $1/H$ appears when taking the derivative with respect to $\tilde z$. Using these linear viscosity profiles, together with the new dimensionless height coordinate, one can rewrite \autoref{eq:EkmanEquation} for the two profiles as 
 \begin{subequations}
 \label{eq:15Linear}
 \begin{align}
     \label{eq:15LinearIncreasing}
-    \frac{\mathrm{d}^2F}{\mathrm{d} \tilde z^2}&=i\underbrace{\frac{1}{ \tilde z}}_{\equiv 1/\nu_\uparrow}\underbrace{\frac{Hf^2}{\nu_\text{max}}}_{=2\varphi^2}F,\\
+    \frac{\mathrm{d}}{\mathrm{d} \tilde z}\left(\underbrace{\tilde z }_{\equiv\tilde\nu_\uparrow}\frac{\mathrm{d} U}{\mathrm{d} \tilde z}\right)&=i\underbrace{\frac{Hf^2}{\nu_\text{max}}}_{=2\varphi^2}(U-U_g),\\
     \label{eq:15LinearDecreasing}
-    \frac{\mathrm{d}^2F}{\mathrm{d} \tilde z^2}&=i\underbrace{\frac{1}{ 1-\tilde z}}_{\equiv 1/\nu_\downarrow}\underbrace{\frac{Hf^2}{\nu_\text{max}}}_{=2\varphi^2}F.
+    \frac{\mathrm{d}}{\mathrm{d} \tilde z}\left(\underbrace{\left[1-\tilde z \right]}_{\equiv\tilde\nu_\downarrow}\frac{\mathrm{d} U}{\mathrm{d} \tilde z}\right)&=i\underbrace{\frac{Hf^2}{\nu_\text{max}}}_{=2\varphi^2}(U-U_g).
 \end{align}
 \end{subequations}
 Above the dimensionless height $\varphi$ was again introduced following the logic from before.
@@ -211,7 +186,7 @@ Another simple profile to evaluate is a parabolic increasing viscosity as
 \end{equation} 
 Again, using the non-dimensional height coordinate $\tilde z$ and the dimensionless height $\varphi$, one can rewrite \autoref{eq:EkmanEquation} as 
 \begin{equation}
-    \frac{\mathrm{d}^2F}{\mathrm{d} \tilde z^2}=i \underbrace{\frac{1}{ 4\tilde z \left[1-\tilde z\right]}}_{\equiv 1/\nu_p} \underbrace{\frac{Hf^2}{\nu_\text{max}}}_{=2\varphi^2}(U-U_g).
+    \frac{\mathrm{d}}{\mathrm{d} \tilde z}\left(\underbrace{4\tilde z\left[1-\tilde z \right]}_{\equiv\tilde\nu_p}\frac{\mathrm{d} U}{\mathrm{d} \tilde z}\right)=i\underbrace{\frac{Hf^2}{\nu_\text{max}}}_{=2\varphi^2}(U-U_g).
 \end{equation}
 
 

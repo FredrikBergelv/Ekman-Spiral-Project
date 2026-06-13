@@ -1,0 +1,138 @@
+Our problem is to solve
+\begin{empheq}[box=\fbox]{equation*}
+    F''(z)=2ik^2\varphi^2\,e^{kz/2}F(z).
+\end{empheq}
+
+Define
+$$
+\lambda^2=2i\,k^2\varphi^2, \quad\text{ i.e. } \lambda=\left(1+i\right)k\varphi,
+$$
+
+so that
+$$
+F''(z)=\lambda^2 e^{kz/2}F(z).
+$$
+
+Introduce the new variable
+$$
+t=\frac{4\lambda}{k}e^{kz/4}.
+$$
+
+Then
+$$
+\frac{dt}{dz}=\frac{k}{4}t,
+$$
+
+and therefore
+$$
+\frac{dF}{dz}=\frac{k}{4}t\frac{dF}{dt},
+$$
+
+$$
+\frac{d^2F}{dz^2}
+=\left(\frac{k}{4}\right)^2
+\left(
+t^2\frac{d^2F}{dt^2}
++t\frac{dF}{dt}
+\right).
+$$
+
+Since
+$$
+e^{kz/2}
+=
+\left(\frac{xk}{4\lambda}\right)^2,
+$$
+
+substitution into the differential equation yields
+\begin{empheq}[box=\fbox]{equation*}
+    t^2\frac{d^2F}{dt^2}
++t\frac{dF}{dt}
+-t^2F=0.
+\end{empheq}
+
+This is the modified Bessel equation of order zero,
+$$
+t^2y''+xy'-(t^2+\nu^2)y=0,
+\qquad \nu=0.
+$$
+
+Hence the general solution is
+$$
+F(z)=A\,I_0(t)+B\,K_0(t).
+$$
+
+The boundary condition
+$$
+F(\infty)=0
+$$
+
+implies ($A=0$), since ($I_0(t)$) grows exponentially as
+($t\to\infty$), whereas ($K_0(t)$) decays exponentially. Thus
+$$
+F(z)=B\,K_0(t).
+$$
+
+Differentiating gives
+$$
+F'(z)
+=
+-\frac{k}{4}BxK_1(t),
+$$
+
+where we used
+$$
+\frac{dK_0}{dt}=-K_1.
+$$
+
+Applying the second boundary condition
+$$
+F'(0)=-ifU_g
+$$
+
+and using
+$$
+x_0=\left.t\right|_{z=0}=\frac{4\lambda}{k},
+$$
+
+one finds
+$$
+-\frac{k}{4}B\,x_0K_1(x_0)
+=
+-ifU_g,
+$$
+
+so that
+$$
+B
+=
+\frac{ifU_g}
+{\lambda\,K_1(x_0)}.
+$$
+
+Therefore,
+$$
+F(z)
+=
+\frac{ifU_g}
+{\lambda \,K_1(x_0)}
+K_0(t),
+$$
+
+with
+$$
+t=x_0e^{kz/4},
+\qquad
+x_0=\frac{4\lambda}{k}=4\left(1+i\right)\varphi 
+\qquad \implies 
+t=4\left(1+i\right)\varphi e^{kz/4}.
+$$
+
+Substituting ($\lambda=\left(1+i\right)k\varphi$) and using $i/(1+i)=(1+i)/2$finally yields
+\begin{empheq}[box=\fbox]{equation*}
+    F(z)
+    =
+    \frac{\left(1+i\right)fU_g}
+    {2k\varphi}
+    \frac{K_0\left(4\left[1+i\right]\varphi e^{kz/4}\right)}{K_1\left(4\left[1+i\right]\varphi\right)}
+\end{empheq}

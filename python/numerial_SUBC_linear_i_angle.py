@@ -1,5 +1,5 @@
 """
-Created on Mon May  4 07:53:05 2026
+Created on Sat May  2 23:16:29 2026
 
 @author: fredrik
 """
@@ -8,90 +8,77 @@ import numpy as np
 from scipy.integrate import solve_bvp
 import matplotlib.pyplot as plt
 
-
 # -------------------------
 # PARAMETERS
 # -------------------------
 u0 = 10.0
-f = 1e-4
 
+min_viscosities = [1e-1, 1e-2, 1e-4, 1e-6, 1e-9, 1e-12]
 
 # -------------------------
-# ν(z)
+# VISCOCITY SCHEMES
 # -------------------------
-def nu_deacreasing(z):
-    return (1 - z)
 
-def nu_p_deacreasing(z):
-    return -1
-
-def nu_increasing(z):
-    return z
-
+def nu_increasing(z, eps):
+    return z + eps
 def nu_p_increasing(z):
     return 1
-
 # -------------------------
-# BVP SYSTEM
+# SOLVER
 # -------------------------
-def solve_profile(phi, scheme):
 
+def solve_profile(phi, eps):
     z = np.linspace(0, 1, 300)
 
     def fun(z, Y):
         u, up, v, vp = Y
 
-        if scheme == "decreasing":
-            nu_z = nu_deacreasing(z)
-            nu_z = np.maximum(nu_z, 1e-10)
-            nu_zp = nu_p_deacreasing(z)
-            
-        elif scheme == "increasing" :
-            nu_z = nu_increasing(z)
-            nu_z = np.maximum(nu_z, 1e-10)
-            nu_zp = nu_p_increasing(z)
-        
-        else:
-            print("choose right scheme!")
+        nu = nu_increasing(z, eps)
+        nu_p = nu_p_increasing(z)
 
         return np.vstack([
             up,
-            (-2*phi**2*v - nu_zp*up) / nu_z,
+            (-2*phi**2*v - nu_p*up) / nu,
             vp,
-            ( 2*phi**2*(u - u0) - nu_zp*vp) / nu_z
+            (2*phi**2*(u - u0) - nu_p*vp) / nu
         ])
 
-    def bc(Y0, YH):
+    def bc(Y0, Y1):
         return np.array([
-            Y0[0],   # u_r(0)=0
-            Y0[2],   # u_i(0)=0
-            YH[1],   # u_r'(H)=0
-            YH[3]    # u_i'(H)=0
+            Y0[0],  # u(0)=0
+            Y0[2],  # v(0)=0
+            Y1[1],  # u'(1)=0
+            Y1[3]   # v'(1)=0
         ])
 
-    # initial guess (smooth decay)
-    k = np.sqrt(phi**2 + 1e-6)
-    u_hat = u0 * (1 - np.exp(-k*z))
-    v_hat = np.zeros_like(z)
+    k = max(phi, 1e-6)
+    u_guess = u0 * (1 - np.exp(-k*z))
+    v_guess = np.zeros_like(z)
 
-    Y0 = np.vstack([
-        u_hat,
-        np.gradient(u_hat, z),
-        v_hat,
-        np.gradient(v_hat, z)])
+    Y_init = np.vstack([
+        u_guess,
+        np.gradient(u_guess, z),
+        v_guess,
+        np.gradient(v_guess, z)
+    ])
 
-    sol = solve_bvp(fun, bc, z, Y0)
-
+    sol = solve_bvp(fun, bc, z, Y_init)
     return sol.x, sol.y
+
+# -------------------------
+# ANGLE METRIC
+# -------------------------
 
 def surface_angle(z, Y):
     u, up, v, vp = Y
-
-    idx = 1 # surface 
+    idx = 1  # surface (top boundary)
 
     angle = np.arctan2(vp[idx], up[idx])
     return np.degrees(angle)
 
+# -------------------------
+# PLOTTING
+# -------------------------
 def transport_angle(z, Y):
 
     u, up, v, vp = Y
@@ -104,57 +91,58 @@ def transport_angle(z, Y):
 
     return np.degrees(angle)
 
-extent=4
+extent = 4
 phi_values = np.logspace(-6, np.log10(extent), 1000)
+phi_values = np.linspace(1e-6, extent, 200)
 
 
-surface_angles_d = []
 surface_angles_i = []
-transport_angles_d = []
 transport_angles_i = []
-
-
-
 for i, phi in enumerate(phi_values):
+    
+    surface_angles_i_now = []
+    transport_angles_i_now = []
+    
+    for j, epsilon in enumerate(min_viscosities):
 
-        z_i, Y_i = solve_profile(phi, "increasing")
-        surf_angle_i = surface_angle(z_i, Y_i)
-        surface_angles_i.append(surf_angle_i)
+        z, Y = solve_profile(phi, epsilon)
+        surf = surface_angle(z, Y)
+        surface_angles_i_now.append(surf)
         
-        z_d, Y_d = solve_profile(phi, "decreasing")
-        surf_angle_d = surface_angle(z_d, Y_d)
-        surface_angles_d.append(surf_angle_d)
+        transport= transport_angle(z, Y)
+        transport_angles_i_now.append(transport)
         
-        #trans_angle_i = transport_angle(z_i, Y_i)
-        #transport_angles_i.append(trans_angle_i)
-        #trans_angle_d = transport_angle(z_d, Y_d)
-        #transport_angles_d.append(trans_angle_d)
-        
-        if surf_angle_i<45.0001:
-            print("Bingo!, varphi = ", phi)
+        #if surf<45.0001:
+            #print("Bingo!, varphi = ", phi)
             #break
-        
-        percent = 100* i / len(phi_values)
-        #print(f"{percent:.2f}% (surf = {surf_angle_i:.2f} deg and {surf_angle_d:.2f} deg) ")
 
+        percent = 100 * (i * len(min_viscosities) + j + 1) / (len(phi_values) * len(min_viscosities))
+        print(f"{percent:.2f}% (surf = {surf:.2f} deg)")
+        
+    surface_angles_i.append([surface_angles_i_now])
+    transport_angles_i.append(transport_angles_i_now)
+    
+        
 #%%
 plt.figure(figsize=(8,5))
-plt.plot(phi_values, surface_angles_i, label="linear increasing")
-plt.plot(phi_values, surface_angles_d, label="linear decreasing")
 
+surface_angles_i = np.squeeze(np.array(surface_angles_i))
+for j, epsilon in enumerate(min_viscosities):
 
+    plt.plot(phi_values, surface_angles_i[:, j], label=fr"$\epsilon={epsilon:.0e}$")
+    
 plt.hlines(45, min(phi_values), max(phi_values), color="black", linestyle='--', label="45° reference")
 
 plt.xlabel(r"Dimensionless layer thickness, $\varphi$ [-]",fontsize=11)
 plt.ylabel(r"Surface angle, $\theta$ [deg]",fontsize=11)
-plt.suptitle("Surface Angle for 1.5 Linear Model", fontsize=14)
+plt.suptitle("Surface Angle for the the SUBC Linear Increasing Model", fontsize=14)
 plt.title("Surface angle vs layer thickness", fontsize=13)
 plt.grid(True, linestyle='--', alpha=0.6)
 plt.legend(fontsize=11)
 plt.ylim(0,95)
 plt.yticks([0, 15, 30, 45, 60, 75, 90])
 plt.xticks(np.arange(0, extent + 0.5, 0.5))
-save_name="numerical_15_linear_angle"
+save_name="numerical_SUBC_linear_i_angle"
 plt.savefig(f"plots/{save_name}.png", dpi=400)
 plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{save_name}.png", dpi=400)
 
@@ -162,8 +150,7 @@ plt.show()
 
 #%%
 plt.figure(figsize=(8,5))
-plt.plot(phi_values, transport_angles_i, label="linear increasing")
-plt.plot(phi_values, transport_angles_d, label="linear decreasing")
+plt.plot(phi_values, transport_angles_i, label="linear Increasing")
 
 plt.hlines(135, min(phi_values), max(phi_values), color="black", linestyle='--', label="135° reference")
 
@@ -177,10 +164,9 @@ plt.ylim(90,185)
 plt.yticks([90, 105, 120, 135, 150, 165, 180])
 plt.xticks(np.arange(0, extent + 0.5, 0.5))
 
-save_name="numerical_15_linear_transport"
+save_name="numerical_SUBC_linear_transport"
 plt.savefig(f"plots/{save_name}.png", dpi=400)
 plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{save_name}.png", dpi=400)
 
 plt.show()
-
 
