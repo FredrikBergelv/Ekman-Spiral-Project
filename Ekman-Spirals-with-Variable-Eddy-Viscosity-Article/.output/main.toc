@@ -8,13 +8,13 @@
 \contentsline {subsection}{\numberline {2.4}The two layer model}{3}{subsection.2.4}%
 \contentsline {subsection}{\numberline {2.5}The exponential decaying viscosity}{4}{subsection.2.5}%
 \contentsline {subsection}{\numberline {2.6}The simplified upper boundary condition model}{5}{subsection.2.6}%
-\contentsline {subsubsection}{\numberline {2.6.1}Simple viscosity profiles for the SUBC model}{5}{subsubsection.2.6.1}%
-\contentsline {subsection}{\numberline {2.7}The Ekman transport}{6}{subsection.2.7}%
-\contentsline {section}{\numberline {3}Methodology}{6}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Numerical method}{6}{subsection.3.1}%
-\contentsline {section}{\numberline {4}Results}{7}{section.4}%
-\contentsline {subsection}{\numberline {4.1}The theoretical models}{7}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}The SUBC model}{8}{subsection.4.2}%
+\contentsline {subsubsection}{\numberline {2.6.1}Simple viscosity profiles for the SUBC model}{6}{subsubsection.2.6.1}%
+\contentsline {subsection}{\numberline {2.7}The Ekman transport}{7}{subsection.2.7}%
+\contentsline {section}{\numberline {3}Methodology}{7}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Numerical method}{7}{subsection.3.1}%
+\contentsline {section}{\numberline {4}Analysis}{8}{section.4}%
+\contentsline {subsection}{\numberline {4.1}The SUBC model}{8}{subsection.4.1}%
+\contentsline {subsubsection}{\numberline {4.1.1}The Ekman transport}{9}{subsubsection.4.1.1}%
 \contentsline {section}{\numberline {5}Discussion}{9}{section.5}%
 \contentsline {section}{\numberline {6}Conclusion}{9}{section.6}%
 \contentsline {section}{\numberline {A}The Source Code}{10}{appendix.A}%

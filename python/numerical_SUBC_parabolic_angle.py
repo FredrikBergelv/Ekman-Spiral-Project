@@ -79,20 +79,18 @@ def surface_angle(z, Y):
 # PLOTTING
 # -------------------------
 def transport_angle(z, Y):
+    Fx, Fpx, Fy, Fpy = Y
 
-    u, up, v, vp = Y
-
-    # transport relative to geostrophic flow
-    transport_u = np.trapz(u - u0, z)
-    transport_v = np.trapz(v, z)
-
-    angle = np.arctan2(transport_v, transport_u)
+    # T = i/f F(z=0) gives
+    Fx0 = Fx[0]
+    Fy0 = Fy[0]
+    angle = np.arctan2(Fx0, -Fy0)
 
     return np.degrees(angle)
 
 extent = 4
 phi_values = np.logspace(-6, np.log10(extent), 1000)
-phi_values = np.linspace(1e-6, extent, 150)
+phi_values = np.linspace(1e-6, extent, 140)
 
 
 
@@ -150,22 +148,83 @@ plt.show()
 
 #%%
 plt.figure(figsize=(8,5))
-plt.plot(phi_values, transport_angles, c="C2")
+transport_angles = np.squeeze(np.array(transport_angles))
+for j, epsilon in enumerate(min_viscosities):
+    plt.plot(phi_values, transport_angles[:, j],  label=fr"$\epsilon={epsilon:.0e}$")
 
 plt.hlines(135, min(phi_values), max(phi_values), color="black", linestyle='--', label="135° reference")
 
 plt.xlabel(r"Dimensionless layer thickness, $\varphi$ [-]", fontsize=11)
 plt.ylabel(r"Transport angle, $\theta_T$ [deg]", fontsize=11)
-plt.suptitle("Ekman Transport Angle for 1.5 Parabolic Model", fontsize=14)
+plt.suptitle("Ekman Transport Angle the SUBC Parabolic Model", fontsize=14)
 plt.title("Transport angle vs layer thickness", fontsize=13)
 plt.grid(True, linestyle='--', alpha=0.6)
 plt.legend(fontsize=11)
 plt.ylim(90,185)
 plt.yticks([90, 105, 120, 135, 150, 165, 180])
-plt.xticks([0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0])
+plt.xticks(np.arange(0, extent + 0.5, 0.5))
+
 save_name="numerical_SUBC_parabolic_transport"
 plt.savefig(f"plots/{save_name}.png", dpi=400)
 plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{save_name}.png", dpi=400)
 
+plt.show()
+
+#%%
+
+epsilons_to_plot = [1e-1, 1e-3]
+phis_to_plot = [0.5, 1.0, 2.0]
+Nz = 300
+z_plot = np.linspace(0, 1, Nz)
+
+fig, axes = plt.subplots(2, 2, figsize=(10, 8),
+                         gridspec_kw={'height_ratios': [3, 1]},
+                         sharey='row')
+
+for i, epsilon in enumerate(epsilons_to_plot[:2]):  # two columns
+    ax = axes[0, i]
+
+    for j, phi in enumerate(phis_to_plot):
+        z_sol, Y_sol = solve_profile(phi, epsilon)
+
+        Fx = Y_sol[0]
+        Fy = Y_sol[2]
+
+        # Interpolate onto uniform z_plot grid
+        Fx_interp = np.interp(z_plot, z_sol, Fx)
+        Fy_interp = np.interp(z_plot, z_sol, Fy)
+
+        ax.plot(Fx_interp, z_plot, c=f"C{j}", label=fr'$\varphi={phi:.1f}$')
+        ax.plot(Fy_interp, z_plot, '--', c=f"C{j}")
+
+    ax.set_xlabel(r"Vertical momentum flux, $F$", fontsize=11)
+    ax.set_title(fr"$\epsilon = {epsilon:.0e}$", fontsize=12)
+    ax.set_ylim(0, 1)
+    ax.plot([], [], 'k-',  label=r'$F_x$')
+    ax.plot([], [], 'k--', label=r'$F_y$')
+    ax.legend(loc="upper right", fontsize=9)
+    ax.grid(True, linestyle='--', alpha=0.6)
+
+    # --- Potential well below ---
+    ax_pot = axes[1, i]
+    nu_z = nu_parabolic(z_plot, epsilon)
+    ax_pot.plot(1 / nu_z, z_plot, 'k')
+    ax_pot.set_xlabel(r"Potential well, $1/\nu(z)$ [-]", fontsize=11)
+    ax_pot.set_ylim(0, 1)
+    ax_pot.grid(True, linestyle='--', alpha=0.6)
+
+# Shared y-labels on left column only
+axes[0, 0].set_ylabel(r"Norm. height, $z$ [-]", fontsize=11)
+axes[1, 0].set_ylabel(r"Norm. height, $z$ [-]", fontsize=11)
+
+# Same xlim per row
+
+
+plt.suptitle(r"Vertical momentum flux and potential well for parabolic viscosity",
+             fontsize=13)
+plt.tight_layout()
+save_name = "numerical_SUBC_parabolic_structure"
+plt.savefig(f"plots/{save_name}.png", dpi=400)
+plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{save_name}.png", dpi=400)
 plt.show()
 

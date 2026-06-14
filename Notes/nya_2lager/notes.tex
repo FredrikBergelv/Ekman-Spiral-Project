@@ -1,0 +1,21 @@
+The surface stress angle is defined as
+\begin{equation}
+    \theta = \arg\left[F(z=0)\right] = \arg\left[A_1+B_1\right].
+\end{equation}
+Summing $A_1$ and $B_1$ gives
+\begin{equation}
+    A_1+B_1 = \nu_1 U_g\frac{1+i}{h_\text{Ek1}}\cdot\frac{-(1-\gamma)+e^{2(1+i)\varphi}(1+\gamma)}{1-\gamma+e^{2(1+i)\varphi}(1+\gamma)}.
+\end{equation}
+To simplify this expression, one can factor out $(1+\gamma)$ from both the numerator and denominator, yielding
+\begin{equation}
+    A_1+B_1 = \nu_1 U_g\frac{1+i}{h_\text{Ek1}}\cdot\frac{e^{2(1+i)\varphi}-\frac{1-\gamma}{1+\gamma}}{\frac{1-\gamma}{1+\gamma}+e^{2(1+i)\varphi}} = \nu_1 U_g\frac{1+i}{h_\text{Ek1}}\cdot\frac{e^{2(1+i)\varphi}-R}{R+e^{2(1+i)\varphi}}.
+\end{equation}
+Dividing the numerator and denominator by $e^{(1+i)\varphi}$ one obtains
+\begin{equation}
+    A_1+B_1 = \nu_1 U_g\frac{1+i}{h_\text{Ek1}}\cdot\frac{e^{(1+i)\varphi}-Re^{-(1+i)\varphi}}{e^{(1+i)\varphi}+Re^{-(1+i)\varphi}}.
+\end{equation}
+Since $\nu_1$, $U_g$ and $h_\text{Ek1}$ are all real and positive, their argument is zero. The factor $(1+i)$ contributes $\arg[1+i]=\pi/4$. The surface stress angle therefore becomes
+\begin{equation}
+    \theta = \frac{\pi}{4} + \arg\left[\frac{e^{(1+i)\varphi}-Re^{-(1+i)\varphi}}{e^{(1+i)\varphi}+Re^{-(1+i)\varphi}}\right].
+\end{equation}
+In the single-layer limit $\gamma\rightarrow 1$, one has $R\rightarrow 0$ and the argument of the fraction vanishes, recovering the classical Ekman result $\theta=\pi/4=\ang{45}$.

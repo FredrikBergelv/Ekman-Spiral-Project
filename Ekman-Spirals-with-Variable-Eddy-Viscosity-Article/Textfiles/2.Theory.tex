@@ -103,9 +103,9 @@ where the Ekman depth scales are defined for each layer like in \autoref{eq:Ekma
 Using this and the boundary conditions at \autoref{eq:BoundaryConditions} one obtains a expression between for factors as
 \begin{subequations}
 \begin{align}
-    A_1&=-\nu_1U_g\frac{1+i}{h_\text{Ek1}}\cdot\frac{1-\gamma}{1-\gamma+e^{\left(1+i\right)\varphi}\left(1+\gamma\right)}, \text{ where }\gamma=\sqrt{\tfrac{\nu_2}{\nu_1}} \\ 
-    B_1&=\nu_1U_g\frac{1+i}{h_\text{Ek1}}\cdot\frac{\left(1+\gamma\right)e^{\left(1+i\right)\varphi}}{1-\gamma+e^{\left(1+i\right)\varphi}\left(1+\gamma\right)}, \\ 
-    B_2&=\nu_2U_g\frac{1+i}{h_\text{Ek2}}\cdot\frac{2e^{\left(1+i\right)\varphi\left(1+\gamma^{-1}\right)}}{1-\gamma+e^{\left(1+i\right)\varphi}\left(1+\gamma\right)},
+    A_1&=-\nu_1U_g\frac{1+i}{h_\text{Ek1}}\cdot\frac{1-\gamma}{1-\gamma+e^{2\left(1+i\right)\varphi}\left(1+\gamma\right)}, \text{ where }\gamma=\sqrt{\tfrac{\nu_2}{\nu_1}} \\ 
+    B_1&=\nu_1U_g\frac{1+i}{h_\text{Ek1}}\cdot\frac{\left(1+\gamma\right)e^{2\left(1+i\right)\varphi}}{1-\gamma+e^{2\left(1+i\right)\varphi}\left(1+\gamma\right)}, \\ 
+    B_2&=\nu_2U_g\frac{1+i}{h_\text{Ek2}}\cdot\frac{2e^{\left(1+i\right)\varphi\left(1+\gamma^{-1}\right)}}{1-\gamma+e^{2\left(1+i\right)\varphi}\left(1+\gamma\right)},
 \end{align}
 \end{subequations}
 where $\varphi$ is the non-dimensional height defined as 
@@ -118,12 +118,20 @@ The constant $R$ is defined as
 \end{equation}
 Using this one can define the surface angle as 
 \begin{align}
-    \theta=\arg \left.\frac{\mathrm{d} U_1}{\mathrm{d} z}\right|_{z=0} &= \arg\left[\frac{i+1}{h_\text{Ek}}\,\left(A_1-B_1\right)\right] \\
+    \theta=\arg \left[F(z=0)\right] &= \arg\left[\left(A_1+B_1\right)\right] \\
     &=45\degr + 
-    \arctan\left[\frac{2R e^{\varphi}\sin(\varphi)}{e^{2\varphi} -R^2}\right]
+    \arg\left[\frac{e^{(1+i)\varphi}-Re^{-(1+i)\varphi}}{e^{(1+i)\varphi}+Re^{-(1+i)\varphi}}\right]
     \label{eq:2layerAngle}
 \end{align}
-Observing \autoref{eq:2layerAngle}, and assuming that $\nu_1>\nu_2$, one can see that the solution will always provide a result greater than \ang{45}, except between the $\varphi\in\left(\tfrac{\pi}{2},\pi\right)$ were a angle below \ang{45} can be observed.
+
+The result from the theoretical two layer model, \autoref{eq:2layerAngle}, can be seen in \autoref{fig:2layer_angle}. There one can observe solutions for different viscosity ratios, half of which have an higher upper-level viscosity and the other half a lower one. These are plotted together with a \ang{45} reference point to highlight the difference from the classical Ekman solution. One can observe a convergence towards the classical Ekman value when $\varphi\rightarrow\infty$ for all the viscosity ratios. The zero limit is, however, dependent on the viscosity ratio, where finite ratios approach \ang{45}. However, when $\tfrac{\nu_2}{\nu_1}\rightarrow0$ and $\varphi\rightarrow 0$ one can observe that $\theta\rightarrow\ang{90}$. Respectively, one can observe that when $\tfrac{\nu_2}{\nu_1}\rightarrow\infty$ and $\varphi\rightarrow0$, $\theta\rightarrow\ang{0}$. One can note that for $\nu_1>\nu_2$ (and $\nu_2>\nu_1$ respectively) the solution will always provide a result greater than \ang{45}, except between the $\varphi\in\left(\tfrac{\pi}{2},\pi\right)$ were a angle below \ang{45} can be observed. 
+
+\begin{figure}[H]
+    \centering    
+    \includegraphics[height=0.37\textwidth]{Figures/2layer_angle.png}
+    \caption{The surface angle as a function of the dimensionless layer thickness $\varphi = H/h_\text{Ek1}$ for the two-layer viscosity model. Different coloured curves correspond to different layer viscosity ratios. The classical Ekman angle of \ang{45} is shown as a reference.}
+    \label{fig:2layer_angle}
+\end{figure}
 
 \subsection{The exponential decaying viscosity}
 Another viscosity profile that can provide a fully analytical solution is an exponentially decaying viscosity with altitude. Here the viscosity is set to decay from an initial viscosity of $\nu_0$, with a decay rate of $k$ as $\nu(z)=\nu_0\exp\left(-kz\right)$. To solve \autoref{eq:EkmanEquation} with this viscosity profile one can introduce two new parameters 
@@ -155,6 +163,15 @@ Using \autoref{eq:exponetial} one can derive the surface angle of this model as
     \label{eq:ExponetialAngle}
 \end{equation} 
 where $K_1$ is the modified Bessel function of the second kind of order one. 
+
+\autoref{fig:exponential_angle} showcases the result from the exponentially decaying viscosity as in \autoref{eq:ExponetialAngle}. There one can observe a similar limit as in \autoref{fig:2layer_angle} when $\varphi\rightarrow 0$, as \autoref{eq:ExponetialAngle} also approaches \ang{90}. The same limit is also true for $\varphi\rightarrow\infty$, which gives $\theta\rightarrow\ang{45}$, although this exponential solution converges more slowly than the two-layer solution. However, the shape is much more uniform, with an exponential-like decay. However, all angels are here greater then the reference angle of \ang{45}. 
+
+\begin{figure}[H]
+    \centering    
+    \includegraphics[height=0.37\textwidth]{Figures/exponential_angle.png}
+    \caption{Surface angle for the exponentially decaying viscosity model as a function of the dimensionless parameter $\varphi=H/h_\text{Ek}$. The solution assumed a purely zonal geostrophic flow.}
+    \label{fig:exponential_angle}
+\end{figure}
 
 \subsection{The simplified upper boundary condition model}
 In the previous sections two completely analytical solutions for two different altitude-varying viscosity profiles were derived. The difficulty in solving \autoref{eq:MomentumFlux} comes from the altitude dependence of the viscosity profile $\nu(z)$. This introduces variable coefficients into the complex second-order ordinary differential equation, which in general prevents closed-form analytical solutions. Analytical solutions therefore exist only for specific viscosity profiles that allow the equation to be transformed into a solvable form.
@@ -220,5 +237,6 @@ Again, using the non-dimensional height coordinate $\tilde z$ and the dimensionl
 For a theoretically or numerically derived solution, one can derive the Ekman transport, which may be a more useful quantity. The Ekman transport is defined as the mass flux per meter for the entire Ekman spiral. In the classical solution the Ekman transport is \ang{90} to the right of the surface flow, and can be obtained by integrating the the velocity solution with altitude. One can thus define the Ekman transport as 
 \begin{equation}
     T(\varphi) = \int_0^\infty\left[U-U_g\right]d z=\frac{i}{f}F(z=0),
+    \label{eq:Transport}
 \end{equation}
 where the definition of the vertical momentum flux (see \autoref{eq:UtoF}) was used.To obtain the transport angle one can simply compute the argument, $ \arg\left[T(\varphi)\right] $ of the transport.

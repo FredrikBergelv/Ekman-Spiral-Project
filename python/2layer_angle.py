@@ -11,63 +11,68 @@ import matplotlib.pyplot as plt
 f = 1e-4  # Coriolis parameter
 U0 = 1.0  # Reference velocity
 
-def layer_dUdz0(phi, epsilon):
-      R = (1 - epsilon) / (1 + epsilon)
-      A1 = np.exp(phi)
-      E1 = A1 * (np.cos(phi) + 1j * np.sin(phi))
-      Z = (1 + 1j) * (E1**2 - R) / (E1**2 + R)
-      return Z
   
-def U(z_tilde, phi, epsilon):
-    "This solution is normalizd for h_1"
-
-    gamma = epsilon
-    den = 1 - gamma + np.exp((1 + 1j)*phi) * (1 + gamma)
+def surface_angle(phi, gamma):        
+      R = (1 - gamma) / (1 + gamma)
+      num = np.exp((1+1j)*phi)-R*np.exp(-(1+1j)*phi)
+      denum = np.exp((1+1j)*phi)+R*np.exp(-(1+1j)*phi)
+      
+      theta =  45 + np.angle(num/denum, deg=True)
+      return theta
+  
+def F(z, phi, gamma, nu1=1):
+    nu2 = gamma**2 * nu1
+    hEK1 = np.sqrt(2*nu1/f)
+    hEK2 = np.sqrt(2*nu2/f)
+    H = phi*hEK1
+    
+    den = 1 - gamma + np.exp(2 * (1 + 1j) * phi) * (1 + gamma)
     A1 = -U0 * ((1 - gamma) / den)
-    B1 = -U0 * ((1 + gamma) * np.exp((1 + 1j)*phi) / den)
-    B2 = -U0 * (2* np.exp(((1 + 1j)) * phi * (1 + 1/gamma))/ den)
+    B1 =  U0 * ((1 + gamma) * np.exp(2 * (1 + 1j) * phi) / den)
+    B2 =  U0 * (2 * np.exp((1 + 1j) * phi * (1 + 1/gamma)) / den)
 
-    U1 =  U0 + A1 * np.exp((1 + 1j)*z_tilde) + B1 * np.exp(-(1 + 1j)*z_tilde)
-    U2 =  U0 + B2 * np.exp(-(1 + 1j)*z_tilde/gamma)
+    # F = nu * dU/dz, with nu=1 for layer 1, nu=gamma^2 for layer 2
+    F1 =  nu1 * (1 + 1j)/hEK1 * A1 * np.exp( (1 + 1j) * z/hEK1) \
+        + nu1 * (1 + 1j)/hEK1 * B1 * np.exp(-(1 + 1j) * z/hEK1)
+    F2 = nu2 * (1 + 1j)/hEK2 * B2 * np.exp(-(1 + 1j) * z/hEK2)
 
-    return np.where(z_tilde < phi, U1, U2)
+    return np.where(z < H, F1, F2)
 
-
-def ekman_transport(phi, epsilon, zmax=1500.0, Nz=500000):
-    z = np.linspace(0, zmax, Nz)
-    U_vals = U(z, phi, epsilon)
-    M = np.trapezoid(U_vals-U0, z)
-    print(np.angle(M, deg=True), np.angle(M, deg=True)-np.angle(layer_dUdz0(phi, epsilon), deg=True))
-    return M
-
+def ekman_transport(phi, gamma):
+    den = 1 - gamma + np.exp(2 * (1 + 1j) * phi) * (1 + gamma)
+    # Only the complex structure matters for the angle
+    F0 = (1 + 1j) * (-(1 - gamma) + (1 + gamma) * np.exp(2 * (1 + 1j) * phi)) / den
+    T = 1j * F0  # i/f * F0, f real so doesn't affect angle
+    return np.angle(T, deg=True)
 
 
 
 # Plottin gparameters
-extent = 4
+extent = 5
 
 nu_ratios = np.array([0.001, 0.1, 0.5, 1/0.5, 1/0.1, 1/0.001])
-epsilons = np.sqrt(nu_ratios)
 
 
 phis =  np.logspace(-6, np.log10(extent), 1000)
 
 
 #%%
-plt.figure(figsize=(8*extent/3,5))
-for epsilon in epsilons:
+plt.figure(figsize=(8*extent/4,5))
+for ratio in nu_ratios:
+    
+    gamma = np.sqrt(ratio)
 
-    layer_angle = np.angle(layer_dUdz0(phis, epsilon), deg=True)
+    layer_angle =surface_angle(phis, gamma)
 
-    plt.plot(phis, layer_angle, label=fr'$\nu_2/\nu_1={epsilon**2:.0e}$')
+    plt.plot(phis, layer_angle, label=fr'$\nu_2/\nu_1={gamma**2:.0e}$')
 
 
 #plt.hlines(45, min(phis), max(phis), color="black", linestyle='--', label="45° reference")
-ref = np.angle(layer_dUdz0(phis, 1), deg=True)
+ref = surface_angle(phis, 1)
 plt.plot(phis, ref, label=r'$\nu_2/\nu_1=1$', color="black")
 
-ang_15 = np.angle(layer_dUdz0(phis, 0), deg=True)
-ang_15_reversed = np.angle(layer_dUdz0(phis, 1e32), deg=True)
+ang_15 = surface_angle(phis, 0)
+ang_15_reversed = surface_angle(phis, 1e32)
 plt.plot(phis, ang_15, label=r'1.5 model', color="black", linestyle='--')
 plt.plot(phis, ang_15_reversed, color="black", linestyle='--')
 
@@ -91,22 +96,25 @@ plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{sav
 plt.show()
 
 #%%
-phis = np.linspace(0,extent,300)
-nu_ratios = np.array([0.00001, 0.1, 0.5, 1/0.5, 1/0.1, 1/0.00001])
-epsilons = np.sqrt(nu_ratios)
+phis =  np.logspace(-3, np.log10(extent), 1000)
 
-plt.figure(figsize=(8*extent/3,5))
-for epsilon in epsilons:
-
-    M_vals = np.array([ekman_transport(phi, epsilon) for phi in phis])
-    trans_angle = np.angle(M_vals, deg=True)
-    plt.plot(phis, trans_angle, label=fr'$\nu_2/\nu_1={epsilon**2:.0e}$')
+plt.figure(figsize=(8*extent/4,5))
+for ratio in nu_ratios:
+    gamma = np.sqrt(ratio)
+    
+    trans_angle = np.array([ekman_transport(phi, gamma) for phi in phis])
+    plt.plot(phis, trans_angle, label=fr'$\nu_2/\nu_1={gamma**2:.0e}$')
 
 # -------------------------
 # Reference lines
 # -------------------------
-plt.vlines([np.pi/np.sqrt(2), np.sqrt(2)*np.pi], 90, 185, color="black", linestyle=":", label=r"$\pi/\sqrt{2}$ and $\sqrt{2}\pi$")
+plt.vlines([np.pi/2, np.pi], 95, 180, color="black", linestyle=":", label=r"$\pi/2$ and $\pi$")
 plt.hlines(135, min(phis), max(phis), color="black", linestyle='--', label="135° reference")
+
+ang_15 = ekman_transport(phis, 0)
+ang_15_reversed = ekman_transport(phis, 1e32)
+plt.plot(phis, ang_15, label=r'1.5 model', color="black", linestyle='--')
+plt.plot(phis, ang_15_reversed, color="black", linestyle='--')
 
 plt.xlabel(r"Dimensionless lower layer thickness, $\varphi$ [-]",fontsize=11)
 plt.ylabel(r"Transport angle, $\theta_T$ [deg]", fontsize=11)
@@ -123,3 +131,57 @@ plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{sav
 
 plt.show()
 
+#%%
+nu1 = 0.10  # m^2/s, reference viscosity
+hEk1 = np.sqrt(2 * nu1 / f)
+
+nu_ratios = [0.1, 10.0]
+phis_to_plot = [0.5, 1.0, 4]
+zmax = 12 * hEk1
+Nz = 10000
+z = np.linspace(0, zmax, Nz)
+
+fig, axes = plt.subplots(2, 2, figsize=(8, 6), gridspec_kw={'height_ratios': [3, 1]}, sharex="row", sharey="row")
+
+for i, nu_ratio in enumerate(nu_ratios):
+    gamma = np.sqrt(nu_ratio)
+    nu2 = gamma**2 * nu1
+    ax = axes[0, i]
+
+    for j, phi in enumerate(phis_to_plot):
+        F_vals = F(z, phi, gamma, nu1=nu1)
+        ax.plot(np.real(F_vals), z, c=f"C{j}", label=fr'$\varphi={phi:.1f}$')
+        ax.plot(np.imag(F_vals), z, '--', c=f"C{j}")
+
+    ax.set_xlabel(r"Vertical momentum flux, $F$ [m$^2$/s$^2$]", fontsize=11)
+    ax.set_title(fr"$\nu_2/\nu_1 = {nu_ratio}$ "
+                 + (r"($\nu_2 < \nu_1$)" if gamma < 1 else r"($\nu_2 > \nu_1$)"),
+                 fontsize=12)
+    ax.set_ylim(0, zmax)
+    ax.plot([], [], 'k-',  label=r'$F_x$')
+    ax.plot([], [], 'k--', label=r'$F_y$')
+    ax.legend(loc="upper right", fontsize=9)
+    ax.grid(True, linestyle='--', alpha=0.6)
+
+    # --- Potential well below ---
+    ax_pot = axes[1, i]
+    for j, phi in enumerate(phis_to_plot):
+        H = phi * hEk1  # interface height in metres
+        nu_z = np.where(z < H, nu1, nu2)
+        ax_pot.plot(1 / nu_z, z, c=f"C{j}", label=fr'$\varphi={phi:.1f}$')
+        ax_pot.axhline(H, color=f"C{j}", linestyle=':', linewidth=0.8)  # mark interface
+
+    ax_pot.set_xlabel(r"Potential well, $1/\nu$ [m$^{-2}$s]", fontsize=11)
+    ax_pot.set_ylim(0, zmax)
+    ax_pot.legend(loc="upper right", fontsize=9)
+    ax_pot.grid(True, linestyle='--', alpha=0.6)
+    
+axes[0, 0].set_ylabel(r"Height, $z$ [m]", fontsize=11)
+axes[1, 0].set_ylabel(r"Height, $z$ [m]", fontsize=11)
+
+plt.suptitle(r"Vertical momentum flux and potential well for 2-layer viscosity", fontsize=14)
+plt.tight_layout()
+save_name="2layer_structure"
+plt.savefig(f"plots/{save_name}.png", dpi=400)
+plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{save_name}.png", dpi=400)
+plt.show()
