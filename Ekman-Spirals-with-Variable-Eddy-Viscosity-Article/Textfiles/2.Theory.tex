@@ -10,7 +10,7 @@ The Ekman equation is derived from the steady-state Navier--Stokes equations on 
     \label{eq:NavierStokes}
 \end{empheq}
 \end{subequations}
-where $u$ and $v$ are the horizontal velocity components, $f$ is the Coriolis parameter, $\rho$ is the fluid density, and $\nu$ is the viscosity. Far away from the surface, shear flow and friction becomes negligible and the flow will thus approach geostrophic balance, $(u,v)\rightarrow (u_g,v_g)$, as were one can neglect the friction term in \autoref{eq:NavierStokes}. Subtracting the geostrophic balance from \autoref{eq:NavierStokes} thus gives
+where $u$ and $v$ are the horizontal velocity components, $f$ is the Coriolis parameter, $\rho$ is the fluid density, and $\nu$ is the viscosity. Far away from the surface, shear flow and friction becomes negligible and the flow will thus approach geostrophic balance, $(u,v)\rightarrow (u_g,v_g)$, where one can neglect the friction term in \autoref{eq:NavierStokes}. Subtracting the geostrophic balance from \autoref{eq:NavierStokes} gives
 \begin{subequations}
 \begin{empheq}[left=\empheqlbrace]{align}
     -f(v-v_g) &=
@@ -20,7 +20,7 @@ where $u$ and $v$ are the horizontal velocity components, $f$ is the Coriolis pa
     \label{eq:subtractedNavierStokes}
 \end{empheq}
 \end{subequations}
-This problem can be formulated with one equation if one introduces a complex velocity defined as 
+This problem can be formulated with one equation if one introduces a complex velocity as 
 \begin{align}
     U \equiv u + iv,
     \label{eq:ComplexVelocity}
@@ -37,6 +37,7 @@ and a complex geostrophic velocity as $U_g = u_g + iv_g$. Using \autoref{eq:subt
 \end{empheq}
 With the boundary conditions
 \begin{subequations}
+    \label{eq:BoundaryConditions}
 \begin{align}
     U(0) &= 0,
     \label{eq:BoundaryCondition1}
@@ -44,13 +45,19 @@ With the boundary conditions
     U(z\to\infty) &= U_g.
     \label{eq:BoundaryCondition2}
 \end{align}
-\label{eq:BoundaryConditions}
 \end{subequations}
-
-\textbf{ANGLE AND TRANSPORT?}
+One can determine the surface wind-turning angle by taking the argument of the infinitesimal change of the wind at the ground,
+\begin{equation}
+    \theta = \arg\left(\left.\frac{\mathrm{d}U}{\mathrm{d}z}\right|_{z=0}\right).
+\end{equation}
+The Ekman transport is defined as the mass flux per unit width for the entire Ekman spiral. One can thus define the Ekman transport as
+\begin{equation}
+    T = \int_0^\infty \left[U - U_g\right] \mathrm{d}z,
+\end{equation}
+since the transport represents the net movement of the entire fluid column, offset from the geostrophic wind aloft. One can consequently determine the angle of the Ekman transport by taking the argument, $\theta_T=\arg(T)$. 
 
 \subsection{The vertical momentum flux}
-The Ekman equation can be reformulated in terms by introducing a complex vertical momentum flux as
+The Ekman equation can be reformulated by introducing a complex vertical momentum flux as
 \begin{equation}
     \tau=\nu\frac{\mathrm{d}U}{\mathrm{d}z}.
     \label{eq:UtoTau}
@@ -61,8 +68,9 @@ Using this definition, \autoref{eq:EkmanEquation} can be rewritten as
     \tau.
     \label{eq:MomentumFlux}
 \end{empheq}
-Here, an effective potential $\lambda$ has been introduced. This allows \autoref{eq:MomentumFlux} to be compared with the time-independent Schrödinger equation, where $\lambda$ becomes analogous to a potential. The new equation also has a clear physical interpretation, as it describes the vertical structure of the momentum flux in the classical Ekman problem. Using \autoref{eq:MomentumFlux}, the boundary conditions become
+Here, an eigenvalue $\lambda$ has been introduced to the system. The new eigenvalue form is more intuitive since it directly compares the second order derivative with the variable itself. Furthermore, \autoref{eq:MomentumFlux} is comparable with famous equations such as the Helmholtz equation and the time-independent Schrödinger equation, where $\lambda$ becomes analogous to the potential. The new equation also has a clear physical interpretation, as it describes the vertical structure of the momentum flux in the Ekman problem. Using \autoref{eq:MomentumFlux}, the boundary conditions become
 \begin{subequations}
+    \label{eq:MomentumFluxBoundaryConditions}
 \begin{align}
     \left.\frac{\mathrm{d}\tau}{\mathrm{d}z}\right|_{z=0} &= -ifU_g,
     \label{eq:MomentumFluxBoundaryConditions1}
@@ -70,11 +78,20 @@ Here, an effective potential $\lambda$ has been introduced. This allows \autoref
     \tau(z\to\infty) &= 0.
     \label{eq:MomentumFluxBoundaryConditions2}
 \end{align}
-\label{eq:MomentumFluxBoundaryConditions}
 \end{subequations}
+This new quantity will furthermore not change the surface angle, as the viscosity is always a positive real parameter and thus does not affect the argument,
+\begin{equation}
+\theta = \arg\left[\tau(z=0)\right].
+\end{equation}
+Solving for the Ekman transport becomes easier by using the momentum flux, as it directly reduces the integral of the Ekman transport. By observing the Ekman equation (\autoref{eq:EkmanEquation}) one can observe $\frac{\mathrm{d}\tau}{\mathrm{d}z}=-if\left(U-U_g\right)$. By using the boundary condition that the momentum flux vanishes as infinity, the Ekman transport reduces to
+\begin{equation}
+T = \int_0^\infty \left[U - U_g\right] \mathrm{d}z = \frac{i}{f}\tau(z=0),
+\label{eq:Transport}
+\end{equation}
+which is proportional to the vertical momentum flux at the surface. Consequently, this can be interpreted as the surface stress at the ground being proportional to the Ekman transport of the fluid column.
 
 \subsection{The classical solution}
-The classical solution to the Ekman equation is obtained when the viscosity is assumed to be constant with altitude, $\nu=\text{constant}$, and can be found in \citet{Ekman1905}. In this case he classical Ekman spiral solution from \autoref{eq:EkmanEquation} can obtained as
+The classical solution to the Ekman equation is obtained when the viscosity is assumed to be constant with altitude, $\nu=\text{constant}$, and can be found in \citet{Ekman1905}. In this case the classical Ekman spiral solution is
 \begin{equation}
     \tau(z)=\nu U_g \frac{1+i}{h_\text{Ek}} e^{- \frac{1+i}{h_\text{Ek}} z},
     \label{eq:EkmanConstant}
@@ -84,7 +101,7 @@ where
     h_\text{Ek}\equiv\sqrt{\frac{2\nu}{f}}
     \label{eq:EkmanHeight}
 \end{equation}
-is the Ekman depth scale. One can note that by taking the argument of the complex momentum flux, $\arg\left[\tau(z=0)\right]$, one can measure the surface angle of \autoref{eq:EkmanConstant} as \ang{45}.
+is the Ekman depth scale. The surface angle of the classical Ekman theory with constant viscosity gives \ang{45}, since the solution is equally real and imaginary at $z=0$. The transport yields an angle of \ang{90} from the surface wind-turing, meaning that the transport and surface wind is perpendicular.
 
 \subsection{The two layer model}
 The next natural step from a constant viscosity profile is to assume two layers of constant viscosity in each layer. One can label the lower level as having the viscosity $\nu_1$ up until a height of $H$, where the next viscosity of $\nu_2$ takes over. From this assumption one would obtain a superimposed solution similar to \autoref{eq:EkmanConstant} as 
@@ -94,7 +111,7 @@ The next natural step from a constant viscosity profile is to assume two layers 
     \tau_2(z)&=B_2e^{-\frac{1+i}{h_\text{Ek2}}z}
 \end{empheq}
 \end{subequations}
-where the Ekman depth scales are defined for each layer like in \autoref{eq:EkmanHeight}. To solve for the constants above one has to use the fact that the material flux has to be constant. This gives the jump condition as 
+where the Ekman depth scales are defined for each layer like in \autoref{eq:EkmanHeight}. To solve for the constants above one has to use the fact that the velocity and momentum flux has to be continuous, which gives the jump condition 
 \begin{subequations}
 \begin{align}
     U_1&=U_2 \quad \text{at } z=H, \\
@@ -114,28 +131,27 @@ where $\varphi$ is the non-dimensional layer thickness defined as
 \begin{equation}
     \varphi = \frac{H}{h_\text{Ek1}}.
 \end{equation}
-The constant $R$ is defined as 
-\begin{equation}
-    R = \frac{1-\gamma}{1+\gamma}.
-\end{equation}
 
-This gives a full expression for the vertical momentum flux in the two layer model and can thus be plotted as seen in \autoref{fig:2layer_structure}. There one can observe how vertical momentum flux changes with altitude for different viscosity ratios and non-dimensional heights, $\varphi$. 
+This gives a full expression for the vertical momentum flux in the two layer model and can be seen in \autoref{fig:2layer_structure}. One can observe how vertical momentum flux changes with altitude for different viscosity ratios and non-dimensional heights, $\varphi$. The 
 \begin{figure}[H]
     \centering    
     \includegraphics[height=0.44\textwidth]{Figures/2layer_structure.png}
-    \caption{The vertical structure of the momentum flux for a two layer viscosity. The momentum flux is dependent on the dimensionless parameter $\varphi=H/h_\text{Ek1}$and the ratio of the viscosities. The corresponding Ekman heights and viscosity potential is shown with the shown with the vertical momentum flux. The solution assumed a purely zonal geostrophic flow.}
+    \caption{The vertical structure of the momentum flux for the two layer model. The momentum flux is dependent on the dimensionless parameter $\varphi=H/h_\text{Ek1}$ and the ratio of the viscosities. The corresponding Ekman heights and eigenvalue is shown with the vertical momentum flux. The solution assumed a purely zonal geostrophic flow and a Coriolis parameter of $f=\SI{1e-4}{\per\second}$.}
     \label{fig:2layer_structure}
 \end{figure}
 
-Using the derived solution for the vertical momentum flux, one can derive the surface angle as 
+Using the constant $R$ 
+\begin{equation}
+    R = \frac{1-\gamma}{1+\gamma}.
+\end{equation}
+and the derived solution for the vertical momentum flux, one can obtain the surface wind-turning angle as 
 \begin{align}
     \theta=\arg \left[\tau(z=0)\right] &= \arg\left[\left(A_1+B_1\right)\right] \\
     &=45\degr + 
-    \arg\left[\frac{e^{(1+i)\varphi}-Re^{-(1+i)\varphi}}{e^{(1+i)\varphi}+Re^{-(1+i)\varphi}}\right]
+    \arg\left[\frac{e^{(1+i)\varphi}-Re^{-(1+i)\varphi}}{e^{(1+i)\varphi}+Re^{-(1+i)\varphi}}\right],
     \label{eq:2layerAngle}
 \end{align}
-
-The result from the theoretical two layer model, \autoref{eq:2layerAngle}, can be seen in \autoref{fig:2layer_angle}. There one can observe solutions for different viscosity ratios, half of which have an higher upper-level viscosity and the other half a lower one. These are plotted together with a \ang{45} reference point to highlight the difference from the classical Ekman solution. One can observe a convergence towards the classical Ekman value when $\varphi\rightarrow\infty$ for all the viscosity ratios. The zero limit is, however, dependent on the viscosity ratio, where finite ratios approach \ang{45}. However, when $\tfrac{\nu_2}{\nu_1}\rightarrow0$ and $\varphi\rightarrow 0$ one can observe that $\theta\rightarrow\ang{90}$. Respectively, one can observe that when $\tfrac{\nu_2}{\nu_1}\rightarrow\infty$ and $\varphi\rightarrow0$, $\theta\rightarrow\ang{0}$. One can note that for $\nu_1>\nu_2$ (and $\nu_2>\nu_1$ respectively) the solution will always provide a result greater than \ang{45}, except between the $\varphi\in\left(\tfrac{\pi}{2},\pi\right)$ were a angle below \ang{45} can be observed. 
+which an be observed in \autoref{eq:2layerAngle}. There one can observe solutions for different viscosity ratios, half of which have an higher upper-level viscosity and the other half a lower one. These are plotted together with a \ang{45} reference point to highlight the difference from the classical Ekman solution. One can observe a convergence towards the classical Ekman value when $\varphi\rightarrow\infty$ for all the viscosity ratios. The zero limit is, however, dependent on the viscosity ratio, where finite ratios approach \ang{45}. However, when $\tfrac{\nu_2}{\nu_1}\rightarrow0$ and $\varphi\rightarrow 0$ one can observe that $\theta\rightarrow\ang{90}$. Respectively, one can observe that when $\tfrac{\nu_2}{\nu_1}\rightarrow\infty$ and $\varphi\rightarrow0$, $\theta\rightarrow\ang{0}$. For $\nu_1>\nu_2$ (and $\nu_2>\nu_1$ respectively) the solution will always provide a result greater than \ang{45}, except between the $\varphi\in\left(\tfrac{\pi}{2},\pi\right)$ were a angle below \ang{45} can be observed. 
 
 \begin{figure}[H]
     \centering    
@@ -145,45 +161,45 @@ The result from the theoretical two layer model, \autoref{eq:2layerAngle}, can b
 \end{figure}
 
 \subsection{The exponential decaying viscosity}
-Another viscosity profile that can provide a fully analytical solution is an exponentially decaying viscosity with altitude. Here the viscosity is set to decay from an initial viscosity of $\nu_0$, with a decay rate of $k$ as $\nu(z)=\nu_0\exp\left(-kz\right)$. To solve \autoref{eq:EkmanEquation} with this viscosity profile one can introduce two new parameters 
+Another viscosity profile that can provide a fully analytical solution is an exponentially decaying viscosity with altitude. Here the viscosity is set to decay from an initial viscosity of $\nu_0$, with a decay rate of $k$ as $\nu(z)=\nu_0\exp\left(-kz\right)$. To solve \autoref{eq:MomentumFlux} with this viscosity profile one can introduce the new variable 
 \begin{equation}
-    t=4\left(1+i\right)\,\varphi_\text{exp}\, e^{\frac{kz}{4}} 
+    t=4\left(1+i\right)\,\varphi_\text{exp}\, e^{\frac{kz}{4}}.
 \end{equation}
-The nondimensional parameter $\varphi_\text{exp}$ was introduced above in this problem, just like in the 2-layer model, but here it is defined as 
+The non-dimensional parameter $\varphi_\text{exp}$ resembles the non-dimensional layer thickness from the two-layer model, but is here defined as 
 \begin{equation}
     \varphi_\text{exp}=\frac{1}{k\,h_\text{Ek0}}=\frac{1}{k}\sqrt{\frac{f}{2\nu_0}}.
 \end{equation}
-Using these newly defined variables \autoref{eq:EkmanEquation} transforms into 
+Using these newly defined variables \autoref{eq:MomentumFlux} transforms into 
 \begin{equation}
     t^2\frac{\mathrm{d}^2 \tau}{\mathrm{d} t^2}+t\frac{\mathrm{d} \tau}{\mathrm{d} t}-t^2\tau=0,
 \end{equation}
 which is a differential equation with a standard solution. The standard solution is a modified Bessel equation as 
 \begin{equation}
-    \tau=C_1I_0(t)+C_2K_0(t),
+    \tau(t)=C_1I_0(t)+C_2K_0(t),
 \end{equation}
-where $C_1$ and $C_2$ are constants, while $I_0(t)$ and $K_0(t)$ are well-defined modified Bessel functions of the first and second kind of order zero, respectively. By applying the previously defined boundary conditions from \autoref{eq:MomentumFluxBoundaryConditions} one can find the two constants. Applying the geostrophic boundary condition from \autoref{eq:MomentumFluxBoundaryConditions2} one can see that $C_1=0$ since $I_0(t)$ does not go to zero when $t\to\infty$ (which occurs when $z\to\infty$). Applying the surface boundary condition from \autoref{eq:MomentumFluxBoundaryConditions1} one can find an expression for the second constant. Transforming the solution to the normal complex velocity as in \autoref{eq:ComplexVelocity} one can obtain the solution
+where $C_1$ and $C_2$ are constants, while $I_0(t)$ and $K_0(t)$ are modified Bessel functions of the first and second kind of order zero, respectively. By applying the previously defined boundary conditions from \autoref{eq:MomentumFluxBoundaryConditions} one can find the two constants. Applying the geostrophic boundary condition from \autoref{eq:MomentumFluxBoundaryConditions2} one can see that $C_1=0$ since $I_0(t)$ does not go to zero when $t\to\infty$ (which occurs when $z\to\infty$). Applying the surface boundary condition from \autoref{eq:MomentumFluxBoundaryConditions1} one can find an expression for the second constant. By transforming the solution to depend on the variable $z$ one can obtain the solution
 \begin{equation}
     \tau(z)=\frac{\left(1+i\right)fU_g}
     {2k\varphi}
     \frac{K_0\left(4\left[1+i\right]\varphi_\text{exp} e^{kz/4}\right)}{K_1\left(4\left[1+i\right]\varphi_\text{exp}\right)}
     \label{eq:exponetial}
 \end{equation}
-This gives a full expression for the vertical momentum flux in the exponential model and as seen in \autoref{fig:2layer_structure}. There one can observe how vertical momentum flux changes with altitude for different non-dimensional heights, $\varphi$. 
+This full solution for the vertical momentum flux in the exponential model can be observed in \autoref{fig:2layer_structure}. There one can observe how vertical momentum flux changes with altitude for different non-dimensional heights, $\varphi$. 
 \begin{figure}[H]
     \centering    
     \includegraphics[height=0.44\textwidth]{Figures/exponential_structure.png}
-    \caption{The vertical structure of the momentum flux for exponentially decreasing viscosity. The momentum flux is dependent on the dimensionless parameter $\varphi_\text{exp}=1/kh_\text{Ek0}$. The corresponding Ekman heights and viscosity potential is shown with the shown with the vertical momentum flux. The solution assumed a purely zonal geostrophic flow.}
+    \caption{The vertical structure of the momentum flux for exponentially decreasing viscosity. The momentum flux is dependent on the dimensionless parameter $\varphi_\text{exp}=1/kh_\text{Ek0}$. The corresponding Ekman heights and eigenvalue is shown with the shown with the vertical momentum flux. The solution assumed a purely zonal geostrophic flow and a Coriolis parameter of $f=\SI{1e-4}{\per\second}$ }
     \label{fig:exponential_structure}
 \end{figure}
 
-Using \autoref{eq:exponetial} one can derive the surface angle of this model as 
+Using \autoref{eq:exponetial} one can obtain the surface angle of this model as 
 \begin{equation}
     \theta = \arg \left[\tau(z=0)\right] = \ang{45} + \arg\left[\frac{K_0\left(4\left[1+i\right]\,\varphi_\text{exp}\,\right)}{K_1\left(4\left[1+i\right]\,\varphi_\text{exp}\,\right)}\right],
     \label{eq:ExponetialAngle}
 \end{equation} 
 where $K_1$ is the modified Bessel function of the second kind of order one. 
 
-\autoref{fig:exponential_angle} showcases the result from the exponentially decaying viscosity as in \autoref{eq:ExponetialAngle}. There one can observe a similar limit as in \autoref{fig:2layer_angle} when $\varphi\rightarrow 0$, as \autoref{eq:ExponetialAngle} also approaches \ang{90}. The same limit is also true for $\varphi\rightarrow\infty$, which gives $\theta\rightarrow\ang{45}$, although this exponential solution converges more slowly than the two-layer solution. However, the shape is much more uniform, with an exponential-like decay. However, all angels are here greater then the reference angle of \ang{45}. 
+\autoref{fig:exponential_angle} showcases the result from the exponentially decaying viscosity as in \autoref{eq:ExponetialAngle}. There one can observe a similar limit as in \autoref{fig:2layer_angle} when $\varphi\rightarrow 0$ for $\nu_2=0$, as \autoref{eq:ExponetialAngle} also approaches \ang{90}. The same limit is also true for $\varphi\rightarrow\infty$, which gives $\theta\rightarrow\ang{45}$, although this exponential solution converges slightly slower than the two-layer solution. However, the shape is much more uniform, with an exponential-like decay. All angels are greater then the reference angle of \ang{45}. 
 
 \begin{figure}[H]
     \centering    
@@ -195,9 +211,9 @@ where $K_1$ is the modified Bessel function of the second kind of order one.
 \subsection{The simplified upper boundary condition model}
 In the previous sections two completely analytical solutions for two different altitude-varying viscosity profiles were derived. The difficulty in solving \autoref{eq:MomentumFlux} comes from the altitude dependence of the viscosity profile $\nu(z)$. This introduces variable coefficients into the complex second-order ordinary differential equation, which in general prevents closed-form analytical solutions. Analytical solutions therefore exist only for specific viscosity profiles that allow the equation to be transformed into a solvable form.
 
-\autoref{eq:MomentumFlux} is furthermore also difficult to solve in a numerical setting, as the upper boundary condition is a limit. This will put limits on the viscosity profiles one can study, as the viscosity cannot increase with altitude continuously. In the physical world, this makes sense, since we assume that high up in the atmosphere (or deep down in the ocean), friction and shear stress become negligible. This was what was labelled as the geostrophic limit. However, by limiting ourselves to only upper-level decreasing viscosity profiles, the differential equation becomes more difficult to solve. Furthermore, if one wants to solve for a dimensionless height parameter, too complex viscosity profiles become hard to deal with.
+\autoref{eq:MomentumFlux} is furthermore also difficult to solve in a numerical setting, as the upper boundary condition is a limit. This will put limits on the viscosity profiles one can study, as the viscosity cannot increase with altitude continuously. In the physical world, this makes sense, since we assume that high up in the atmosphere (or deep down in the ocean), the flow becomes laminar and the turbulent viscosity small. This was what was labelled as the geostrophic limit. By limiting ourselves to only decreasing viscosity profiles, the differential equation becomes difficult to solve. Furthermore, if one wants to solve for a dimensionless height parameter, too complex viscosity profiles become hard to deal with.
 
-A solution to this problem is to introduce the simplified upper boundary condition model. For the 2-layer model, this is reduced to a 1.5 layer model, since we assume that the upper-level viscosity is negligible $\nu_2\approx0$. This also makes physical sense, since we know that both the atmosphere and the ocean consist of a boundary layer where turbulent mixing takes place. Reducing the problem to a simplified upper boundary condition model will thus make it possible to test viscosity profiles that do not converge at $z\rightarrow\infty$, since the new domain is between $z\in[0,H]$. This modifies the boundary conditions in \autoref{eq:MomentumFluxBoundaryConditions} as 
+A solution to this problem is to introduce the simplified upper boundary condition model. For the two-layer model, this is reduced to a 1.5 layer model, where we assume that the upper-level viscosity is negligible $\nu_2\approx0$, which could be observed as the limit in \autoref{fig:2layer_angle}. This also makes physical sense, since we know that both the atmosphere and the ocean consist of a boundary layer where turbulent mixing takes place. Allowing the viscosity to vary freely in the lower layer reduces the problem to a simplified upper boundary condition model. This will allow viscosity profiles that do not converge at $z\rightarrow\infty$, since the new domain is between $z\in[0,H]$. This modifies the boundary conditions in \autoref{eq:MomentumFluxBoundaryConditions} as 
 \begin{subequations}
 \label{eq:NewBoundaryConditions}
 \begin{align}
@@ -246,16 +262,9 @@ Another simple profile to evaluate is a parabolic increasing viscosity as
     \nu_p=\frac{4\nu_\text{max}}{H^2}\left(H-z\right)z.
     \label{eq:ParabolicProfile}
 \end{equation} 
-Again, using the non-dimensional height coordinate $\tilde z$ and the dimensionless height $\varphi$, one can rewrite \autoref{eq:EkmanEquation} as 
+Again, using the non-dimensional height coordinate $\tilde z$ and the dimensionless height $\varphi$, one can rewrite \autoref{eq:MomentumFlux} as 
 \begin{equation}
     \frac{\mathrm{d}^2\tau}{\mathrm{d} \tilde z^2}=i \underbrace{\frac{1}{ 4\tilde z \left[1-\tilde z\right]}}_{\equiv 1/\tilde\nu_p} \underbrace{\frac{Hf^2}{\nu_\text{max}}}_{=2\varphi^2}(U-U_g).
 \end{equation}
 
 
-\subsection{The Ekman transport}
-For a theoretically or numerically derived solution, one can derive the Ekman transport, which may be a more useful quantity. The Ekman transport is defined as the mass flux per meter for the entire Ekman spiral. In the classical solution the Ekman transport is \ang{90} to the right of the surface flow, and can be obtained by integrating the the velocity solution with altitude. One can thus define the Ekman transport as 
-\begin{equation}
-    T(\varphi) = \int_0^\infty\left[U-U_g\right]d z=\frac{i}{f}\tau(z=0),
-    \label{eq:Transport}
-\end{equation}
-where the definition of the vertical momentum flux (see \autoref{eq:UtoTau}) was used.To obtain the transport angle one can simply compute the argument, $ \arg\left[T(\varphi)\right] $ of the transport.

@@ -55,7 +55,7 @@ $$
 ---
 
 ## Author and license
-Fredrik Bergelv, Master’s student in Meteorology at Stockholm University
+Fredrik Bergelv, Master’s student in Meteorology at Stockholm University. 
 This project is licensed under the [MIT License](LICENSE).
 
 

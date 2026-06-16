@@ -200,14 +200,14 @@ ax_pot = axes[1]
     
 nu_z = nu_decreasing(z_plot, epsilons_to_plot)
   
-ax_pot.plot(1 / nu_z, z_plot,  'k')
+ax_pot.plot(f / nu_z, z_plot,  'k')
 ax_pot.set_xlabel(r"Eigenvalue, $\lambda$ [m$^{-2}$]", fontsize=11)
 ax_pot.set_ylim(0, 1)
-ax_pot.set_xlim(0, 10)
+ax_pot.set_xlim(0, f*10)
 ax_pot.grid(True, linestyle='--', alpha=0.6)
 
-axes[0].set_ylabel(r"Norm. height, $z$ [-]", fontsize=11)
-axes[1].set_ylabel(r"Norm. height, $z$ [-]", fontsize=11)
+axes[0].set_ylabel(r"Norm. height, $\tilde z$ [-]", fontsize=11)
+axes[1].set_ylabel(r"Norm. height, $\tilde z$ [-]", fontsize=11)
 
 # Same xlim per row
 

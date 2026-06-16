@@ -5,11 +5,10 @@
 \contentsline {subsection}{\numberline {2.1}Problem formulation}{2}{subsection.2.1}%
 \contentsline {subsection}{\numberline {2.2}The vertical momentum flux}{3}{subsection.2.2}%
 \contentsline {subsection}{\numberline {2.3}The classical solution}{3}{subsection.2.3}%
-\contentsline {subsection}{\numberline {2.4}The two layer model}{3}{subsection.2.4}%
-\contentsline {subsection}{\numberline {2.5}The exponential decaying viscosity}{5}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.4}The two layer model}{4}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}The exponential decaying viscosity}{6}{subsection.2.5}%
 \contentsline {subsection}{\numberline {2.6}The simplified upper boundary condition model}{7}{subsection.2.6}%
-\contentsline {subsubsection}{\numberline {2.6.1}Simple viscosity profiles for the SUBC model}{7}{subsubsection.2.6.1}%
-\contentsline {subsection}{\numberline {2.7}The Ekman transport}{8}{subsection.2.7}%
+\contentsline {subsubsection}{\numberline {2.6.1}Simple viscosity profiles for the SUBC model}{8}{subsubsection.2.6.1}%
 \contentsline {section}{\numberline {3}Methodology}{8}{section.3}%
 \contentsline {subsection}{\numberline {3.1}Numerical method}{8}{subsection.3.1}%
 \contentsline {section}{\numberline {4}Analysis}{9}{section.4}%
