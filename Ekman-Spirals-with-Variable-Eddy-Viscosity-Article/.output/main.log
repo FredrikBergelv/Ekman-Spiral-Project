@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2024.11.25)  14 JUN 2026 04:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2024.11.25)  16 JUN 2026 03:14
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -951,7 +951,7 @@ File: translations-basic-dictionary-english.trsl (english translation file `tran
 Package translations Info: loading dictionary `translations-basic-dictionary' for `english'. on input line 12.
 \c@lstlisting=\count408
  (./Other/Title.tex
-<Figures/logo_MISU_EN.pdf, id=83, 590.76207pt x 629.01883pt>
+<Figures/logo_MISU_EN.pdf, id=91, 590.76207pt x 629.01883pt>
 File: Figures/logo_MISU_EN.pdf Graphic file (type pdf)
 <use Figures/logo_MISU_EN.pdf>
 Package pdftex.def Info: Figures/logo_MISU_EN.pdf  used on input line 40.
@@ -984,35 +984,62 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has b
                    \relax 
 l.35 \newpage}{}}{}
                     [1] (./Textfiles/0.Abstract.tex) (./Textfiles/1.Background.tex) (./Textfiles/2.Theory.tex [2] [3{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
-<Figures/2layer_angle.png, id=210, 722.7pt x 361.35pt>
+<Figures/2layer_structure.png, id=216, 867.24pt x 433.62pt>
+File: Figures/2layer_structure.png Graphic file (type png)
+<use Figures/2layer_structure.png>
+Package pdftex.def Info: Figures/2layer_structure.png  used on input line 125.
+(pdftex.def)             Requested size: 400.61584pt x 200.30852pt.
+ [4 <./Figures/2layer_structure.png>]
+<Figures/2layer_angle.png, id=244, 722.7pt x 361.35pt>
 File: Figures/2layer_angle.png Graphic file (type png)
 <use Figures/2layer_angle.png>
-Package pdftex.def Info: Figures/2layer_angle.png  used on input line 131.
+Package pdftex.def Info: Figures/2layer_angle.png  used on input line 142.
 (pdftex.def)             Requested size: 336.87909pt x 168.4381pt.
- [4 <./Figures/2layer_angle.png>]
-<Figures/exponential_angle.png, id=244, 578.16pt x 361.35pt>
+<Figures/exponential_structure.png, id=252, 433.62pt x 433.62pt>
+File: Figures/exponential_structure.png Graphic file (type png)
+<use Figures/exponential_structure.png>
+Package pdftex.def Info: Figures/exponential_structure.png  used on input line 174.
+(pdftex.def)             Requested size: 200.3079pt x 200.30852pt.
+ [5 <./Figures/2layer_angle.png>]
+<Figures/exponential_angle.png, id=269, 578.16pt x 361.35pt>
 File: Figures/exponential_angle.png Graphic file (type png)
 <use Figures/exponential_angle.png>
-Package pdftex.def Info: Figures/exponential_angle.png  used on input line 171.
+Package pdftex.def Info: Figures/exponential_angle.png  used on input line 190.
 (pdftex.def)             Requested size: 269.50327pt x 168.4381pt.
- [5 <./Figures/exponential_angle.png>] [6]) (./Textfiles/3.Methodology.tex [7]) (./Textfiles/4.Results.tex
-<Figures/numerical_SUBC_linear_d_angle.png, id=307, 578.16pt x 361.35pt>
+ [6 <./Figures/exponential_structure.png> <./Figures/exponential_angle.png>] [7]) (./Textfiles/3.Methodology.tex [8]) (./Textfiles/4.Results.tex
+<Figures/numerical_SUBC_linear_d_structure.png, id=321, 433.62pt x 433.62pt>
+File: Figures/numerical_SUBC_linear_d_structure.png Graphic file (type png)
+<use Figures/numerical_SUBC_linear_d_structure.png>
+Package pdftex.def Info: Figures/numerical_SUBC_linear_d_structure.png  used on input line 9.
+(pdftex.def)             Requested size: 200.3079pt x 200.30852pt.
+<Figures/numerical_SUBC_linear_i_structure.png, id=322, 867.24pt x 433.62pt>
+File: Figures/numerical_SUBC_linear_i_structure.png Graphic file (type png)
+<use Figures/numerical_SUBC_linear_i_structure.png>
+Package pdftex.def Info: Figures/numerical_SUBC_linear_i_structure.png  used on input line 16.
+(pdftex.def)             Requested size: 400.61584pt x 200.30852pt.
+ [9 <./Figures/numerical_SUBC_linear_d_structure.png>]
+<Figures/numerical_SUBC_parabolic_structure.png, id=333, 867.24pt x 433.62pt>
+File: Figures/numerical_SUBC_parabolic_structure.png Graphic file (type png)
+<use Figures/numerical_SUBC_parabolic_structure.png>
+Package pdftex.def Info: Figures/numerical_SUBC_parabolic_structure.png  used on input line 23.
+(pdftex.def)             Requested size: 400.61584pt x 200.30852pt.
+<Figures/numerical_SUBC_linear_d_angle.png, id=339, 578.16pt x 361.35pt>
 File: Figures/numerical_SUBC_linear_d_angle.png Graphic file (type png)
 <use Figures/numerical_SUBC_linear_d_angle.png>
-Package pdftex.def Info: Figures/numerical_SUBC_linear_d_angle.png  used on input line 11.
+Package pdftex.def Info: Figures/numerical_SUBC_linear_d_angle.png  used on input line 37.
 (pdftex.def)             Requested size: 269.50327pt x 168.4381pt.
-<Figures/numerical_SUBC_linear_i_angle.png, id=309, 578.16pt x 361.35pt>
+ [10 <./Figures/numerical_SUBC_linear_i_structure.png> <./Figures/numerical_SUBC_parabolic_structure.png>]
+<Figures/numerical_SUBC_linear_i_angle.png, id=351, 578.16pt x 361.35pt>
 File: Figures/numerical_SUBC_linear_i_angle.png Graphic file (type png)
 <use Figures/numerical_SUBC_linear_i_angle.png>
-Package pdftex.def Info: Figures/numerical_SUBC_linear_i_angle.png  used on input line 20.
+Package pdftex.def Info: Figures/numerical_SUBC_linear_i_angle.png  used on input line 46.
 (pdftex.def)             Requested size: 269.50327pt x 168.4381pt.
- [8 <./Figures/numerical_SUBC_linear_d_angle.png>]
-<Figures/numerical_SUBC_parabolic_angle.png, id=321, 578.16pt x 361.35pt>
+<Figures/numerical_SUBC_parabolic_angle.png, id=354, 578.16pt x 361.35pt>
 File: Figures/numerical_SUBC_parabolic_angle.png Graphic file (type png)
 <use Figures/numerical_SUBC_parabolic_angle.png>
-Package pdftex.def Info: Figures/numerical_SUBC_parabolic_angle.png  used on input line 29.
+Package pdftex.def Info: Figures/numerical_SUBC_parabolic_angle.png  used on input line 55.
 (pdftex.def)             Requested size: 269.50327pt x 168.4381pt.
-) (./Textfiles/5.Discussion.tex) (./Textfiles/6.Conclusion.tex) (./Textfiles/Appendix.tex [9 <./Figures/numerical_SUBC_linear_i_angle.png> <./Figures/numerical_SUBC_parabolic_angle.png>]) (.output/main.bbl) [10] 
+ [11 <./Figures/numerical_SUBC_linear_d_angle.png> <./Figures/numerical_SUBC_linear_i_angle.png>]) (./Textfiles/5.Discussion.tex) (./Textfiles/6.Conclusion.tex) (./Textfiles/Appendix.tex [12 <./Figures/numerical_SUBC_parabolic_angle.png>]) (.output/main.bbl) [13] 
 enddocument/afterlastpage: lastpage setting LastPage.
 (.output/main.aux)
  ***********
@@ -1020,21 +1047,21 @@ LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 15CA6203969B2B89C7B6468205CB2E60;2907.
+(rerunfilecheck)             Checksum: 1C8451D442070732188C24547C55E932;3372.
  ) 
 Here is how much of TeX's memory you used:
- 34970 strings out of 474222
- 681629 string characters out of 5748732
+ 35022 strings out of 474222
+ 683603 string characters out of 5748732
  1946975 words of memory out of 5000000
- 56518 multiletter control sequences out of 15000+600000
+ 56560 multiletter control sequences out of 15000+600000
  576316 words of font info for 76 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 99i,18n,96p,2463b,962s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 99i,18n,96p,2463b,961s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx2074.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0500.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0600.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0700.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on .output/main.pdf (11 pages, 1826000 bytes).
+Output written on .output/main.pdf (14 pages, 3610448 bytes).
 PDF statistics:
- 489 PDF objects out of 1000 (max. 8388607)
- 398 compressed objects within 4 object streams
- 104 named destinations out of 1000 (max. 500000)
- 195 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 532 PDF objects out of 1000 (max. 8388607)
+ 427 compressed objects within 5 object streams
+ 114 named destinations out of 1000 (max. 500000)
+ 236 words of extra memory for PDF output out of 10000 (max. 10000000)
 

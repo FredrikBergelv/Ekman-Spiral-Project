@@ -47,25 +47,27 @@ With the boundary conditions
 \label{eq:BoundaryConditions}
 \end{subequations}
 
+\textbf{ANGLE AND TRANSPORT?}
+
 \subsection{The vertical momentum flux}
 The Ekman equation can be reformulated in terms by introducing a complex vertical momentum flux as
 \begin{equation}
-    F=\nu\frac{\mathrm{d}U}{\mathrm{d}z}.
-    \label{eq:UtoF}
+    \tau=\nu\frac{\mathrm{d}U}{\mathrm{d}z}.
+    \label{eq:UtoTau}
 \end{equation}
 Using this definition, \autoref{eq:EkmanEquation} can be rewritten as
 \begin{empheq}[box=\fbox]{equation}
-    \frac{\mathrm{d}^2F}{\mathrm{d}z^2}=i\underbrace{\lambda}_{\equiv \frac{f}{\nu}}
-    F.
+    \frac{\mathrm{d}^2\tau}{\mathrm{d}z^2}=i\underbrace{\lambda}_{\equiv \frac{f}{\nu}}
+    \tau.
     \label{eq:MomentumFlux}
 \end{empheq}
 Here, an effective potential $\lambda$ has been introduced. This allows \autoref{eq:MomentumFlux} to be compared with the time-independent Schrödinger equation, where $\lambda$ becomes analogous to a potential. The new equation also has a clear physical interpretation, as it describes the vertical structure of the momentum flux in the classical Ekman problem. Using \autoref{eq:MomentumFlux}, the boundary conditions become
 \begin{subequations}
 \begin{align}
-    \left.\frac{\mathrm{d}F}{\mathrm{d}z}\right|_{z=0} &= -ifU_g,
+    \left.\frac{\mathrm{d}\tau}{\mathrm{d}z}\right|_{z=0} &= -ifU_g,
     \label{eq:MomentumFluxBoundaryConditions1}
     \\
-    F(z\to\infty) &= 0.
+    \tau(z\to\infty) &= 0.
     \label{eq:MomentumFluxBoundaryConditions2}
 \end{align}
 \label{eq:MomentumFluxBoundaryConditions}
@@ -74,7 +76,7 @@ Here, an effective potential $\lambda$ has been introduced. This allows \autoref
 \subsection{The classical solution}
 The classical solution to the Ekman equation is obtained when the viscosity is assumed to be constant with altitude, $\nu=\text{constant}$, and can be found in \citet{Ekman1905}. In this case he classical Ekman spiral solution from \autoref{eq:EkmanEquation} can obtained as
 \begin{equation}
-    F(z)=\nu U_g \frac{1+i}{h_\text{Ek}} e^{- \frac{1+i}{h_\text{Ek}} z},
+    \tau(z)=\nu U_g \frac{1+i}{h_\text{Ek}} e^{- \frac{1+i}{h_\text{Ek}} z},
     \label{eq:EkmanConstant}
 \end{equation}
 where
@@ -82,21 +84,21 @@ where
     h_\text{Ek}\equiv\sqrt{\frac{2\nu}{f}}
     \label{eq:EkmanHeight}
 \end{equation}
-is the Ekman depth scale. One can note that by taking the argument of the complex momentum flux, $\arg\left[F(z=0)\right]$, one can measure the surface angle of \autoref{eq:EkmanConstant} as \ang{45}.
+is the Ekman depth scale. One can note that by taking the argument of the complex momentum flux, $\arg\left[\tau(z=0)\right]$, one can measure the surface angle of \autoref{eq:EkmanConstant} as \ang{45}.
 
 \subsection{The two layer model}
 The next natural step from a constant viscosity profile is to assume two layers of constant viscosity in each layer. One can label the lower level as having the viscosity $\nu_1$ up until a height of $H$, where the next viscosity of $\nu_2$ takes over. From this assumption one would obtain a superimposed solution similar to \autoref{eq:EkmanConstant} as 
 \begin{subequations}
 \begin{empheq}[left=\empheqlbrace]{align}
-    F_1(z)&=A_1e^{\frac{1+i}{h_\text{Ek1}}z}+B_1e^{-\frac{1+i}{h_\text{Ek1}}z}, \\
-    F_2(z)&=B_2e^{-\frac{1+i}{h_\text{Ek2}}z}
+    \tau_1(z)&=A_1e^{\frac{1+i}{h_\text{Ek1}}z}+B_1e^{-\frac{1+i}{h_\text{Ek1}}z}, \\
+    \tau_2(z)&=B_2e^{-\frac{1+i}{h_\text{Ek2}}z}
 \end{empheq}
 \end{subequations}
 where the Ekman depth scales are defined for each layer like in \autoref{eq:EkmanHeight}. To solve for the constants above one has to use the fact that the material flux has to be constant. This gives the jump condition as 
 \begin{subequations}
 \begin{align}
     U_1&=U_2 \quad \text{at } z=H, \\
-    F_1&=F_2  \quad \text{at } z=H.
+    \tau_1&=\tau_2  \quad \text{at } z=H.
     \label{eq:JumpCondition}
 \end{align}
 \end{subequations}
@@ -108,7 +110,7 @@ Using this and the boundary conditions at \autoref{eq:BoundaryConditions} one ob
     B_2&=\nu_2U_g\frac{1+i}{h_\text{Ek2}}\cdot\frac{2e^{\left(1+i\right)\varphi\left(1+\gamma^{-1}\right)}}{1-\gamma+e^{2\left(1+i\right)\varphi}\left(1+\gamma\right)},
 \end{align}
 \end{subequations}
-where $\varphi$ is the non-dimensional height defined as 
+where $\varphi$ is the non-dimensional layer thickness defined as 
 \begin{equation}
     \varphi = \frac{H}{h_\text{Ek1}}.
 \end{equation}
@@ -116,9 +118,18 @@ The constant $R$ is defined as
 \begin{equation}
     R = \frac{1-\gamma}{1+\gamma}.
 \end{equation}
-Using this one can define the surface angle as 
+
+This gives a full expression for the vertical momentum flux in the two layer model and can thus be plotted as seen in \autoref{fig:2layer_structure}. There one can observe how vertical momentum flux changes with altitude for different viscosity ratios and non-dimensional heights, $\varphi$. 
+\begin{figure}[H]
+    \centering    
+    \includegraphics[height=0.44\textwidth]{Figures/2layer_structure.png}
+    \caption{The vertical structure of the momentum flux for a two layer viscosity. The momentum flux is dependent on the dimensionless parameter $\varphi=H/h_\text{Ek1}$and the ratio of the viscosities. The corresponding Ekman heights and viscosity potential is shown with the shown with the vertical momentum flux. The solution assumed a purely zonal geostrophic flow.}
+    \label{fig:2layer_structure}
+\end{figure}
+
+Using the derived solution for the vertical momentum flux, one can derive the surface angle as 
 \begin{align}
-    \theta=\arg \left[F(z=0)\right] &= \arg\left[\left(A_1+B_1\right)\right] \\
+    \theta=\arg \left[\tau(z=0)\right] &= \arg\left[\left(A_1+B_1\right)\right] \\
     &=45\degr + 
     \arg\left[\frac{e^{(1+i)\varphi}-Re^{-(1+i)\varphi}}{e^{(1+i)\varphi}+Re^{-(1+i)\varphi}}\right]
     \label{eq:2layerAngle}
@@ -144,22 +155,30 @@ The nondimensional parameter $\varphi_\text{exp}$ was introduced above in this p
 \end{equation}
 Using these newly defined variables \autoref{eq:EkmanEquation} transforms into 
 \begin{equation}
-    t^2\frac{\mathrm{d}^2 F}{\mathrm{d} t^2}+t\frac{\mathrm{d} F}{\mathrm{d} t}-t^2F=0,
+    t^2\frac{\mathrm{d}^2 \tau}{\mathrm{d} t^2}+t\frac{\mathrm{d} \tau}{\mathrm{d} t}-t^2\tau=0,
 \end{equation}
 which is a differential equation with a standard solution. The standard solution is a modified Bessel equation as 
 \begin{equation}
-    F=C_1I_0(t)+C_2K_0(t),
+    \tau=C_1I_0(t)+C_2K_0(t),
 \end{equation}
 where $C_1$ and $C_2$ are constants, while $I_0(t)$ and $K_0(t)$ are well-defined modified Bessel functions of the first and second kind of order zero, respectively. By applying the previously defined boundary conditions from \autoref{eq:MomentumFluxBoundaryConditions} one can find the two constants. Applying the geostrophic boundary condition from \autoref{eq:MomentumFluxBoundaryConditions2} one can see that $C_1=0$ since $I_0(t)$ does not go to zero when $t\to\infty$ (which occurs when $z\to\infty$). Applying the surface boundary condition from \autoref{eq:MomentumFluxBoundaryConditions1} one can find an expression for the second constant. Transforming the solution to the normal complex velocity as in \autoref{eq:ComplexVelocity} one can obtain the solution
 \begin{equation}
-    F(z)=\frac{\left(1+i\right)fU_g}
+    \tau(z)=\frac{\left(1+i\right)fU_g}
     {2k\varphi}
     \frac{K_0\left(4\left[1+i\right]\varphi_\text{exp} e^{kz/4}\right)}{K_1\left(4\left[1+i\right]\varphi_\text{exp}\right)}
     \label{eq:exponetial}
 \end{equation}
+This gives a full expression for the vertical momentum flux in the exponential model and as seen in \autoref{fig:2layer_structure}. There one can observe how vertical momentum flux changes with altitude for different non-dimensional heights, $\varphi$. 
+\begin{figure}[H]
+    \centering    
+    \includegraphics[height=0.44\textwidth]{Figures/exponential_structure.png}
+    \caption{The vertical structure of the momentum flux for exponentially decreasing viscosity. The momentum flux is dependent on the dimensionless parameter $\varphi_\text{exp}=1/kh_\text{Ek0}$. The corresponding Ekman heights and viscosity potential is shown with the shown with the vertical momentum flux. The solution assumed a purely zonal geostrophic flow.}
+    \label{fig:exponential_structure}
+\end{figure}
+
 Using \autoref{eq:exponetial} one can derive the surface angle of this model as 
 \begin{equation}
-    \theta = \arg \left[F(z=0)\right] = \ang{45} + \arg\left[\frac{K_0\left(4\left[1+i\right]\,\varphi_\text{exp}\,\right)}{K_1\left(4\left[1+i\right]\,\varphi_\text{exp}\,\right)}\right],
+    \theta = \arg \left[\tau(z=0)\right] = \ang{45} + \arg\left[\frac{K_0\left(4\left[1+i\right]\,\varphi_\text{exp}\,\right)}{K_1\left(4\left[1+i\right]\,\varphi_\text{exp}\,\right)}\right],
     \label{eq:ExponetialAngle}
 \end{equation} 
 where $K_1$ is the modified Bessel function of the second kind of order one. 
@@ -182,10 +201,10 @@ A solution to this problem is to introduce the simplified upper boundary conditi
 \begin{subequations}
 \label{eq:NewBoundaryConditions}
 \begin{align}
-    \left.\frac{\mathrm{d}F}{\mathrm{d}z}\right|_{z=0} &= -ifU_g,
+    \left.\frac{\mathrm{d}\tau}{\mathrm{d}z}\right|_{z=0} &= -ifU_g,
     \label{eq:NewBoundaryCondition1}
     \\
-    F(z=H) &= 0.
+    \tau(z=H) &= 0.
     \label{eq:NewBoundaryCondition2}
 \end{align}
 \end{subequations}
@@ -215,9 +234,9 @@ One must note that this new coordinate changes the previous $z$-derivative, as a
 \label{eq:15Linear}
 \begin{align}
     \label{eq:15LinearIncreasing}
-    \frac{\mathrm{d}^2F}{\mathrm{d} \tilde z^2}&=i\underbrace{\frac{1}{ \tilde z}}_{\equiv 1/\tilde\nu_\uparrow}\underbrace{\frac{Hf^2}{\nu_\text{max}}}_{=2\varphi^2}F,\\
+    \frac{\mathrm{d}^2\tau}{\mathrm{d} \tilde z^2}&=i\underbrace{\frac{1}{ \tilde z}}_{\equiv 1/\tilde\nu_\uparrow}\underbrace{\frac{Hf^2}{\nu_\text{max}}}_{=2\varphi^2}\tau,\\
     \label{eq:15LinearDecreasing}
-    \frac{\mathrm{d}^2F}{\mathrm{d} \tilde z^2}&=i\underbrace{\frac{1}{ 1-\tilde z}}_{\equiv 1/\tilde\nu_\downarrow}\underbrace{\frac{Hf^2}{\nu_\text{max}}}_{=2\varphi^2}F.
+    \frac{\mathrm{d}^2\tau}{\mathrm{d} \tilde z^2}&=i\underbrace{\frac{1}{ 1-\tilde z}}_{\equiv 1/\tilde\nu_\downarrow}\underbrace{\frac{Hf^2}{\nu_\text{max}}}_{=2\varphi^2}\tau.
 \end{align}
 \end{subequations}
 Above the dimensionless height $\varphi$ was again introduced following the logic from before.
@@ -229,14 +248,14 @@ Another simple profile to evaluate is a parabolic increasing viscosity as
 \end{equation} 
 Again, using the non-dimensional height coordinate $\tilde z$ and the dimensionless height $\varphi$, one can rewrite \autoref{eq:EkmanEquation} as 
 \begin{equation}
-    \frac{\mathrm{d}^2F}{\mathrm{d} \tilde z^2}=i \underbrace{\frac{1}{ 4\tilde z \left[1-\tilde z\right]}}_{\equiv 1/\tilde\nu_p} \underbrace{\frac{Hf^2}{\nu_\text{max}}}_{=2\varphi^2}(U-U_g).
+    \frac{\mathrm{d}^2\tau}{\mathrm{d} \tilde z^2}=i \underbrace{\frac{1}{ 4\tilde z \left[1-\tilde z\right]}}_{\equiv 1/\tilde\nu_p} \underbrace{\frac{Hf^2}{\nu_\text{max}}}_{=2\varphi^2}(U-U_g).
 \end{equation}
 
 
 \subsection{The Ekman transport}
 For a theoretically or numerically derived solution, one can derive the Ekman transport, which may be a more useful quantity. The Ekman transport is defined as the mass flux per meter for the entire Ekman spiral. In the classical solution the Ekman transport is \ang{90} to the right of the surface flow, and can be obtained by integrating the the velocity solution with altitude. One can thus define the Ekman transport as 
 \begin{equation}
-    T(\varphi) = \int_0^\infty\left[U-U_g\right]d z=\frac{i}{f}F(z=0),
+    T(\varphi) = \int_0^\infty\left[U-U_g\right]d z=\frac{i}{f}\tau(z=0),
     \label{eq:Transport}
 \end{equation}
-where the definition of the vertical momentum flux (see \autoref{eq:UtoF}) was used.To obtain the transport angle one can simply compute the argument, $ \arg\left[T(\varphi)\right] $ of the transport.
+where the definition of the vertical momentum flux (see \autoref{eq:UtoTau}) was used.To obtain the transport angle one can simply compute the argument, $ \arg\left[T(\varphi)\right] $ of the transport.

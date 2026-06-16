@@ -12,7 +12,7 @@ U0 = 1
 k = 10 # do not need in reality 
 
 
-def F(z, phi, k=k):
+def tau(z, phi, k=k):
     arg_z = 4 * (1 + 1j) * phi * np.exp(k * z / 4)
     arg_0 = 4 * (1 + 1j) * phi
     return ((1 + 1j) * f * U0) / (2 * k * phi) * kv(0, arg_z) / kv(1, arg_0)
@@ -29,12 +29,14 @@ def surface_angle(phi):
     return theta
 
 def ekman_transport(phi):
-    T = (1j/f) * F(0, phi)
+    T = (1j/f) * tau(0, phi)
     theta = np.angle(T, deg=True)
     return theta
 
 extent = 4
-phis = np.logspace(-50, np.log10(extent), 1000)
+phis = np.linspace(1e-50, extent, 1000)
+
+
 
 #%%
 # ===============================
@@ -42,7 +44,6 @@ phis = np.logspace(-50, np.log10(extent), 1000)
 # ===============================
 plt.figure(figsize=(8, 5))
 plt.suptitle("Surface Angle for Exponetial Model", fontsize=14)
-plt.title("Surface angle vs layer thickness",fontsize=13)
 
 angles = surface_angle(phis)
 
@@ -71,7 +72,6 @@ plt.show()
 
 plt.figure(figsize=(8, 5))
 plt.suptitle("Transport Angle for Exponetial Model", fontsize=14)
-plt.title("Transport angle vs layer thickness",fontsize=13)
 
 angles = np.array([ekman_transport(phi) for phi in phis])
 
@@ -95,44 +95,54 @@ plt.show()
 #%%
 
 nu0 = 0.1  # reference viscosity at z=0
+hEk = np.sqrt(2 * nu0 / f)
 
-ks = [0.02, 0.01]
-phis_to_plot = [0.5, 1.0, 2.0]
+phis_to_plot = [0.2, 1.0, 4.0]
 Nz = 10000
+zmax = 5 *hEk
+z = np.linspace(0, zmax, Nz)
 
-fig, axes = plt.subplots(2, 2, figsize=(8, 6), gridspec_kw={'height_ratios': [3, 1]}, sharex="row", sharey="row")
 
-for i, k_val in enumerate(ks):
-    # zmax physically meaningful: where nu has decayed a lot, e.g. 6/k
-    zmax = 6 / k_val
-    z = np.linspace(0, zmax, Nz)
+fig, axes = plt.subplots(2, 1, figsize=(6, 6), gridspec_kw={'height_ratios': [3, 1]}, sharex="row", sharey="row")
 
-    ax = axes[0, i]
-    for j, phi in enumerate(phis_to_plot):
-        F_vals = F(z, phi, k=k_val)
-        ax.plot(np.real(F_vals), z, c=f"C{j}", label=fr'$\varphi={phi:.1f}$')
-        ax.plot(np.imag(F_vals), z, '--', c=f"C{j}")
+ax = axes[0]
+for j, phi in enumerate(phis_to_plot):
+        
+        k_val = 1/(hEk*phi)
+        tau_vals = tau(z, phi, k=k_val)
+        ax.plot(np.real(tau_vals), z, c=f"C{j}", label=fr'$\varphi_\text{{exp}}={phi:.1f}$')
+        ax.plot(np.imag(tau_vals), z, '--', c=f"C{j}")
+        
+xmin, xmax = ax.get_xlim()
+ax.fill_between([xmin, xmax], 0, hEk, color="gray",  label=r"$h_\text{Ek0}$", alpha=0.15, ec="gray")
+            
+ax.set_xlabel(r"Momentum flux, $\tau$ [m$^2$/s$^2$]", fontsize=11)
+ax.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
+ax.set_ylim(0, zmax)
+ax.plot([], [], 'k-',  label=r'$\tau_x$')
+ax.plot([], [], 'k--', label=r'$\tau_y$')
+ax.legend(loc="upper right", fontsize=11)
+ax.grid(True, linestyle='--', alpha=0.6)
 
-    ax.set_xlabel(r"Vertical momentum flux, $F$", fontsize=11)
-    ax.set_title(fr"$k = {k_val:.1f}$", fontsize=12)
-    ax.set_ylim(0, zmax)
-    ax.plot([], [], 'k-',  label=r'$F_x$')
-    ax.plot([], [], 'k--', label=r'$F_y$')
-    ax.legend(loc="upper right", fontsize=9)
-    ax.grid(True, linestyle='--', alpha=0.6)
-
-    # --- Potential well below ---
-    ax_pot = axes[1, i]
-    nu_z = nu0 * np.exp(-k_val * z)   # nu(z) = nu0 * exp(-kz)
-    ax_pot.plot(1 / nu_z, z, 'k')
-    ax_pot.set_xlabel(r"Potential well, $1/\nu$ [m$^{-2}$s]", fontsize=11)
-    ax_pot.set_ylim(0, zmax)
-    ax_pot.grid(True, linestyle='--', alpha=0.6)
-    
-axes[0, 0].set_ylabel(r"Height, $z$ [m]", fontsize=11)
-axes[1, 0].set_ylabel(r"Height, $z$ [m]", fontsize=11)
-
-plt.suptitle(r"Vertical momentum flux and potential well for exponential viscosity",
+# --- Potential well below ---
+ax_pot = axes[1]
+for j, phi in enumerate(phis_to_plot):  
+        k_val = 1/(hEk*phi)      
+        nu_z = nu0 * np.exp(-k_val * z)   # nu(z) = nu0 * exp(-kz)
+        
+        max_nu = 1e2  # or any threshold you choose
+        mask = 1/nu_z <= max_nu
+        z_trimmed = z[mask]
+        nu_z_trimmed = nu_z[mask]
+        ax_pot.plot(1 / nu_z_trimmed, z_trimmed, c=f"C{j}")
+        
+ax_pot.set_xlabel(r"Eigenvalue, $\lambda$ [m$^{-2}$]", fontsize=11)
+ax_pot.set_ylim(0, zmax)
+ax_pot.grid(True, linestyle='--', alpha=0.6)
+axes[0].set_ylabel(r"Height, $z$ [m]", fontsize=11)
+axes[1].set_ylabel(r"Height, $z$ [m]", fontsize=11)
+ 
+plt.suptitle(r"Momentum Flux and Potential for Exponential Model",
              fontsize=14)
 plt.tight_layout()
 save_name="exponential_structure"
