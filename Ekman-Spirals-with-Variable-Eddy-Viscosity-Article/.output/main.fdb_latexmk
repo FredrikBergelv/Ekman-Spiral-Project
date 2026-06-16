@@ -1,17 +1,17 @@
 # Fdb version 4
-["bibtex .output/main"] 1781579355.60871 ".output/main.aux" ".output/main.bbl" ".output/main" 1781580430.98949 0
+["bibtex .output/main"] 1781579355.60871 ".output/main.aux" ".output/main.bbl" ".output/main" 1781581518.07764 0
   "./Textfiles/References.bib" 1779783286.70822 3737 a4f8331caa7731cc60241296bc7decf8 ""
-  ".output/main.aux" 1781580430.70041 15168 462aeaa291b638ad5c87f889ab00b23e "pdflatex"
+  ".output/main.aux" 1781581517.67587 15168 462aeaa291b638ad5c87f889ab00b23e "pdflatex"
   "/usr/share/texlive/texmf-dist/bibtex/bst/natbib/plainnat.bst" 1233624470 26816 ffe5423d2019860bad9f54bc402fac15 ""
   (generated)
   ".output/main.bbl"
   ".output/main.blg"
   (rewritten before read)
-["pdflatex"] 1781580421.27554 "/home/fredrik/Documents/Ekman-Spiral-Project/Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/main.tex" ".output/main.pdf" "main" 1781580430.98967 0
-  ".output/main.aux" 1781580430.70041 15168 462aeaa291b638ad5c87f889ab00b23e "pdflatex"
+["pdflatex"] 1781581508.67408 "/home/fredrik/Documents/Ekman-Spiral-Project/Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/main.tex" ".output/main.pdf" "main" 1781581518.07783 0
+  ".output/main.aux" 1781581517.67587 15168 462aeaa291b638ad5c87f889ab00b23e "pdflatex"
   ".output/main.bbl" 1781579355.70015 3825 5aa1f9ec6ecab66410ac069cf4165b18 "bibtex .output/main"
-  ".output/main.out" 1781580430.70241 3213 1c8809666c096d856d1cb193ccf521fb "pdflatex"
-  ".output/main.toc" 1781580430.70241 1727 a3f05ccf9e6cba88433c3039de4f0c84 "pdflatex"
+  ".output/main.out" 1781581517.67787 3213 1c8809666c096d856d1cb193ccf521fb "pdflatex"
+  ".output/main.toc" 1781581517.67787 1727 a3f05ccf9e6cba88433c3039de4f0c84 "pdflatex"
   "/etc/texmf/web2c/texmf.cnf" 1732548902.53758 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/fredrik/Documents/Ekman-Spiral-Project/Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/main.tex" 1779263692.54216 1108 58d52e7a888985decad3f2410f81e598 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -286,7 +286,7 @@
   "Other/Premable.tex" 1780908859.07201 2262 d430aeca44006b68489340c56e3b1c83 ""
   "Other/Title.tex" 1779178318.8298 1523 ea7c955c80f1d897bd034f6a1a1fb22b ""
   "Textfiles/0.Abstract.tex" 1779178342.55207 0 d41d8cd98f00b204e9800998ecf8427e ""
-  "Textfiles/1.Background.tex" 1781576043.60526 1510 dcde5ef76c96d85096a03fa209c3948d ""
+  "Textfiles/1.Background.tex" 1781581508.2267 1534 815e08aaa1c94872622581ae7037c747 ""
   "Textfiles/2.Theory.tex" 1781580349.15087 20113 5d778272ce6ccbe64c05066050f74a99 ""
   "Textfiles/3.Methodology.tex" 1781487310.25033 3048 1977b10b4317e71bc563c1fe14015933 ""
   "Textfiles/4.Results.tex" 1781580420.79011 5359 8b667a9d7e8888b3f85586d61f4a2d9b ""
