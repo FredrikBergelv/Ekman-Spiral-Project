@@ -129,15 +129,12 @@ ax_pot = axes[1]
 for j, phi in enumerate(phis_to_plot):  
         k_val = 1/(hEk*phi)      
         nu_z = nu0 * np.exp(-k_val * z)   # nu(z) = nu0 * exp(-kz)
-        
-        max_nu = 1e2  # or any threshold you choose
-        mask = 1/nu_z <= max_nu
-        z_trimmed = z[mask]
-        nu_z_trimmed = nu_z[mask]
-        ax_pot.plot(1 / nu_z_trimmed, z_trimmed, c=f"C{j}")
+        ax_pot.plot(f / nu_z, z, c=f"C{j}")
         
 ax_pot.set_xlabel(r"Eigenvalue, $\lambda$ [m$^{-2}$]", fontsize=11)
 ax_pot.set_ylim(0, zmax)
+ax_pot.set_xlim(0, f*100)
+ax_pot.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
 ax_pot.grid(True, linestyle='--', alpha=0.6)
 axes[0].set_ylabel(r"Height, $z$ [m]", fontsize=11)
 axes[1].set_ylabel(r"Height, $z$ [m]", fontsize=11)

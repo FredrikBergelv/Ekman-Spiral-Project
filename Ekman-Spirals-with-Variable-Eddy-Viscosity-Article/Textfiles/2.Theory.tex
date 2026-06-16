@@ -211,7 +211,7 @@ where $K_1$ is the modified Bessel function of the second kind of order one.
 \subsection{The simplified upper boundary condition model}
 In the previous sections two completely analytical solutions for two different altitude-varying viscosity profiles were derived. The difficulty in solving \autoref{eq:MomentumFlux} comes from the altitude dependence of the viscosity profile $\nu(z)$. This introduces variable coefficients into the complex second-order ordinary differential equation, which in general prevents closed-form analytical solutions. Analytical solutions therefore exist only for specific viscosity profiles that allow the equation to be transformed into a solvable form.
 
-\autoref{eq:MomentumFlux} is furthermore also difficult to solve in a numerical setting, as the upper boundary condition is a limit. This will put limits on the viscosity profiles one can study, as the viscosity cannot increase with altitude continuously. In the physical world, this makes sense, since we assume that high up in the atmosphere (or deep down in the ocean), the flow becomes laminar and the turbulent viscosity small. This was what was labelled as the geostrophic limit. By limiting ourselves to only decreasing viscosity profiles, the differential equation becomes difficult to solve. Furthermore, if one wants to solve for a dimensionless height parameter, too complex viscosity profiles become hard to deal with.
+\autoref{eq:MomentumFlux} is furthermore also difficult to solve in a numerical setting, as the upper boundary condition is a limit. This will put limits on the viscosity profiles one can study, as the viscosity cannot increase with altitude continuously. In the physical world, this makes sense, since we assume that high up in the atmosphere (or deep down in the ocean), the flow becomes laminar and the turbulent viscosity small. This was what was labelled as the geostrophic limit. By limiting ourselves to only decreasing viscosity profiles, the differential equation becomes difficult to solve. Furthermore, if one wants to solve for a dimensionless thickness parameter, too complex viscosity profiles become hard to deal with.
 
 A solution to this problem is to introduce the simplified upper boundary condition model. For the two-layer model, this is reduced to a 1.5 layer model, where we assume that the upper-level viscosity is negligible $\nu_2\approx0$, which could be observed as the limit in \autoref{fig:2layer_angle}. This also makes physical sense, since we know that both the atmosphere and the ocean consist of a boundary layer where turbulent mixing takes place. Allowing the viscosity to vary freely in the lower layer reduces the problem to a simplified upper boundary condition model. This will allow viscosity profiles that do not converge at $z\rightarrow\infty$, since the new domain is between $z\in[0,H]$. This modifies the boundary conditions in \autoref{eq:MomentumFluxBoundaryConditions} as 
 \begin{subequations}
@@ -237,7 +237,7 @@ Using the the simplified upper boundary condition model, SUBC model, one can stu
     \nu_\downarrow(z)&=\frac{\nu_\text{max}}{H}\left(H-z\right), 
 \end{align}
 \end{subequations}
-where $\nu_\text{max}$ is the maximal viscosity. For both of these profiles one can define a dimensionless height coordinate as 
+where $\nu_\text{max}$ is the maximal viscosity. For both of these profiles one can define a dimensionless thickness coordinate as 
 \begin{equation}
     \tilde z = \frac{z}{H} \implies 
     \begin{cases}
@@ -245,7 +245,7 @@ where $\nu_\text{max}$ is the maximal viscosity. For both of these profiles one 
         \nu_\downarrow(z)=\nu_\text{max}\left(1-\tilde z\right). 
     \end{cases}
 \end{equation}
-One must note that this new coordinate changes the previous $z$-derivative, as a factor of $1/H$ appears when taking the derivative with respect to $\tilde z$. Using these linear viscosity profiles, together with the new dimensionless height coordinate, one can rewrite \autoref{eq:MomentumFlux} for the two profiles as 
+One must note that this new coordinate changes the previous $z$-derivative, as a factor of $1/H$ appears when taking the derivative with respect to $\tilde z$. Using these linear viscosity profiles, together with the new dimensionless thickness coordinate, one can rewrite \autoref{eq:MomentumFlux} for the two profiles as 
 \begin{subequations}
 \label{eq:15Linear}
 \begin{align}
@@ -255,16 +255,20 @@ One must note that this new coordinate changes the previous $z$-derivative, as a
     \frac{\mathrm{d}^2\tau}{\mathrm{d} \tilde z^2}&=i\underbrace{\frac{1}{ 1-\tilde z}}_{\equiv 1/\tilde\nu_\downarrow}\underbrace{\frac{Hf^2}{\nu_\text{max}}}_{=2\varphi^2}\tau.
 \end{align}
 \end{subequations}
-Above the dimensionless height $\varphi$ was again introduced following the logic from before.
+Above the dimensionless thickness $\varphi$ was again introduced following the logic from before.
 
 Another simple profile to evaluate is a parabolic increasing viscosity as 
 \begin{equation}
     \nu_p=\frac{4\nu_\text{max}}{H^2}\left(H-z\right)z.
     \label{eq:ParabolicProfile}
 \end{equation} 
-Again, using the non-dimensional height coordinate $\tilde z$ and the dimensionless height $\varphi$, one can rewrite \autoref{eq:MomentumFlux} as 
+Again, using the non-dimensional height coordinate $\tilde z$ and the dimensionless thickness $\varphi$, one can rewrite \autoref{eq:MomentumFlux} as 
 \begin{equation}
     \frac{\mathrm{d}^2\tau}{\mathrm{d} \tilde z^2}=i \underbrace{\frac{1}{ 4\tilde z \left[1-\tilde z\right]}}_{\equiv 1/\tilde\nu_p} \underbrace{\frac{Hf^2}{\nu_\text{max}}}_{=2\varphi^2}(U-U_g).
+\end{equation}
+Since the height coordinate is normalized for the height $H$, the dimensionless thickness simpy becomes the same as the inverse of the normalized Ekman height as
+\begin{equation}
+    \varphi=\frac{1}{\tilde h_\text{Ek}}.
 \end{equation}
 
 

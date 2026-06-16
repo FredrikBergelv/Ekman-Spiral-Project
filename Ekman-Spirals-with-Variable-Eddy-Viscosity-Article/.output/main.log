@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2024.11.25)  16 JUN 2026 05:45
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2024.11.25)  16 JUN 2026 21:18
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -1008,39 +1008,40 @@ File: Figures/exponential_angle.png Graphic file (type png)
 Package pdftex.def Info: Figures/exponential_angle.png  used on input line 206.
 (pdftex.def)             Requested size: 269.50327pt x 168.4381pt.
  [7 <./Figures/exponential_angle.png>]) (./Textfiles/3.Methodology.tex [8]) (./Textfiles/4.Results.tex
-<Figures/numerical_SUBC_linear_d_structure.png, id=317, 433.62pt x 433.62pt>
+<Figures/numerical_SUBC_linear_d_structure.png, id=315, 433.62pt x 433.62pt>
 File: Figures/numerical_SUBC_linear_d_structure.png Graphic file (type png)
 <use Figures/numerical_SUBC_linear_d_structure.png>
 Package pdftex.def Info: Figures/numerical_SUBC_linear_d_structure.png  used on input line 9.
 (pdftex.def)             Requested size: 200.3079pt x 200.30852pt.
-<Figures/numerical_SUBC_linear_i_structure.png, id=318, 867.24pt x 433.62pt>
+ [9]
+<Figures/numerical_SUBC_linear_i_structure.png, id=329, 867.24pt x 433.62pt>
 File: Figures/numerical_SUBC_linear_i_structure.png Graphic file (type png)
 <use Figures/numerical_SUBC_linear_i_structure.png>
 Package pdftex.def Info: Figures/numerical_SUBC_linear_i_structure.png  used on input line 16.
 (pdftex.def)             Requested size: 400.61584pt x 200.30852pt.
- [9 <./Figures/numerical_SUBC_linear_d_structure.png>]
-<Figures/numerical_SUBC_parabolic_structure.png, id=331, 867.24pt x 433.62pt>
+<Figures/numerical_SUBC_parabolic_structure.png, id=330, 867.24pt x 433.62pt>
 File: Figures/numerical_SUBC_parabolic_structure.png Graphic file (type png)
 <use Figures/numerical_SUBC_parabolic_structure.png>
 Package pdftex.def Info: Figures/numerical_SUBC_parabolic_structure.png  used on input line 23.
 (pdftex.def)             Requested size: 400.61584pt x 200.30852pt.
-<Figures/numerical_SUBC_linear_d_angle.png, id=337, 578.16pt x 361.35pt>
+ [10 <./Figures/numerical_SUBC_linear_d_structure.png> <./Figures/numerical_SUBC_linear_i_structure.png>]
+<Figures/numerical_SUBC_linear_d_angle.png, id=344, 578.16pt x 361.35pt>
 File: Figures/numerical_SUBC_linear_d_angle.png Graphic file (type png)
 <use Figures/numerical_SUBC_linear_d_angle.png>
 Package pdftex.def Info: Figures/numerical_SUBC_linear_d_angle.png  used on input line 37.
 (pdftex.def)             Requested size: 269.50327pt x 168.4381pt.
- [10 <./Figures/numerical_SUBC_linear_i_structure.png> <./Figures/numerical_SUBC_parabolic_structure.png>]
-<Figures/numerical_SUBC_linear_i_angle.png, id=349, 578.16pt x 361.35pt>
+<Figures/numerical_SUBC_linear_i_angle.png, id=346, 578.16pt x 361.35pt>
 File: Figures/numerical_SUBC_linear_i_angle.png Graphic file (type png)
 <use Figures/numerical_SUBC_linear_i_angle.png>
 Package pdftex.def Info: Figures/numerical_SUBC_linear_i_angle.png  used on input line 46.
 (pdftex.def)             Requested size: 269.50327pt x 168.4381pt.
-<Figures/numerical_SUBC_parabolic_angle.png, id=352, 578.16pt x 361.35pt>
+ [11 <./Figures/numerical_SUBC_parabolic_structure.png> <./Figures/numerical_SUBC_linear_d_angle.png>]
+<Figures/numerical_SUBC_parabolic_angle.png, id=359, 578.16pt x 361.35pt>
 File: Figures/numerical_SUBC_parabolic_angle.png Graphic file (type png)
 <use Figures/numerical_SUBC_parabolic_angle.png>
 Package pdftex.def Info: Figures/numerical_SUBC_parabolic_angle.png  used on input line 55.
 (pdftex.def)             Requested size: 269.50327pt x 168.4381pt.
- [11 <./Figures/numerical_SUBC_linear_d_angle.png> <./Figures/numerical_SUBC_linear_i_angle.png>]) (./Textfiles/5.Discussion.tex) (./Textfiles/6.Conclusion.tex) (./Textfiles/Appendix.tex [12 <./Figures/numerical_SUBC_parabolic_angle.png>]) (.output/main.bbl) [13] 
+) (./Textfiles/5.Discussion.tex) (./Textfiles/6.Conclusion.tex) (./Textfiles/Appendix.tex [12 <./Figures/numerical_SUBC_linear_i_angle.png> <./Figures/numerical_SUBC_parabolic_angle.png>]) (.output/main.bbl) [13] 
 enddocument/afterlastpage: lastpage setting LastPage.
 (.output/main.aux)
  ***********
@@ -1051,18 +1052,18 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 1C8809666C096D856D1CB193CCF521FB;3213.
  ) 
 Here is how much of TeX's memory you used:
- 35023 strings out of 474222
- 683614 string characters out of 5748732
+ 35024 strings out of 474222
+ 683627 string characters out of 5748732
  1946975 words of memory out of 5000000
  56559 multiletter control sequences out of 15000+600000
  576316 words of font info for 76 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  99i,18n,96p,2463b,970s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx2074.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0500.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0600.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0700.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on .output/main.pdf (14 pages, 3625091 bytes).
+Output written on .output/main.pdf (14 pages, 3627725 bytes).
 PDF statistics:
- 543 PDF objects out of 1000 (max. 8388607)
- 432 compressed objects within 5 object streams
- 116 named destinations out of 1000 (max. 500000)
+ 544 PDF objects out of 1000 (max. 8388607)
+ 433 compressed objects within 5 object streams
+ 117 named destinations out of 1000 (max. 500000)
  228 words of extra memory for PDF output out of 10000 (max. 10000000)
 

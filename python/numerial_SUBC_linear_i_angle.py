@@ -169,7 +169,7 @@ plt.show()
 
 #%%
 
-epsilons_to_plot = [1e-1, 1e-3]
+epsilons_to_plot = [1e-1, 1e-6]
 phis_to_plot = [0.2, 1.0, 2.0]
 Nz = 300
 z_plot = np.linspace(0, 1, Nz)
@@ -215,6 +215,7 @@ for i, epsilon in enumerate(epsilons_to_plot[:2]):  # two columns
     ax_pot.plot(1 / nu_z, z_plot, 'k')
     ax_pot.plot(f / nu_z, z_plot, 'k')
     ax_pot.set_xlabel(r"Eigenvalue, $\lambda$ [m$^{-2}$]", fontsize=11)
+    ax_pot.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
     ax_pot.set_ylim(0, 1)
     ax_pot.set_xlim(0, f*10)
     ax_pot.grid(True, linestyle='--', alpha=0.6)

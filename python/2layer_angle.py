@@ -183,9 +183,9 @@ for i, nu_ratio in enumerate(nu_ratios):
         H = phi * hEk1  # interface height in metres
         nu_z = np.where(z < H, nu1, nu2)
         ax_pot.plot(f / nu_z, z, c=f"C{j}")
-        ax_pot.axhline(H, color=f"C{j}", linestyle=':', linewidth=0.8)  # mark interface
 
     ax_pot.set_xlabel(r"Eigenvalue, $\lambda$ [m$^{-2}$]", fontsize=11)
+    ax_pot.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
     ax_pot.set_ylim(0, zmax)
     ax_pot.grid(True, linestyle='--', alpha=0.6)
     
