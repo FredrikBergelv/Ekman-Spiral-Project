@@ -2,8 +2,7 @@
 \subsection{Numerical method}
 For arbitrary viscosity profiles, \autoref{eq:EkmanEquation} generally does not admit a closed-form analytical solution. The equation was therefore solved numerically as a boundary value problem using the \texttt{solve\_bvp} routine available in \texttt{SciPy} \citep{virtanen2020}. 
 
-For the SUBC model, it was shown that the equation could be rewritten for a dimensionless layer thickness $\varphi$. Thus, using an arbitrary height-normalized height-dependent eddy viscosity profile, $\tilde\nu(z)$, one can write a simpler differential equation. Separating the equation into the zonal and meridional velocity components, one obtains 
-\begin{subequations}
+For the SUBC model, the equation can be rewritten in terms of a dimensionless layer thickness, $\varphi$. Using an arbitrary height-normalized eddy viscosity profile, $\tilde{\nu}(z)$, the differential equation simplifies. Separating into zonal and meridional velocity components yields:\begin{subequations}
     \begin{align}
     \frac{\mathrm{d^2\tau_x}}{\mathrm{d} z^2}
     &=
@@ -21,7 +20,7 @@ Here it was also assumed that the wind aloft was set as a purely zonal $u_g$. To
     \qquad
     \tau_y^\prime = \frac{\mathrm{d} \tau_y}{\mathrm{d} z}.
 \end{equation}
-Thus one can expand \autoref{eq:Method} into four coupled first-order equations
+Expanding \autoref{eq:Method} into four coupled first-order equations gives
 \begin{align}
     \begin{cases} 
     \frac{\mathrm{d} \tau_x}{\mathrm{d} z}
@@ -55,6 +54,6 @@ If the viscosity profile, $\tilde\nu$, obtains a value of zero in the domain, th
 \begin{equation}
     \hat{\nu}\rightarrow\hat{\nu}+\epsilon,
 \end{equation}
-where $\hat{\nu}/\epsilon\gg1$ was assumed. This background viscosity was thus applied for the linear increasing model and the parabolic model since both have zero viscosity at the surface.
+where $\hat{\nu}/\epsilon\gg1$ was assumed. This background viscosity was thus applied for the linear decreasing, linear increasing, and the parabolic model since they have zero viscosity at the surface or at the top.
 
 The SUBC model equations were solved iteratively on a vertical grid. The solver required an initial guess, which was chosen based on the initial setup of the system. The initial guess was therefore set as the classical solution for a constant viscosity. The final solution was found when the iterative solution reached a steady state for the differential equations with the imposed boundary conditions.

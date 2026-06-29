@@ -15,9 +15,13 @@ import matplotlib.pyplot as plt
 u0 = 100.0
 f = 1e-4
 
-phi_values = np.logspace(-2, np.log10(4), 200)
+extent = 250
+phi_values = np.linspace(0, extent, 200)
 
-min_viscosities  = [1e-1, 1e-2, 1e-3, 1e-6, 1e-9, 1e-12, 1e-15, 1e-18]
+
+min_viscosities  = [1, 1e-1, 1e-3, 1e-9, 1e-15]
+min_viscosities  = [1e-1, 1e-3, 1e-6, 1e-9, 1e-12, 1e-15]
+
 
 
 # -------------------------
@@ -36,8 +40,7 @@ def nu_parabolic(z, eps):
 # -------------------------
 # SOLVER
 # -------------------------
-def solve_profile(phi, scheme, eps):
-    z = np.linspace(0, 1, 300)
+def solve_profile(phi, scheme, eps, prev_sol=None):
 
     def fun(z, Y):
         Fx, Fpx, Fy, Fpy = Y
@@ -70,23 +73,22 @@ def solve_profile(phi, scheme, eps):
         ])
 
     # Classical Ekman solution as initial guess
-    nu0 = nu_linear_increasing(0.5, eps)
-    h_Ek = np.sqrt(2 * nu0 / f)
-    Fx_guess = (nu0 * u0 / h_Ek) * np.exp(-z / h_Ek) * np.cos(z / h_Ek)
-    Fy_guess = -(nu0 * u0 / h_Ek) * np.exp(-z / h_Ek) * np.sin(z / h_Ek)
-    Fpx_guess = (nu0 * u0 / h_Ek**2) * np.exp(-z / h_Ek) * (-np.cos(z / h_Ek) - np.sin(z / h_Ek))
-    Fpy_guess = (nu0 * u0 / h_Ek**2) * np.exp(-z / h_Ek) * (-np.sin(z / h_Ek) + np.cos(z / h_Ek))
-    
-    Y_init = np.vstack([
-        Fx_guess,
-        Fpx_guess,
-        Fy_guess,
-        Fpy_guess
-    ])
+    if prev_sol is not None:
+        z0 = prev_sol.x
+        Y0 = prev_sol.y
+    else:
+        z0 = np.linspace(0, 1, 100)
+        nu_mid = nu_linear_increasing(0.5, eps)
+        h_Ek = np.sqrt(2 * nu_mid / f)
+        exp_decay = np.exp(-z0 / h_Ek)
+        Fx_g  =  (nu_mid * u0 / h_Ek) * exp_decay * np.cos(z0 / h_Ek)
+        Fy_g  = -(nu_mid * u0 / h_Ek) * exp_decay * np.sin(z0 / h_Ek)
+        Fpx_g =  (nu_mid * u0 / h_Ek**2) * exp_decay * (-np.cos(z0/h_Ek) - np.sin(z0/h_Ek))
+        Fpy_g =  (nu_mid * u0 / h_Ek**2) * exp_decay * (-np.sin(z0/h_Ek) + np.cos(z0/h_Ek))
+        Y0 = np.vstack([Fx_g, Fpx_g, Fy_g, Fpy_g])
 
-
-    sol = solve_bvp(fun, bc, z, Y_init)
-    return sol.x, sol.y
+    sol = solve_bvp(fun, bc, z0, Y0, tol=1e-8, max_nodes=10000)
+    return sol.x, sol.y, sol
 
 # -------------------------
 # ANGLE METRIC
@@ -103,35 +105,50 @@ def surface_angle(z, Y):
 # PLOTTING
 # -------------------------
 
-schemes = ["linear increasing", "linear decreasing", "parabolic"]
+schemes = ["linear increasing", "parabolic"]
 
-fig, axes = plt.subplots(1, 3, figsize=(15, 4), sharey=True)
+fig, axes = plt.subplots(1, 2, figsize=(15, 5), sharey=True, sharex=True)
 
+prev_sol = None
 for ax, scheme in zip(axes, schemes):
-
+    
     print(scheme)
+
     for i, eps in enumerate(min_viscosities):
         print("    epsilon = ", eps)
         
         angles = []
 
         for phi in phi_values:
-            z, Y = solve_profile(phi, scheme, eps)
-            angles.append(surface_angle(z, Y))
+            z, Y, sol = solve_profile(phi, scheme, eps, prev_sol)
+            
+            val = surface_angle(z, Y)
+            
+            prev_sol = sol
 
-        ax.plot(phi_values, angles, label=fr"$\epsilon={eps:.0e}$")
-
-    ax.axhline(45, color="black", linestyle="--", linewidth=1)
+            angles.append(val)
+            
+        if i == 0:
+            ax.hlines(45, min(phi_values), max(phi_values), color="black", linestyle='--', label="45° reference")
+            
+        ax.plot(phi_values, angles, label=fr"$\epsilon={eps:.0e}$ ms$^{{-1}}$")
+        
     ax.set_ylim(0, 95)
     ax.grid(True, alpha=0.4)
 
     ax.set_title(scheme.capitalize())
-    ax.set_xlabel(r"$\varphi$")
+    ax.set_xlabel(r"Dimensionless layer thickness, $\varphi$ [-]",fontsize=11)
 
-axes[0].set_ylabel(r"Surface angle $\theta$ [deg]")
-axes[-1].legend()
+axes[0].set_ylabel(r"Surface angle, $\theta$ [deg]",fontsize=11)
+axes[-1].legend(fontsize=11, loc="upper right")
 
-plt.tight_layout()
-save_name="numerical_15_angle_limit"
+plt.suptitle("Surface Angle for SUBC Increasing Models", fontsize=14)
+axes[0].grid(True, linestyle='--', alpha=0.6)
+axes[1].grid(True, linestyle='--', alpha=0.6)
+
+
+
+save_name="numerical_SUBC_angle_limit"
 plt.savefig(f"plots/{save_name}.png", dpi=400)
+plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{save_name}.png", dpi=400)
 plt.show()

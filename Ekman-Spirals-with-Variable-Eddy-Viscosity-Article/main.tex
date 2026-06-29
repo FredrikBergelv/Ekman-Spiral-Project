@@ -1,11 +1,12 @@
 \documentclass[a4paper,10pt]{article}
 
 \input{Other/Premable}
-
 \input{Other/Information}
 
+\usepackage{multicol} % Add this line for multi-column support
+
 \ifthenelse{\equal{\draftmode}{y}}{
-\usepackage{environ} 
+\usepackage{environ}
 \RenewEnviron{figure}[1][]{}
 }{}
 
@@ -34,23 +35,17 @@
 \tableofcontents
 \newpage}{}}{}
 
-\input{Textfiles/0.Abstract.tex}
+\ifthenelse{\equal{\twocolumns}{y}}{
+\twocolumn
+}{}
 \input{Textfiles/1.Background.tex}
 \input{Textfiles/2.Theory.tex}
 \input{Textfiles/3.Methodology.tex}
 \input{Textfiles/4.Results.tex}
 \input{Textfiles/5.Discussion.tex}
 \input{Textfiles/6.Conclusion.tex}
-
 \input{Textfiles/Appendix}
 
 \ifthenelse{\equal{\IncludeBib}{y}}{\bibliography{Textfiles/References.bib}}{}
 
-
 \end{document}
-
-
-
-
-
-

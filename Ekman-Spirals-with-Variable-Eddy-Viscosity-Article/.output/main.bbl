@@ -1,11 +1,11 @@
-\begin{thebibliography}{2}
+\begin{thebibliography}{3}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
-\bibitem[Ekman(1905)]{Ekman1905}
+\bibitem[Ekman(1905)]{ekman1905}
 V.~Walfrid Ekman.
 \newblock On the {Influence} of the {Earth}'s {Rotation} on {Ocean}-{Currents}.
 \newblock \emph{Arkiv för matematik, astronomi och fysik}, 2\penalty0 (11):\penalty0 1--52, May 1905.
@@ -17,5 +17,11 @@ Pauli Virtanen, Ralf Gommers, Travis~E. Oliphant, Matt Haberland, Tyler Reddy, D
 \newblock ISSN 1548-7091, 1548-7105.
 \newblock \doi{10.1038/s41592-019-0686-2}.
 \newblock URL \url{https://www.nature.com/articles/s41592-019-0686-2}.
+
+\bibitem[Wallace and Hobbs(2006)]{wallace2006}
+John~Michael Wallace and Peter~Victor Hobbs.
+\newblock \emph{Atmospheric Science: An Introductory Survey}.
+\newblock Number volume 92 in International Geophysics Series. Academic press, 2nd ed edition, 2006.
+\newblock ISBN 978-0-12-732951-2.
 
 \end{thebibliography}

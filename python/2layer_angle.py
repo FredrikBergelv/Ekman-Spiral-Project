@@ -154,15 +154,24 @@ for i, nu_ratio in enumerate(nu_ratios):
     hEk2 = np.sqrt(2 * nu2 / f)
 
     ax = axes[0, i]    
-
+    
+    xmin, xmax = ax.get_xlim()
     for j, phi in enumerate(phis_to_plot):
         tau_vals = tau(z, phi, gamma, nu1=nu1)
         ax.plot(np.real(tau_vals), z, c=f"C{j}", label=fr'$\varphi={phi:.1f}$')
         ax.plot(np.imag(tau_vals), z, '--', c=f"C{j}")
-                    
+        
+                            
     xmin, xmax = ax.get_xlim()
+    for j, phi in enumerate(phis_to_plot):    
+        line = np.linspace(xmin, xmin*0.9, 10)
+        diff = (0.05+0.2*j)*(xmax+xmin)
+        H = phi*hEk1
+        ax.plot(line, line*0 + H, c=f"C{j}", linewidth=3)
+        ax.fill_between([xmin, xmax-diff], H, H+hEk2, color=f"C{j}", alpha=0.1, label=r"$h_\text{Ek2}$", ec="black")
+
+    ax.plot([], [], c="black", label=r'$H$', linewidth=3)
     ax.fill_between([xmin, xmax], 0, hEk1, color='gray', alpha=0.2, label=r"$h_\text{Ek1}$", ec="black")
-    ax.fill_between([xmin, xmax], hEk1, hEk1+hEk2, color='gray', alpha=0.1, label=r"$h_\text{Ek2}$", ec="black")
     
     ax.set_xlabel(r"Momentum flux, $\tau$ [m$^2$/s$^2$]", fontsize=11)
     ax.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))

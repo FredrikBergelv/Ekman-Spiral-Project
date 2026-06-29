@@ -112,8 +112,14 @@ for j, phi in enumerate(phis_to_plot):
         tau_vals = tau(z, phi, k=k_val)
         ax.plot(np.real(tau_vals), z, c=f"C{j}", label=fr'$\varphi_\text{{exp}}={phi:.1f}$')
         ax.plot(np.imag(tau_vals), z, '--', c=f"C{j}")
-        
+
 xmin, xmax = ax.get_xlim()
+for j, phi in enumerate(phis_to_plot):
+        line = np.linspace(xmin, xmin*0.9, 10)
+        k_val = 1/(hEk*phi)
+        ax.plot(line, line*0 + 1/k_val, c=f"C{j}", linewidth=3)
+
+ax.plot([], [], c="black", label=r'$1/k$', linewidth=3)
 ax.fill_between([xmin, xmax], 0, hEk, color="gray",  label=r"$h_\text{Ek0}$", alpha=0.15, ec="gray")
             
 ax.set_xlabel(r"Momentum flux, $\tau$ [m$^2$/s$^2$]", fontsize=11)

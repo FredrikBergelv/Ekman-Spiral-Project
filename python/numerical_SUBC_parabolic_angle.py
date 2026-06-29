@@ -25,8 +25,7 @@ def nu_parabolic(z, eps):
 # -------------------------
 # SOLVER
 # -------------------------
-def solve_profile(phi, eps):
-    z = np.linspace(0, 1, 300)
+def solve_profile(phi, eps, prev_sol):
 
     def fun(z, Y):
         taux, taupx, tauy, taupy = Y
@@ -47,24 +46,22 @@ def solve_profile(phi, eps):
         ])
 
     # Classical Ekman solution as initial guess
-    nu0 = nu_parabolic(0.5, eps)
-    h_Ek = np.sqrt(2 * nu0 / f)
-    taux_guess = (nu0 * u0 / h_Ek) * np.exp(-z / h_Ek) * np.cos(z / h_Ek)
-    tauy_guess = -(nu0 * u0 / h_Ek) * np.exp(-z / h_Ek) * np.sin(z / h_Ek)
-    taupx_guess = (nu0 * u0 / h_Ek**2) * np.exp(-z / h_Ek) * (-np.cos(z / h_Ek) - np.sin(z / h_Ek))
-    taupy_guess = (nu0 * u0 / h_Ek**2) * np.exp(-z / h_Ek) * (-np.sin(z / h_Ek) + np.cos(z / h_Ek))
-    
-    Y_init = np.vstack([
-        taux_guess,
-        taupx_guess,
-        tauy_guess,
-        taupy_guess
-    ])
+    if prev_sol is not None:
+        z0 = prev_sol.x
+        Y0 = prev_sol.y
+    else:
+        z0 = np.linspace(0, 1, 300)
+        nu_mid = nu_parabolic(0.5, eps)
+        h_Ek = np.sqrt(2 * nu_mid / f)
+        exp_decay = np.exp(-z0 / h_Ek)
+        Fx_g  =  (nu_mid * u0 / h_Ek) * exp_decay * np.cos(z0 / h_Ek)
+        Fy_g  = -(nu_mid * u0 / h_Ek) * exp_decay * np.sin(z0 / h_Ek)
+        Fpx_g =  (nu_mid * u0 / h_Ek**2) * exp_decay * (-np.cos(z0/h_Ek) - np.sin(z0/h_Ek))
+        Fpy_g =  (nu_mid * u0 / h_Ek**2) * exp_decay * (-np.sin(z0/h_Ek) + np.cos(z0/h_Ek))
+        Y0 = np.vstack([Fx_g, Fpx_g, Fy_g, Fpy_g])
 
-
-    sol = solve_bvp(fun, bc, z, Y_init)
-    return sol.x, sol.y
-
+    sol = solve_bvp(fun, bc, z0, Y0, tol=1e-8, max_nodes=10000)
+    return sol.x, sol.y, sol
 # -------------------------
 # ANGLE METRIC
 # -------------------------
@@ -92,9 +89,9 @@ extent = 4
 phi_values = np.linspace(0, extent, 170)
 
 
-
 surface_angles = []
 transport_angles = []
+prev_sol = None
 for i, phi in enumerate(phi_values):
     
     surface_angles_now = []
@@ -102,12 +99,14 @@ for i, phi in enumerate(phi_values):
     
     for j, epsilon in enumerate(min_viscosities):
 
-        z, Y = solve_profile(phi, epsilon)
+        z, Y, sol = solve_profile(phi, epsilon, prev_sol)
         surf = surface_angle(z, Y)
         surface_angles_now.append(surf)
         
         transport= transport_angle(z, Y)
         transport_angles_now.append(transport)
+        
+        prev_sol = sol
         
         #if surf<45.0001:
             #print("Bingo!, varphi = ", phi)
@@ -120,13 +119,13 @@ for i, phi in enumerate(phi_values):
     transport_angles.append(transport_angles_now)
     
         
-#%%
+##%%
 plt.figure(figsize=(8,5))
 
 surface_angles = np.squeeze(np.array(surface_angles))
 for j, epsilon in enumerate(min_viscosities):
 
-    plt.plot(phi_values, surface_angles[:, j], label=fr"$\epsilon={epsilon:.0e}$ ms$^{{-1}}$")
+    plt.plot(phi_values, surface_angles[:, j], label=fr"$\epsilon={epsilon:.0e}$ m$^{{-1}}$")
     
 plt.hlines(45, min(phi_values), max(phi_values), color="black", linestyle='--', label="45° reference")
 
@@ -144,11 +143,17 @@ plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{sav
 
 plt.show()
 
-#%%
+##%%
 plt.figure(figsize=(8,5))
 transport_angles = np.squeeze(np.array(transport_angles))
 for j, epsilon in enumerate(min_viscosities):
-    plt.plot(phi_values[1:], transport_angles[:, j][1:],  label=fr"$\epsilon={epsilon:.0e}$ ms$^{{-1}}$")
+    
+    angles = transport_angles[:, j]
+    for i, ang in enumerate(angles):
+        if ang<0:
+            angles[i] =np.nan
+            
+    plt.plot(phi_values, angles,  label=fr"$\epsilon={epsilon:.0e}$ m$^{{-1}}$")
 
 plt.hlines(135, min(phi_values), max(phi_values), color="black", linestyle='--', label="135° reference")
 
@@ -167,7 +172,7 @@ plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{sav
 
 plt.show()
 
-#%%
+##%%
 
 epsilons_to_plot = [1e-1, 1e-6]
 phis_to_plot = [0.2, 1.0, 2.0]
@@ -201,7 +206,7 @@ for i, epsilon in enumerate(epsilons_to_plot[:2]):  # two columns
 
     ax.set_xlabel(r"Momentum flux, $\tau$ [m$^2$/s$^2$]", fontsize=11)
     ax.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
-    ax.set_title(fr"$\epsilon = {epsilon:.0e}$ ms$^{{-1}}$", fontsize=12)
+    ax.set_title(fr"$\epsilon = {epsilon:.0e}$ m$^{{-1}}$", fontsize=12)
     ax.set_ylim(0, 1.1)
     ax.plot([], [], 'k-',  label=r'$\tau_x$')
     ax.plot([], [], 'k--', label=r'$\tau_y$')

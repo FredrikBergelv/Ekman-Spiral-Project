@@ -47,24 +47,20 @@ def solve_profile(phi, epsilon=min_viscosity):
             Y0[3] + f*u0,  # tauy'(0) = -f*u0
         ])
 
+
     # Classical Ekman solution as initial guess
-    nu0 = nu_decreasing(0.5)
-    h_Ek = np.sqrt(2 * nu0 / f)
-    taux_guess = (nu0 * u0 / h_Ek) * np.exp(-z / h_Ek) * np.cos(z / h_Ek)
-    tauy_guess = -(nu0 * u0 / h_Ek) * np.exp(-z / h_Ek) * np.sin(z / h_Ek)
-    taupx_guess = (nu0 * u0 / h_Ek**2) * np.exp(-z / h_Ek) * (-np.cos(z / h_Ek) - np.sin(z / h_Ek))
-    taupy_guess = (nu0 * u0 / h_Ek**2) * np.exp(-z / h_Ek) * (-np.sin(z / h_Ek) + np.cos(z / h_Ek))
-    
-    Y_init = np.vstack([
-        taux_guess,
-        taupx_guess,
-        tauy_guess,
-        taupy_guess
-    ])
+    z0 = np.linspace(0, 1, 100)
+    nu_mid = nu_decreasing(0.5, min_viscosity)
+    h_Ek = np.sqrt(2 * nu_mid / f)
+    exp_decay = np.exp(-z0 / h_Ek)
+    Fx_g  =  (nu_mid * u0 / h_Ek) * exp_decay * np.cos(z0 / h_Ek)
+    Fy_g  = -(nu_mid * u0 / h_Ek) * exp_decay * np.sin(z0 / h_Ek)
+    Fpx_g =  (nu_mid * u0 / h_Ek**2) * exp_decay * (-np.cos(z0/h_Ek) - np.sin(z0/h_Ek))
+    Fpy_g =  (nu_mid * u0 / h_Ek**2) * exp_decay * (-np.sin(z0/h_Ek) + np.cos(z0/h_Ek))
+    Y0 = np.vstack([Fx_g, Fpx_g, Fy_g, Fpy_g])
 
-
-    sol = solve_bvp(fun, bc, z, Y_init)
-    return sol.x, sol.y
+    sol = solve_bvp(fun, bc, z0, Y0, tol=1e-8, max_nodes=10000)
+    return sol.x, sol.y, sol
 
 # -------------------------
 # ANGLE METRIC
@@ -99,7 +95,7 @@ transport_angles_d = []
 for i, phi in enumerate(phi_values):
 
         
-        z_d, Y_d = solve_profile(phi)
+        z_d, Y_d,sol = solve_profile(phi)
         surf_angle_d = surface_angle(z_d, Y_d)
         surface_angles_d.append(surf_angle_d)
         
@@ -168,7 +164,7 @@ fig, axes = plt.subplots(2, 1, figsize=(6, 6),
 ax = axes[0]
 
 for j, phi in enumerate(phis_to_plot):
-        z_sol, Y_sol = solve_profile(phi, epsilons_to_plot)
+        z_sol, Y_sol, sol = solve_profile(phi, epsilons_to_plot)
 
         taux = Y_sol[0]
         tauy = Y_sol[2]
@@ -202,6 +198,7 @@ nu_z = nu_decreasing(z_plot, epsilons_to_plot)
   
 ax_pot.plot(f / nu_z, z_plot,  'k')
 ax_pot.set_xlabel(r"Eigenvalue, $\lambda$ [m$^{-2}$]", fontsize=11)
+ax_pot.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
 ax_pot.set_ylim(0, 1)
 ax_pot.set_xlim(0, f*10)
 ax_pot.grid(True, linestyle='--', alpha=0.6)
