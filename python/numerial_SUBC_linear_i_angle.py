@@ -129,7 +129,7 @@ plt.figure(figsize=(8,5))
 surface_angles_i = np.squeeze(np.array(surface_angles_i))
 for j, epsilon in enumerate(min_viscosities):
 
-    plt.plot(phi_values, surface_angles_i[:, j], label=fr"$\epsilon={epsilon:.0e}$ m$^{{-1}}$")
+    plt.plot(phi_values, surface_angles_i[:, j], label=fr"$\epsilon={epsilon:.0e}$")
     
 plt.hlines(45, min(phi_values), max(phi_values), color="black", linestyle='--', label="45° reference")
 
@@ -157,7 +157,7 @@ for j, epsilon in enumerate(min_viscosities):
         if ang<0:
             angles[i] =np.nan
         
-    plt.plot(phi_values, angles, label=fr"$\epsilon={epsilon:.0e}$ m$^{{-1}}$")
+    plt.plot(phi_values, angles, label=fr"$\epsilon={epsilon:.0e}$")
 
 plt.hlines(135, min(phi_values), max(phi_values), color="black", linestyle='--', label="135° reference")
 
@@ -210,7 +210,7 @@ for i, epsilon in enumerate(epsilons_to_plot[:2]):  # two columns
 
     ax.set_xlabel(r"Momentum flux, $\tau$ [m$^2$/s$^2$]", fontsize=11)
     ax.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
-    ax.set_title(fr"$\epsilon = {epsilon:.0e}$ m$^{{-1}}$", fontsize=12)
+    ax.set_title(fr"$\epsilon = {epsilon:.0e}$", fontsize=12)
     ax.set_ylim(0, 1.1)
     ax.plot([], [], 'k-',  label=r'$\tau_x$')
     ax.plot([], [], 'k--', label=r'$\tau_y$')

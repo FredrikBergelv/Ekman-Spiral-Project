@@ -101,7 +101,7 @@ mask_wide = phi_values >= 4
 
 for j, epsilon in enumerate(min_viscosities):
     angles = np.array(results[epsilon])
-    label = fr"$\epsilon={epsilon:.0e}$ m$^{{-1}}$"
+    label = fr"$\epsilon={epsilon:.0e}$"
     ax1.plot(phi_values[mask_zoom], angles[mask_zoom], label=label, c=f"C{j}")
     ax2.plot(phi_values[mask_wide], angles[mask_wide], label=label, c=f"C{j}", alpha=0.6)
 
@@ -138,7 +138,7 @@ ax1.set_ylabel(r"Surface angle, $\theta$ [deg]", fontsize=11)
 ax2.legend(fontsize=11, loc="upper right")
 fig.suptitle("Surface Angle for the SUBC Linear Increasing Model", fontsize=14)
 
-save_name = "numerical_SUBC_linear_i_angle_broken2"
+save_name = "numerical_SUBC_linear_i_angle_broken"
 plt.savefig(f"plots/{save_name}.png", dpi=400, bbox_inches='tight')
 plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{save_name}.png", dpi=400, bbox_inches='tight')
 plt.show()
