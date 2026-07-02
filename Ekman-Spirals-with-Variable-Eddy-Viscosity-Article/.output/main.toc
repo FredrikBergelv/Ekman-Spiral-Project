@@ -7,13 +7,13 @@
 \contentsline {subsection}{\numberline {2.4}The two layer model}{4}{subsection.2.4}%
 \contentsline {subsection}{\numberline {2.5}The exponential decaying viscosity}{6}{subsection.2.5}%
 \contentsline {subsection}{\numberline {2.6}The simplified upper boundary condition model}{8}{subsection.2.6}%
-\contentsline {subsubsection}{\numberline {2.6.1}Simple viscosity profiles for the SUBC model}{8}{subsubsection.2.6.1}%
-\contentsline {section}{\numberline {3}Methodology}{9}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Numerical method}{9}{subsection.3.1}%
-\contentsline {section}{\numberline {4}Result}{10}{section.4}%
-\contentsline {subsection}{\numberline {4.1}The vertical structure of the momentum flux}{10}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}The surface angles}{10}{subsection.4.2}%
-\contentsline {subsubsection}{\numberline {4.2.1}The Ekman transport}{13}{subsubsection.4.2.1}%
-\contentsline {section}{\numberline {5}Discussion}{13}{section.5}%
-\contentsline {section}{\numberline {6}Conclusion}{13}{section.6}%
-\contentsline {section}{\numberline {A}The Source Code}{14}{appendix.A}%
+\contentsline {subsubsection}{\numberline {2.6.1}Simple viscosity profiles for the SUBC model}{9}{subsubsection.2.6.1}%
+\contentsline {section}{\numberline {3}Methodology}{10}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Numerical method}{10}{subsection.3.1}%
+\contentsline {section}{\numberline {4}Result}{11}{section.4}%
+\contentsline {subsection}{\numberline {4.1}The vertical structure of the momentum flux}{11}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}The surface angles}{11}{subsection.4.2}%
+\contentsline {subsubsection}{\numberline {4.2.1}The Ekman transport}{14}{subsubsection.4.2.1}%
+\contentsline {section}{\numberline {5}Discussion}{14}{section.5}%
+\contentsline {section}{\numberline {6}Conclusion}{14}{section.6}%
+\contentsline {section}{\numberline {A}The Source Code}{15}{appendix.A}%

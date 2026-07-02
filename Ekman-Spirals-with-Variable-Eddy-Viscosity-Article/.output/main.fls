@@ -446,6 +446,11 @@ INPUT ./Figures/2layer_angle.png
 INPUT ./Figures/2layer_angle.png
 INPUT ./Figures/2layer_angle.png
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/tcrm0800.tfm
+INPUT ./Figures/2layer_angle_structure.png
+INPUT ./Figures/2layer_angle_structure.png
+INPUT ./Figures/2layer_angle_structure.png
+INPUT ./Figures/2layer_angle_structure.png
+INPUT ./Figures/2layer_angle_structure.png
 INPUT ./Figures/exponential_structure.png
 INPUT ./Figures/exponential_structure.png
 INPUT ./Figures/exponential_structure.png
@@ -456,6 +461,11 @@ INPUT ./Figures/exponential_angle.png
 INPUT ./Figures/exponential_angle.png
 INPUT ./Figures/exponential_angle.png
 INPUT ./Figures/exponential_angle.png
+INPUT ./Figures/exponential_angle_structure.png
+INPUT ./Figures/exponential_angle_structure.png
+INPUT ./Figures/exponential_angle_structure.png
+INPUT ./Figures/exponential_angle_structure.png
+INPUT ./Figures/exponential_angle_structure.png
 INPUT ./Textfiles/3.Methodology.tex
 INPUT ./Textfiles/3.Methodology.tex
 INPUT Textfiles/3.Methodology.tex

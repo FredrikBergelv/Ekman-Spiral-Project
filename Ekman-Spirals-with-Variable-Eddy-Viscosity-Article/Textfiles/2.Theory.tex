@@ -165,10 +165,19 @@ In the case of a very much weaker upper viscosity the perpendicular angle can be
     \label{fig:2layer_angle}
 \end{figure*}
 
+The full vertical structure of the two-layer model can be obtained by calculating the angle at each height in \autoref{fig:2_layer_angle_structure}. The spiralling of the two-layer model compared to the classical Ekman theory can be observed in \autoref{fig:2_layer_angle_structure}. The angles deviate throughout the structure from the classical solution, but for the larger $\varphi$-value, a closer likeness to the classical solution can be observed. Interestingly, if the viscosity increases with altitude, the angles are lower than the classical solution at the surface, but increase to be larger than the classical solution higher up. The opposite is true for the other case when the viscosity decreases with altitude.
+
+\begin{figure*}[hbt!]
+    \centering    
+    \includegraphics[height=0.42\textwidth]{Figures/2layer_angle_structure.png}
+    \caption{The vertical spiral of the velocities for two layer viscosity. The angle is dependent on the dimensionless parameter $\varphi = H/h_\text{Ek1}$. The classical Ekman solution (when $\nu_\text{const}=\nu_1$) is also shown. The solution assumed a purely zonal geostrophic flow and a Coriolis parameter of $f=\SI{1e-4}{\per\second}$. }
+    \label{fig:2_layer_angle_structure}
+\end{figure*}
+
 \subsection{The exponential decaying viscosity}
 Another viscosity profile that can provide a fully analytical solution is an exponentially decaying viscosity with altitude. Here the viscosity is set to decay from an initial viscosity of $\nu_0$, with a decay rate of $k$ as $\nu(z)=\nu_0\exp\left(-kz\right)$. Solving \autoref{eq:MomentumFlux} with this viscosity profile can be done by introducing the new variable 
 \begin{equation}
-    t=4\left(1+i\right)\,\varphi_\text{exp}\, e^{\frac{kz}{4}}.
+    t=2\left(1+i\right)\,\varphi_\text{exp}\, e^{\frac{kz}{2}}.
 \end{equation}
 The non-dimensional parameter $\varphi_\text{exp}$ resembles the non-dimensional layer thickness from the two-layer model, but defined as 
 \begin{equation}
@@ -186,7 +195,7 @@ where $C_1$ and $C_2$ are constants, while $I_0(t)$ and $K_0(t)$ are modified Be
 \begin{equation}
     \tau(z)=\frac{\left(1+i\right)fU_g}
     {2k\varphi}
-    \frac{K_0\left(4\left[1+i\right]\varphi_\text{exp} e^{kz/4}\right)}{K_1\left(4\left[1+i\right]\varphi_\text{exp}\right)}.
+    \frac{K_0\left(2\left[1+i\right]\varphi_\text{exp} e^{kz/2}\right)}{K_1\left(2\left[1+i\right]\varphi_\text{exp}\right)}.
     \label{eq:exponetial}
 \end{equation}
 This full solution for the vertical momentum flux in the exponential model can be observed in \autoref{fig:2layer_structure}. There, the change of the vertical momentum flux with altitude for different non-dimensional heights, $\varphi$, can be observed. For smaller $\varphi$, the solution is more localized toward the surface, whereas larger $\varphi$ produces a more extended spiral. This implies that for larger $\varphi$, the viscosity changes very little, causing the spiral to behave as in the one-layer model. In contrast, smaller $\varphi$ indicates a rapid viscosity decrease from the ground.
@@ -210,6 +219,15 @@ where $K_1$ is the modified Bessel function of the second kind of order one. \au
     \includegraphics[height=0.42\textwidth]{Figures/exponential_angle.png}
     \caption{Surface angle for the exponentially decaying viscosity model as a function of the dimensionless parameter $\varphi=H/h_\text{Ek}$. The solution assumed a purely zonal geostrophic flow.}
     \label{fig:exponential_angle}
+\end{figure*}
+
+The full vertical structure of the exponential model can, like in the two-layer model, be obtained at each height from \autoref{fig:exponential_structure}. The spiralling of the exponential model compared to the classical Ekman theory can be observed in \autoref{fig:exponential_angle_structure}. The angles are higher than the classical solution at the surface but decrease to be smaller than the classical solution higher up, following the logic presented in the two-layer model.
+
+\begin{figure*}[hbt!]
+    \centering    
+    \includegraphics[height=0.42\textwidth]{Figures/exponential_angle_structure.png}
+    \caption{The vertical spiral of the velocities for exponentially decreasing viscosity. The angle is dependent on the dimensionless parameter $\varphi_\text{exp}=1/k\,h_\text{Ek0}$. The classical Ekman solution (for $\nu_0$) is also shown. The solution assumed a purely zonal geostrophic flow and a Coriolis parameter of $f=\SI{1e-4}{\per\second}$ }
+    \label{fig:exponential_angle_structure}
 \end{figure*}
 
 \subsection{The simplified upper boundary condition model}

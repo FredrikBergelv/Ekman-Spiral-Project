@@ -158,6 +158,10 @@ for i, nu_ratio in enumerate(nu_ratios):
     xmin, xmax = ax.get_xlim()
     for j, phi in enumerate(phis_to_plot):
         tau_vals = tau(z, phi, gamma, nu1=nu1)
+        
+        ang = np.angle(tau_vals, deg=True)
+        #ax.plot(ang, z, c=f"C{j}", label=fr'$\varphi={phi:.1f}$')
+        
         ax.plot(np.real(tau_vals), z, c=f"C{j}", label=fr'$\varphi={phi:.1f}$')
         ax.plot(np.imag(tau_vals), z, '--', c=f"C{j}")
         
@@ -167,11 +171,14 @@ for i, nu_ratio in enumerate(nu_ratios):
         line = np.linspace(xmin, xmin*0.9, 10)
         diff = (0.05+0.2*j)*(xmax+xmin)
         H = phi*hEk1
-        ax.plot(line, line*0 + H, c=f"C{j}", linewidth=3)
-        ax.fill_between([xmin, xmax-diff], H, H+hEk2, color=f"C{j}", alpha=0.1, label=r"$h_\text{Ek2}$", ec="black")
+        ax.scatter(xmin, H, c=f"C{j}")
+        ax.fill_between([xmin, xmax-diff], H, H+hEk2, color=f"C{j}", alpha=0.1, ec="black")
 
-    ax.plot([], [], c="black", label=r'$H$', linewidth=3)
+    ax.scatter([], [], c="black", label=r'$H$')
     ax.fill_between([xmin, xmax], 0, hEk1, color='gray', alpha=0.2, label=r"$h_\text{Ek1}$", ec="black")
+    ax.fill_between([], [], [], color='C0',  alpha=0.2, ec="black", label=r"$h_\text{Ek2}$")
+    ax.fill_between([], [], [], color='C1',  alpha=0.2, ec="black", label=r"$h_\text{Ek2}$")
+    ax.fill_between([], [], [], color='C2',  alpha=0.2, ec="black", label=r"$h_\text{Ek2}$")
     
     ax.set_xlabel(r"Momentum flux, $\tau$ [m$^2$/s$^2$]", fontsize=11)
     ax.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
@@ -204,6 +211,93 @@ axes[1, 0].set_ylabel(r"Height, $z$ [m]", fontsize=11)
 plt.suptitle(r"Momentum Flux and Potential For 2-layer Model", fontsize=14)
 plt.tight_layout()
 save_name="2layer_structure"
+plt.savefig(f"plots/{save_name}.png", dpi=400)
+plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{save_name}.png", dpi=400)
+plt.show()
+
+#%%
+
+
+
+nu_ratios = np.array([0.1, 10])
+
+nu0 = 0.1  # reference viscosity at z=0
+hEk = np.sqrt(2 * nu0 / f)
+
+phis_to_plot = [0.2, 1.0, 4.0]
+Nz = 10000
+zmax = 5 *hEk
+z = np.linspace(0, zmax, Nz)
+
+from scipy.integrate import cumulative_trapezoid
+
+nu_ratios = [0.1, 10.0]
+phis_to_plot = [0.2, 1.0, 4]
+fig, axes = plt.subplots(1, 2, figsize=(11, 5), sharey=True)
+
+for i, nu_ratio in enumerate(nu_ratios):
+    if nu_ratio == 0.1:
+        nu1 = 1
+    if nu_ratio == 10:
+        nu1 = 0.1
+    hEk1 = np.sqrt(2 * nu1 / f)
+    zmax = 15 * hEk1
+    Nz = 10000
+    z = np.linspace(0, zmax, Nz)
+
+    gamma = np.sqrt(nu_ratio)
+    nu2 = gamma**2 * nu1
+    hEk2 = np.sqrt(2 * nu2 / f)
+    ax = axes[i]
+
+    # Classical single-layer Ekman reference
+    U_theory = U0 * (1 - np.exp(-(1 + 1j) * z / hEk1))
+    ang_theory = np.angle(U_theory, deg=True)
+    ax.plot(ang_theory[1:], z[1:], 'k--', lw=2, label='classical solution')
+
+    for j, phi in enumerate(phis_to_plot):
+        H = phi * hEk1
+        tau_vals = tau(z, phi, gamma, nu1=nu1)
+        nu_z = np.where(z < H, nu1, nu2)
+        U = cumulative_trapezoid(tau_vals / nu_z, z, initial=0)
+        ang = np.angle(U, deg=True)
+        ax.plot(ang[1:], z[1:], c=f"C{j}", label=fr'$\varphi={phi:.1f}$')
+
+
+    # --- H and hEk decorations (same style as tau plot) ---
+    xmin, xmax = ax.get_xlim()
+    for j, phi in enumerate(phis_to_plot):
+        H = phi * hEk1
+        diff = (0.05 + 0.2 * j) * (xmax - xmin)
+        # H marker line on left edge
+        ax.scatter(xmin, H, c=f"C{j}", linewidth=1)
+
+        # hEk2 shading above H
+        ax.fill_between([xmin, xmax - diff], H, H + hEk2,
+                        color=f"C{j}", alpha=0.1, ec="black")
+    # hEk1 shading near surface
+    ax.fill_between([xmin, xmax], 0, hEk1, color='gray', alpha=0.2, ec="black")
+
+    # Legend proxies for H and hEk
+    ax.scatter([], [], c="black", linewidth=1, label=r'$H$')
+    ax.fill_between([], [], [], color='gray', alpha=0.2, ec="black", label=r"$h_\text{Ek1}$")
+    ax.fill_between([], [], [], color='C0',  alpha=0.2, ec="black", label=r"$h_\text{Ek2}$")
+    ax.fill_between([], [], [], color='C1',  alpha=0.2, ec="black", label=r"$h_\text{Ek2}$")
+    ax.fill_between([], [], [], color='C2',  alpha=0.2, ec="black", label=r"$h_\text{Ek2}$")
+
+    ax.set_xlabel(r"Wind turning angle [°]", fontsize=11)
+    ax.set_title(fr"$\nu_2/\nu_1 = {nu_ratio}$ "
+                 + (r"($\nu_2 < \nu_1$)" if gamma < 1 else r"($\nu_2 > \nu_1$)"),
+                 fontsize=12)
+    ax.set_ylim(0, zmax)
+    ax.grid(True, linestyle='--', alpha=0.6)
+    if i == 1:
+        ax.legend(loc="upper right", fontsize=11)
+
+axes[0].set_ylabel(r"Height, $z$ [m]", fontsize=11)
+plt.suptitle(r"Spiral For 2-layer Model", fontsize=14)
+
+save_name = "2layer_angle_structure"
 plt.savefig(f"plots/{save_name}.png", dpi=400)
 plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{save_name}.png", dpi=400)
 plt.show()

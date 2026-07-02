@@ -1,9 +1,9 @@
 # Fdb version 4
-["pdflatex"] 1781378848.70654 "/home/fredrik/Documents/Ekman-Spiral-Project/python/plots/new_exponetial_notes/main.tex" ".output/main.pdf" "main" 1781378849.62677 0
-  ".output/main.aux" 1781378849.5298 461 7157d34c3cc45b82fc07c556d9efe732 "pdflatex"
-  ".output/main.out" 1781378849.3858 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+["pdflatex"] 1782907575.08231 "/home/fredrik/Documents/Ekman-Spiral-Project/Notes/nya_Exponentiell/main.tex" ".output/main.pdf" "main" 1782907577.43863 0
+  ".output/main.aux" 1782907577.26594 461 13d0ae458382ef76978ed3b21dc6a734 "pdflatex"
+  ".output/main.out" 1782907576.97681 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
   "/etc/texmf/web2c/texmf.cnf" 1732548902.53758 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/fredrik/Documents/Ekman-Spiral-Project/python/plots/new_exponetial_notes/main.tex" 1781376933.50469 2831 2922616f4cd1fe5459012ac134ac0c25 ""
+  "/home/fredrik/Documents/Ekman-Spiral-Project/Notes/nya_Exponentiell/main.tex" 1781376933.50469 2831 2922616f4cd1fe5459012ac134ac0c25 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecbx1728.tfm" 1136768653 3584 ad49a18d8515beef6d92d4d3f197d0fd ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecrm0500.tfm" 1136768653 3584 178baad7ffca7f5d3428a83bd7cc64c3 ""
@@ -218,7 +218,7 @@
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1732548924.46665 5472669 54eaf61a88b6b7896ebd0dac973cb29c ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1732548954 8213821 17cddad2c49ccf63e58ec66c69761292 ""
   "main.tex" 1781376933.50469 2831 2922616f4cd1fe5459012ac134ac0c25 ""
-  "notes.tex" 1781378848.52679 1929 3fecad356086b0618acd9ffc8e6e211b ""
+  "notes.tex" 1782907572.27066 1844 1c8e07944867448beea4b1a1fd477c7b ""
   (generated)
   ".output/main.aux"
   ".output/main.log"

@@ -8,13 +8,13 @@ from scipy.special import kv
 import matplotlib.pyplot as plt
 
 f = 1e-4 
-U0 = 1
+U0 = 10
 k = 10 # do not need in reality 
 
 
 def tau(z, phi, k=k):
-    arg_z = 4 * (1 + 1j) * phi * np.exp(k * z / 4)
-    arg_0 = 4 * (1 + 1j) * phi
+    arg_z = 2 * (1 + 1j) * phi * np.exp(k * z / 2)
+    arg_0 = 2 * (1 + 1j) * phi
     return ((1 + 1j) * f * U0) / (2 * k * phi) * kv(0, arg_z) / kv(1, arg_0)
 
 
@@ -110,6 +110,8 @@ for j, phi in enumerate(phis_to_plot):
         
         k_val = 1/(hEk*phi)
         tau_vals = tau(z, phi, k=k_val)
+        ang = np.angle(tau_vals, deg=True)
+        #ax.plot(ang, z, c=f"C{j}", label=fr'$\varphi={phi:.1f}$')
         ax.plot(np.real(tau_vals), z, c=f"C{j}", label=fr'$\varphi_\text{{exp}}={phi:.1f}$')
         ax.plot(np.imag(tau_vals), z, '--', c=f"C{j}")
 
@@ -149,6 +151,64 @@ plt.suptitle(r"Momentum Flux and Potential for Exponential Model",
              fontsize=14)
 plt.tight_layout()
 save_name="exponential_structure"
+plt.savefig(f"plots/{save_name}.png", dpi=400)
+plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{save_name}.png", dpi=400)
+plt.show()
+
+#%%
+
+from scipy.integrate import cumulative_trapezoid
+
+
+nu0 = 0.1
+hEk = np.sqrt(2 * nu0 / f)
+phis_to_plot = [0.4, 1.0, 4.0]
+Nz = 10000
+zmax = 5 * hEk
+z = np.linspace(0, zmax, Nz)
+
+fig, ax = plt.subplots(1, 1, figsize=(6, 5))
+
+# Classical single-layer Ekman reference
+U_theory = U0 * (1 - np.exp(-(1 + 1j) * z / hEk))
+ang_theory = np.angle(U_theory, deg=True)
+ax.plot(ang_theory[1:], z[1:], 'k--', lw=2, label='classical solution')
+
+
+for j, phi in enumerate(phis_to_plot):
+    k_val = 1 / (hEk * phi)
+    tau_vals = tau(z, phi, k=k_val)
+    nu_z = nu0 * np.exp(-k_val * z)
+    U = cumulative_trapezoid(tau_vals/nu_z, z, initial=0)
+    ang = np.angle(U, deg=True)   
+    ax.plot(ang[1:], z[1:], c=f"C{j}", label=fr'$\varphi_\text{{exp}}={phi:.1f}$')
+    
+    integrand = tau_vals / nu_z
+    print(np.trapz(integrand, z))
+
+# --- Decorations: 1/k markers and hEk0 shading ---
+xmin, xmax = ax.get_xlim()
+for j, phi in enumerate(phis_to_plot):
+    k_val = 1 / (hEk * phi)
+    scale_height = 1 / k_val
+    ax.scatter(xmin,  scale_height, c=f"C{j}", linewidth=1)
+
+ax.fill_between([xmin, xmax], 0, hEk, color='gray', alpha=0.2, ec="black")
+
+# Legend proxies
+ax.scatter([], [], c="black", linewidth=1, label=r'$1/k$')
+ax.fill_between([], [], [], color='gray', alpha=0.2, ec="black", label=r"$h_\text{Ek0}$")
+
+ax.set_xlabel(r"Wind turning angle [°]", fontsize=11)
+ax.set_ylabel(r"Height, $z$ [m]", fontsize=11)
+ax.set_ylim(0, zmax)
+ax.legend(loc="upper right", fontsize=11)
+ax.grid(True, linestyle='--', alpha=0.6)
+
+plt.suptitle(r"Spiral for Exponential Model", fontsize=14)
+plt.tight_layout()
+
+save_name = "exponential_angle_structure"
 plt.savefig(f"plots/{save_name}.png", dpi=400)
 plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{save_name}.png", dpi=400)
 plt.show()

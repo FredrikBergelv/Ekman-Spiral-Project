@@ -1,36 +1,37 @@
 Our problem is to solve
 \begin{empheq}[box=\fbox]{equation*}
-    F''(z)=2ik^2\varphi^2\,e^{kz/2}F(z).
+    F''(z)=2ik^2\varphi^2\,e^{kz}F(z).
 \end{empheq}
 
 Define
 $$
-\lambda^2=2i\,k^2\varphi^2, \quad\text{ i.e. } \lambda=\left(1+i\right)k\varphi,
+\lambda^2=2i\,k^2\varphi^2, \quad\text{i.e.}\quad \lambda=(1+i)k\varphi,
 $$
 
 so that
 $$
-F''(z)=\lambda^2 e^{kz/2}F(z).
+F''(z)=\lambda^2 e^{kz}F(z).
 $$
 
 Introduce the new variable
 $$
-t=\frac{4\lambda}{k}e^{kz/4}.
+t=\frac{2\lambda}{k}e^{kz/2}.
 $$
 
 Then
 $$
-\frac{dt}{dz}=\frac{k}{4}t,
+\frac{dt}{dz}=\frac{k}{2}t,
 $$
 
 and therefore
 $$
-\frac{dF}{dz}=\frac{k}{4}t\frac{dF}{dt},
+\frac{dF}{dz}=\frac{k}{2}t\frac{dF}{dt},
 $$
 
 $$
 \frac{d^2F}{dz^2}
-=\left(\frac{k}{4}\right)^2
+=
+\left(\frac{k}{2}\right)^2
 \left(
 t^2\frac{d^2F}{dt^2}
 +t\frac{dF}{dt}
@@ -39,9 +40,9 @@ $$
 
 Since
 $$
-e^{kz/2}
+e^{kz}
 =
-\left(\frac{xk}{4\lambda}\right)^2,
+\left(\frac{tk}{2\lambda}\right)^2,
 $$
 
 substitution into the differential equation yields
@@ -53,7 +54,7 @@ substitution into the differential equation yields
 
 This is the modified Bessel equation of order zero,
 $$
-t^2y''+xy'-(t^2+\nu^2)y=0,
+t^2y''+ty'-(t^2+\nu^2)y=0,
 \qquad \nu=0.
 $$
 
@@ -67,8 +68,8 @@ $$
 F(\infty)=0
 $$
 
-implies ($A=0$), since ($I_0(t)$) grows exponentially as
-($t\to\infty$), whereas ($K_0(t)$) decays exponentially. Thus
+implies ($A=0$), since $I_0(t)$ grows exponentially as
+$t\to\infty$, whereas $K_0(t)$ decays exponentially. Thus
 $$
 F(z)=B\,K_0(t).
 $$
@@ -77,7 +78,7 @@ Differentiating gives
 $$
 F'(z)
 =
--\frac{k}{4}BxK_1(t),
+-\frac{k}{2}BtK_1(t),
 $$
 
 where we used
@@ -92,12 +93,12 @@ $$
 
 and using
 $$
-x_0=\left.t\right|_{z=0}=\frac{4\lambda}{k},
+t_0=\left.t\right|_{z=0}=\frac{2\lambda}{k},
 $$
 
 one finds
 $$
--\frac{k}{4}B\,x_0K_1(x_0)
+-\frac{k}{2}B\,t_0K_1(t_0)
 =
 -ifU_g,
 $$
@@ -107,7 +108,7 @@ $$
 B
 =
 \frac{ifU_g}
-{\lambda\,K_1(x_0)}.
+{\lambda\,K_1(t_0)}.
 $$
 
 Therefore,
@@ -115,24 +116,29 @@ $$
 F(z)
 =
 \frac{ifU_g}
-{\lambda \,K_1(x_0)}
+{\lambda \,K_1(t_0)}
 K_0(t),
 $$
 
 with
 $$
-t=x_0e^{kz/4},
+t=t_0e^{kz/2},
 \qquad
-x_0=\frac{4\lambda}{k}=4\left(1+i\right)\varphi 
-\qquad \implies 
-t=4\left(1+i\right)\varphi e^{kz/4}.
+t_0=\frac{2\lambda}{k}=2(1+i)\varphi
+\qquad \implies
+t=2(1+i)\varphi e^{kz/2}.
 $$
 
-Substituting ($\lambda=\left(1+i\right)k\varphi$) and using $i/(1+i)=(1+i)/2$finally yields
+Substituting $\lambda=(1+i)k\varphi$ and using
+$$
+\frac{i}{1+i}=\frac{1+i}{2},
+$$
+finally yields
 \begin{empheq}[box=\fbox]{equation*}
-    F(z)
-    =
-    \frac{\left(1+i\right)fU_g}
-    {2k\varphi}
-    \frac{K_0\left(4\left[1+i\right]\varphi e^{kz/4}\right)}{K_1\left(4\left[1+i\right]\varphi\right)}
+F(z)
+=
+\frac{(1+i)fU_g}
+{2k\varphi}
+\frac{K_0\!\left(2(1+i)\varphi e^{kz/2}\right)}
+{K_1\!\left(2(1+i)\varphi\right)}.
 \end{empheq}
