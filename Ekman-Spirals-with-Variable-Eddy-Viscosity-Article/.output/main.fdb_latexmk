@@ -1,17 +1,17 @@
 # Fdb version 4
-["bibtex .output/main"] 1782991825.73025 ".output/main.aux" ".output/main.bbl" ".output/main" 1782991850.36745 0
+["bibtex .output/main"] 1783000338.57517 ".output/main.aux" ".output/main.bbl" ".output/main" 1783000345.61511 0
   "./Textfiles/References.bib" 1781650049.92701 4139 bef7190d52cb2306d216b82af4bcb6a1 ""
-  ".output/main.aux" 1782991850.04315 16674 7335d59c94b9efae832377d06b3147e3 "pdflatex"
+  ".output/main.aux" 1783000345.27157 16675 07c47ba3b231fa306b70c8e1590b9081 "pdflatex"
   "/usr/share/texlive/texmf-dist/bibtex/bst/natbib/plainnat.bst" 1233624470 26816 ffe5423d2019860bad9f54bc402fac15 ""
   (generated)
   ".output/main.bbl"
   ".output/main.blg"
   (rewritten before read)
-["pdflatex"] 1782991840.52046 "/home/fredrik/Documents/Ekman-Spiral-Project/Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/main.tex" ".output/main.pdf" "main" 1782991850.36762 0
-  ".output/main.aux" 1782991850.04315 16674 7335d59c94b9efae832377d06b3147e3 "pdflatex"
-  ".output/main.bbl" 1782991825.86937 4115 c8c293f16a47d56590dfe7d76880ccc5 "bibtex .output/main"
-  ".output/main.out" 1782991850.04515 2941 53d1776dc16066c5535610bec3b0204e "pdflatex"
-  ".output/main.toc" 1782991850.04515 1553 b2d06c31fa1dae252023fd0b8866922a "pdflatex"
+["pdflatex"] 1783000338.68645 "/home/fredrik/Documents/Ekman-Spiral-Project/Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/main.tex" ".output/main.pdf" "main" 1783000345.61532 0
+  ".output/main.aux" 1783000345.27157 16675 07c47ba3b231fa306b70c8e1590b9081 "pdflatex"
+  ".output/main.bbl" 1783000338.67713 4115 c8c293f16a47d56590dfe7d76880ccc5 "bibtex .output/main"
+  ".output/main.out" 1783000345.27257 2941 53d1776dc16066c5535610bec3b0204e "pdflatex"
+  ".output/main.toc" 1783000345.27357 1553 3d25089ec7354970e6e67f8bc6158a8b "pdflatex"
   "/etc/texmf/web2c/texmf.cnf" 1732548902.53758 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/fredrik/Documents/Ekman-Spiral-Project/Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/main.tex" 1782721929.34921 1180 b75db312d373a685afc671df1c1dab26 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -33,6 +33,7 @@
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecti1440.tfm" 1136768653 3072 9a80c2966d6c06d677719db0a9b772d0 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ectt0900.tfm" 1136768653 1536 ae7aab2f8a4bc9edfce2899f53ba88c3 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ectt1000.tfm" 1136768653 1536 06717a2b50de47d4087ac0e6cd759455 ""
+  "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/tcrm0700.tfm" 1136768653 1536 73da8e8f1d2a4c957d51ca133585586b ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/tcrm0800.tfm" 1136768653 1536 05df9db6aeccc4eea94fec15c9024f79 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1136768653 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
@@ -288,13 +289,13 @@
   "Other/Information.tex" 1782991817.00746 638 a0a02d91e5dd134f561023ba115ce879 ""
   "Other/Premable.tex" 1781651647.8161 2293 7194d1a217a69d629026ffc123d11cec ""
   "Other/Title.tex" 1779178318.8298 1523 ea7c955c80f1d897bd034f6a1a1fb22b ""
-  "Textfiles/1.Background.tex" 1782722377.39652 2768 b4482fb1d17d07a10e62189545162148 ""
-  "Textfiles/2.Theory.tex" 1782990556.61476 24295 0f636130bcc0614bfbcfc14238bb0409 ""
+  "Textfiles/1.Background.tex" 1782999763.27453 2772 b568d4be61bce55710fe48c0eb6b97df ""
+  "Textfiles/2.Theory.tex" 1783000331.07962 24413 7ba0fe0e944eafac4a156c5c20fde64e ""
   "Textfiles/3.Methodology.tex" 1782747716.59091 3079 6a45004c46ffbd527e6936b3f71bb142 ""
   "Textfiles/4.Results.tex" 1782736979.03064 8138 0bc6de82a47442605f23789d85d52d73 ""
-  "Textfiles/5.Discussion.tex" 1782991840.06903 1813 90330501cbfbebae5283d34908e9f121 ""
+  "Textfiles/5.Discussion.tex" 1782996335.97942 2771 5503ed82dc54e9cf9866487034538b4c ""
   "Textfiles/6.Conclusion.tex" 1779178211.39958 21 5263826852d7c88eadf74b948137ff83 ""
-  "Textfiles/Appendix.tex" 1781376568.98304 199 cfbf99ecbaae2853099978709089c8f9 ""
+  "Textfiles/Appendix.tex" 1782996389.82401 190 bfb22428b0fe5eae47c8ce78e18194b3 ""
   "main.tex" 1782721929.34921 1180 b75db312d373a685afc671df1c1dab26 ""
   (generated)
   ".output/main.aux"
