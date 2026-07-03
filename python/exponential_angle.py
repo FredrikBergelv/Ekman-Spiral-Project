@@ -98,7 +98,7 @@ nu0 = 0.1  # reference viscosity at z=0
 hEk = np.sqrt(2 * nu0 / f)
 
 phis_to_plot = [0.2, 1.0, 4.0]
-Nz = 10000
+Nz = 98
 zmax = 5 *hEk
 z = np.linspace(0, zmax, Nz)
 
@@ -119,9 +119,9 @@ xmin, xmax = ax.get_xlim()
 for j, phi in enumerate(phis_to_plot):
         line = np.linspace(xmin, xmin*0.9, 10)
         k_val = 1/(hEk*phi)
-        ax.plot(line, line*0 + 1/k_val, c=f"C{j}", linewidth=3)
+        ax.scatter(xmin, 1/k_val, c=f"C{j}")
 
-ax.plot([], [], c="black", label=r'$1/k$', linewidth=3)
+ax.scatter([], [], c="black", label=r'$1/k$')
 ax.fill_between([xmin, xmax], 0, hEk, color="gray",  label=r"$h_\text{Ek0}$", alpha=0.15, ec="gray")
             
 ax.set_xlabel(r"Momentum flux, $\tau$ [m$^2$/s$^2$]", fontsize=11)
@@ -206,7 +206,6 @@ ax.legend(loc="upper right", fontsize=11)
 ax.grid(True, linestyle='--', alpha=0.6)
 
 plt.suptitle(r"Spiral for Exponential Model", fontsize=14)
-plt.tight_layout()
 
 save_name = "exponential_angle_structure"
 plt.savefig(f"plots/{save_name}.png", dpi=400)

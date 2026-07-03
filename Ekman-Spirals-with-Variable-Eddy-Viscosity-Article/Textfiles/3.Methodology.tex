@@ -1,8 +1,9 @@
 \section{Methodology}
 \subsection{Numerical method}
-For arbitrary viscosity profiles, \autoref{eq:EkmanEquation} generally does not admit a closed-form analytical solution. The equation was therefore solved numerically as a boundary value problem using the \texttt{solve\_bvp} routine available in \texttt{SciPy} \citep{virtanen2020}. 
+For arbitrary viscosity profiles, \autoref{eq:MomentumFlux} was shown to not admit a closed-form analytical solution. The equation was therefore solved numerically as a boundary value problem using the \texttt{solve\_bvp} routine available in \texttt{SciPy} \citep{virtanen2020}. 
 
-For the SUBC model, the equation can be rewritten in terms of a dimensionless layer thickness, $\varphi$. Using an arbitrary height-normalized eddy viscosity profile, $\tilde{\nu}(z)$, the differential equation simplifies. Separating into zonal and meridional velocity components yields:\begin{subequations}
+For the SUBC model, the equation was shown to be expressed in terms of a dimensionless layer thickness by using an height-normalized eddy viscosity profile, $\tilde{\nu}(z)$. Separating \autoref{eq:SUBCLinearIncreasing}, \ref{eq:SUBCLinearDecreasing} and \ref{eq:SUBCParabolic} into zonal and meridional components yields
+\begin{subequations}
     \begin{align}
     \frac{\mathrm{d^2\tau_x}}{\mathrm{d} z^2}
     &=
@@ -10,11 +11,11 @@ For the SUBC model, the equation can be rewritten in terms of a dimensionless la
     \\
     \frac{\mathrm{d^2\tau_y}}{\mathrm{d} z^2}
     &=
-    \frac{1}{\tilde\nu(z)}2\varphi^2 \tau_x
+    \frac{1}{\tilde\nu(z)}2\varphi^2 \tau_x.
     \label{eq:Method}
 \end{align}
 \end{subequations}
-Here it was also assumed that the wind aloft was set as a purely zonal $u_g$. To apply the numerical boundary value solver, the equations were rewritten as a first-order system by introducing the new variables
+To apply the numerical boundary value solver, the equations were rewritten as a first-order system by introducing the new variables
 \begin{equation}
     \tau_x^\prime = \frac{\mathrm{d} \tau_x}{\mathrm{d} z},
     \qquad
@@ -24,17 +25,17 @@ Expanding \autoref{eq:Method} into four coupled first-order equations gives
 \begin{align}
     \begin{cases} 
     \frac{\mathrm{d} \tau_x}{\mathrm{d} z}
-    &= \tau_x^\prime,
+    &= \tau_x^\prime
     \\
     \frac{\mathrm{d} \tau_x^\prime}{\mathrm{d} z}
     &=
-    -\frac{2\varphi^2 \tau_y}{\tilde\nu(z)},
+    -\frac{2\varphi^2 \tau_y}{\tilde\nu(z)}
     \\
     \frac{\mathrm{d} \tau_y}{\mathrm{d} z}
-    &= \tau_y^\prime,
+    &= \tau_y^\prime
     \\
     \frac{\mathrm{d} \tau_y^\prime}{\mathrm{d} z}
-    &=\frac{2\varphi^2 \tau_x}{\tilde\nu(z)}
+    &=\frac{2\varphi^2 \tau_x}{\tilde\nu(z)},
     \end{cases}
     \label{eq:modelsolver}
 \end{align}
@@ -50,10 +51,10 @@ with the boundary conditions
     \tau_y(\varphi=1) &= 0.
 \end{align}
 \end{subequations}
-If the viscosity profile, $\tilde\nu$, obtains a value of zero in the domain, then the coupled \autoref{eq:modelsolver} becomes unsolvable since we divide by $\hat{\nu}=0$. In this scenario one has to introduce a constant background viscosity, $\epsilon$ as
+If the viscosity profile, $\tilde\nu$, includes a zero value in the domain, then the coupled \autoref{eq:modelsolver} becomes unsolvable since we divide by zero. In this scenario one has to introduce a constant background viscosity, $\epsilon$ as
 \begin{equation}
     \hat{\nu}\rightarrow\hat{\nu}+\epsilon, \quad \text{where } \epsilon=\frac{\nu_\text{background}}{\nu_\text{max}}
 \end{equation}
-and $\hat{\nu}/\epsilon\gg1$ was assumed. This background viscosity was thus applied for the linear decreasing, linear increasing, and the parabolic model since they have zero viscosity at the surface or at the top.
+and $\hat{\nu}/\epsilon\gg1$ is assumed. This background viscosity was thus applied for the linear decreasing, linear increasing, and the parabolic model since they have zero viscosity at the surface (or at the top).
 
 The SUBC model equations were solved iteratively on a vertical grid. The solver required an initial guess, which was chosen based on the initial setup of the system. The initial guess was therefore set as the classical solution for a constant viscosity. The final solution was found when the iterative solution reached a steady state for the differential equations with the imposed boundary conditions.

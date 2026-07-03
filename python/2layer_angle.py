@@ -233,18 +233,18 @@ from scipy.integrate import cumulative_trapezoid
 
 nu_ratios = [0.1, 10.0]
 phis_to_plot = [0.2, 1.0, 4]
-fig, axes = plt.subplots(1, 2, figsize=(11, 5), sharey=True)
+fig, axes = plt.subplots(1, 2, figsize=(11, 5), sharey=True, sharex=True)
 
 for i, nu_ratio in enumerate(nu_ratios):
     if nu_ratio == 0.1:
         nu1 = 1
     if nu_ratio == 10:
         nu1 = 0.1
+    
     hEk1 = np.sqrt(2 * nu1 / f)
     zmax = 15 * hEk1
     Nz = 10000
     z = np.linspace(0, zmax, Nz)
-
     gamma = np.sqrt(nu_ratio)
     nu2 = gamma**2 * nu1
     hEk2 = np.sqrt(2 * nu2 / f)
