@@ -19,8 +19,9 @@ extent = 250
 phi_values = np.linspace(0, extent, 200)
 
 
-min_viscosities  = [1, 1e-1, 1e-3, 1e-9, 1e-15]
 min_viscosities  = [1e-1, 1e-3, 1e-6, 1e-9, 1e-12, 1e-15]
+min_viscosities  = [1e-3, 1e-6]
+
 
 
 
@@ -149,6 +150,6 @@ axes[1].grid(True, linestyle='--', alpha=0.6)
 
 
 save_name="numerical_SUBC_angle_limit"
-plt.savefig(f"plots/{save_name}.png", dpi=400)
-plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{save_name}.png", dpi=400)
+#plt.savefig(f"plots/{save_name}.png", dpi=400)
+#plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{save_name}.png", dpi=400)
 plt.show()
