@@ -1,19 +1,75 @@
-\begin{thebibliography}{5}
+\begin{thebibliography}{13}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
+\bibitem[Bressan and Constantin(2019)]{bressan2019}
+A.~Bressan and A.~Constantin.
+\newblock The {Deflection} {Angle} of {Surface} {Ocean} {Currents} {From} the {Wind} {Direction}.
+\newblock \emph{Journal of Geophysical Research: Oceans}, 124\penalty0 (11):\penalty0 7412--7420, November 2019.
+\newblock ISSN 2169-9275, 2169-9291.
+\newblock \doi{10.1029/2019JC015454}.
+\newblock URL \url{https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2019JC015454}.
+
+\bibitem[Constantin(2021)]{constantin2021}
+Adrian Constantin.
+\newblock Frictional effects in wind-driven ocean currents.
+\newblock \emph{Geophysical \& Astrophysical Fluid Dynamics}, 115\penalty0 (1):\penalty0 1--14, January 2021.
+\newblock ISSN 0309-1929, 1029-0419.
+\newblock \doi{10.1080/03091929.2020.1748614}.
+\newblock URL \url{https://www.tandfonline.com/doi/full/10.1080/03091929.2020.1748614}.
+
 \bibitem[{Copernicus Climate Change Service}(2019)]{copernicusclimatechangeservice2019}
 {Copernicus Climate Change Service}.
 \newblock {ERA5} monthly averaged data on pressure levels from 1940 to present, 2019.
 \newblock URL \url{https://cds.climate.copernicus.eu/doi/10.24381/cds.6860a573}.
 
+\bibitem[Dritschel et~al.(2020)Dritschel, Paldor, and Constantin]{dritschel2020}
+David~G. Dritschel, Nathan Paldor, and Adrian Constantin.
+\newblock The {Ekman} spiral for piecewise-uniform viscosity.
+\newblock \emph{Ocean Science}, 16\penalty0 (5):\penalty0 1089--1093, September 2020.
+\newblock ISSN 1812-0792.
+\newblock \doi{10.5194/os-16-1089-2020}.
+\newblock URL \url{https://os.copernicus.org/articles/16/1089/2020/}.
+
 \bibitem[Ekman(1905)]{ekman1905}
 V.~Walfrid Ekman.
 \newblock On the {Influence} of the {Earth}'s {Rotation} on {Ocean}-{Currents}.
 \newblock \emph{Arkiv för matematik, astronomi och fysik}, 2\penalty0 (11):\penalty0 1--52, May 1905.
+
+\bibitem[Grisogono(1995)]{grisogono1995}
+Branko Grisogono.
+\newblock A generalized {Ekman} layer profile with gradually varying eddy diffusivities.
+\newblock \emph{Quarterly Journal of the Royal Meteorological Society}, 121\penalty0 (522):\penalty0 445--453, January 1995.
+\newblock ISSN 0035-9009, 1477-870X.
+\newblock \doi{10.1002/qj.49712152211}.
+\newblock URL \url{https://rmets.onlinelibrary.wiley.com/doi/10.1002/qj.49712152211}.
+
+\bibitem[Guan et~al.(2023)Guan, Fečkan, and Wang]{guan2023}
+Yi~Guan, Michal Fečkan, and JinRong Wang.
+\newblock The {Ekman} spiral for two types of eddy viscosities.
+\newblock \emph{Applicable Analysis}, 102\penalty0 (11):\penalty0 2925--2938, July 2023.
+\newblock ISSN 0003-6811, 1563-504X.
+\newblock \doi{10.1080/00036811.2022.2044026}.
+\newblock URL \url{https://www.tandfonline.com/doi/full/10.1080/00036811.2022.2044026}.
+
+\bibitem[Ionescu-Kruse(2021)]{ionescu-kruse2021}
+Delia Ionescu-Kruse.
+\newblock Analytical {Atmospheric} {Ekman}-{Type} {Solutions} with {Height}-{Dependent} {Eddy} {Viscosities}.
+\newblock \emph{Journal of Mathematical Fluid Mechanics}, 23\penalty0 (1):\penalty0 18, February 2021.
+\newblock ISSN 1422-6928, 1422-6952.
+\newblock \doi{10.1007/s00021-020-00543-1}.
+\newblock URL \url{http://link.springer.com/10.1007/s00021-020-00543-1}.
+
+\bibitem[Miles(1994)]{miles1994}
+John Miles.
+\newblock Analytical solutions for the {Ekman} layer.
+\newblock \emph{Boundary-Layer Meteorology}, 67\penalty0 (1-2):\penalty0 1--10, January 1994.
+\newblock ISSN 0006-8314, 1573-1472.
+\newblock \doi{10.1007/BF00705505}.
+\newblock URL \url{http://link.springer.com/10.1007/BF00705505}.
 
 \bibitem[{NOAA National Centers for Environmental Information}(1999)]{noaanationalcentersforenvironmentalinformation1999}
 {NOAA National Centers for Environmental Information}.
@@ -32,5 +88,11 @@ Pauli Virtanen, Ralf Gommers, Travis~E. Oliphant, Matt Haberland, Tyler Reddy, D
 \newblock ISSN 1548-7091, 1548-7105.
 \newblock \doi{10.1038/s41592-019-0686-2}.
 \newblock URL \url{https://www.nature.com/articles/s41592-019-0686-2}.
+
+\bibitem[Wallace and Hobbs(2006)]{wallace2006}
+John~Michael Wallace and Peter~Victor Hobbs.
+\newblock \emph{Atmospheric science: an introductory survey}.
+\newblock Number volume 92 in International geophysics series. Academic press, Amsterdam Paris, 2nd ed edition, 2006.
+\newblock ISBN 978-0-12-732951-2.
 
 \end{thebibliography}
