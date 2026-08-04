@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2024.11.25)  4 AUG 2026 16:01
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2024.11.25)  4 AUG 2026 16:05
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -1129,7 +1129,7 @@ File: Figures/ERA5_angle_histogram.png Graphic file (type png)
 <use Figures/ERA5_angle_histogram.png>
 Package pdftex.def Info: Figures/ERA5_angle_histogram.png  used on input line 84.
 (pdftex.def)             Requested size: 305.92049pt x 191.20169pt.
-) (./Textfiles/5.Discussion.tex [15 <./Figures/numerical_SUBC_parabolic_angle_broken.png>] [16 <./Figures/ERA5_angle_map.png> <./Figures/ERA5_angle_histogram.png>]) (./Textfiles/6.Conclusion.tex) (./Textfiles/Appendix.tex) (.output/main.bbl [17]) [18] 
+) (./Textfiles/5.Discussion.tex [15 <./Figures/numerical_SUBC_parabolic_angle_broken.png>] [16 <./Figures/ERA5_angle_map.png> <./Figures/ERA5_angle_histogram.png>]) (./Textfiles/6.Conclusion.tex) (./Textfiles/Appendix.tex) (.output/main.bbl [17] [18]) [19] 
 enddocument/afterlastpage: lastpage setting LastPage.
 (.output/main.aux)
  ***********
@@ -1144,18 +1144,18 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 6C217D8B185E53B355B70291E2398CC9;3671.
  ) 
 Here is how much of TeX's memory you used:
- 35252 strings out of 474222
- 688584 string characters out of 5748732
+ 35254 strings out of 474222
+ 688602 string characters out of 5748732
  1949975 words of memory out of 5000000
  56764 multiletter control sequences out of 15000+600000
  577436 words of font info for 78 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  99i,18n,96p,2463b,1075s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx0700.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx2074.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0500.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0600.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0700.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on .output/main.pdf (19 pages, 5035649 bytes).
+Output written on .output/main.pdf (20 pages, 5037046 bytes).
 PDF statistics:
- 661 PDF objects out of 1000 (max. 8388607)
- 533 compressed objects within 6 object streams
- 138 named destinations out of 1000 (max. 500000)
+ 667 PDF objects out of 1000 (max. 8388607)
+ 538 compressed objects within 6 object streams
+ 140 named destinations out of 1000 (max. 500000)
  256 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,17 +1,17 @@
 # Fdb version 4
-["bibtex .output/main"] 1785851962.50201 ".output/main.aux" ".output/main.bbl" ".output/main" 1785852085.25604 0
+["bibtex .output/main"] 1785852305.46992 ".output/main.aux" ".output/main.bbl" ".output/main" 1785852333.22742 0
   "./Textfiles/References.bib" 1785842876.68076 14580 0df9185c7d1ee3639b6b98f4210f7ce7 ""
-  ".output/main.aux" 1785852084.69181 17612 34b21d3e5f23ee4801d95989eb4ceaf6 "pdflatex"
+  ".output/main.aux" 1785852332.95803 17612 7910c59daef829cec2ab8f72f3f70e21 "pdflatex"
   "/usr/share/texlive/texmf-dist/bibtex/bst/natbib/plainnat.bst" 1233624470 26816 ffe5423d2019860bad9f54bc402fac15 ""
   (generated)
   ".output/main.bbl"
   ".output/main.blg"
   (rewritten before read)
-["pdflatex"] 1785852073.43942 "/home/fredrik/Documents/Ekman-Spiral-Project/Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/main.tex" ".output/main.pdf" "main" 1785852085.25636 0
-  ".output/main.aux" 1785852084.69181 17612 34b21d3e5f23ee4801d95989eb4ceaf6 "pdflatex"
-  ".output/main.bbl" 1785851962.6177 8076 595478d78b1c638a60cf13322058f0e1 "bibtex .output/main"
-  ".output/main.out" 1785852084.69481 3671 6c217d8b185e53b355b70291e2398cc9 "pdflatex"
-  ".output/main.toc" 1785852084.69481 1874 4eeab512eaf44e5b3ae3decb82cc057a "pdflatex"
+["pdflatex"] 1785852323.48325 "/home/fredrik/Documents/Ekman-Spiral-Project/Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/main.tex" ".output/main.pdf" "main" 1785852333.22759 0
+  ".output/main.aux" 1785852332.95803 17612 7910c59daef829cec2ab8f72f3f70e21 "pdflatex"
+  ".output/main.bbl" 1785852305.56401 8076 595478d78b1c638a60cf13322058f0e1 "bibtex .output/main"
+  ".output/main.out" 1785852332.95903 3671 6c217d8b185e53b355b70291e2398cc9 "pdflatex"
+  ".output/main.toc" 1785852332.96003 1874 4eeab512eaf44e5b3ae3decb82cc057a "pdflatex"
   "/etc/texmf/web2c/texmf.cnf" 1732548902.53758 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/fredrik/Documents/Ekman-Spiral-Project/Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/main.tex" 1782721929.34921 1180 b75db312d373a685afc671df1c1dab26 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -298,8 +298,8 @@
   "Textfiles/3.Methodology.tex" 1785841997.22822 4832 21e0a3c18e50493772aca99ed1a26d75 ""
   "Textfiles/4.Results.tex" 1785851231.60192 9700 b7b3f5f1c3557fe8438e263c71e73e1f ""
   "Textfiles/5.Discussion.tex" 1785852073.0108 3931 9ced66b6ae7e8a98342e37af5fdfd32d ""
-  "Textfiles/6.Conclusion.tex" 1779178211.39958 21 5263826852d7c88eadf74b948137ff83 ""
-  "Textfiles/Appendix.tex" 1782996389.82401 190 bfb22428b0fe5eae47c8ce78e18194b3 ""
+  "Textfiles/6.Conclusion.tex" 1785852323.02602 21 5263826852d7c88eadf74b948137ff83 ""
+  "Textfiles/Appendix.tex" 1785852323.02602 477 0452649705bb5931841cc718d6174b8d ""
   "main.tex" 1782721929.34921 1180 b75db312d373a685afc671df1c1dab26 ""
   (generated)
   ".output/main.aux"
