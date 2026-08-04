@@ -19,11 +19,11 @@ wind_filename = "../Data/wind_data.nc"
 elevation_filename = "../Data/elevation.nc"
 
 EARTH_RADIUS_KM = 6371.0
-LAT_MIN, LAT_MAX = 30, 60       
+LAT_MIN, LAT_MAX = 30, 60     # Extent
 coast_buffer = 0              # How far away from the coast do we hav to be 
-SPEED_THRESHOLD = 1.0            # wind speed cutoff
-slope_threshold = 1000  # flat terrain cutoff
-MONTH = 14  # month number
+SPEED_THRESHOLD = 1.0         # wind speed cutoff
+slope_threshold = 1000        # flat terrain cutoff
+MONTH = 0                     # month number,0 means mean
 
 def select_time_period(ds, month='mean'):
     """ Choose month or choose mean for entire year
@@ -136,7 +136,17 @@ def compute_mean_surface_angle_grid(ds, lat_mask, speed_threshold=1.0):
     wind_angle_surf = angle[:, surf_idx, :, :]
     wind_angle_surf = np.where(speed_surf > speed_threshold, wind_angle_surf, np.nan)
 
-    mean_angle_grid = np.nanmean(wind_angle_surf, axis=0)
+    
+    # Here we do a circular mena
+    theta = np.deg2rad(wind_angle_surf)
+
+    mean_theta = np.arctan2(
+        np.nanmean(np.sin(theta), axis=0),
+        np.nanmean(np.cos(theta), axis=0)
+    )
+    
+    mean_angle_grid = np.rad2deg(mean_theta)
+
     return mean_angle_grid
 
 
@@ -201,14 +211,14 @@ gl2.right_labels = False
 
 cbar = fig1.colorbar(mesh2, ax=[ax_americas, ax_eurasia],
                       pad=0.08, shrink=0.7)
-cbar.set_label('Mean surface wind angle [deg]', fontsize=11)
+cbar.set_label('Mean surface angle [deg]', fontsize=11)
 cbar.ax.tick_params(labelsize=11)
 
-fig1.suptitle(f'Mean Wind Surface Angle\n'
-              f'(slope ≤{slope_threshold} m/km)', fontsize=14)
+fig1.suptitle('Geographical Spread of Mean Surface Angles', fontsize=14)
 
 save_name1 = "ERA5_angle_map"
 plt.savefig(f'plots/{save_name1}.png', dpi=300)
+plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{save_name1}.png", dpi=400)
 plt.show()
 
 # ---------------------------------------------------------------------
@@ -224,7 +234,7 @@ ax2.hist(valid_angles, bins=n_bins, density=True,
 ax2.axvline(45, color='black', linestyle='--', alpha=0.7, label='45° reference')
 ax2.set_xlabel('Mean surface angle [deg]', fontsize=11)
 ax2.set_ylabel('Density [-]', fontsize=11)
-plt.suptitle('Distribution of Mean Wind Surface Angles',
+plt.suptitle('Distribution of Mean Surface Angles',
               fontsize=14)
 ax2.set_title('Midllatitude flat land points',
               fontsize=11)
@@ -234,6 +244,7 @@ ax2.grid(True, linestyle='--', alpha=0.4)
 
 save_name2  = "ERA5_angle_histogram"
 plt.savefig(f'plots/{save_name2}.png', dpi=300)
+plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{save_name2}.png", dpi=400)
 plt.show()
 
 print(f"Total time: {time.time() - start:.2f} s")

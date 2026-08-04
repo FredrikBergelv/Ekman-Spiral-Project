@@ -59,12 +59,20 @@ def get_inland_mask(ds, lat_min=30, lat_max=60, coast_buffer_km=2):
     return inland_mask, lat_grid, lon_grid_adj, lat_mask
 
 
-def compute_mean_surface_angle_grid(ds, lat_mask, speed_threshold=1.0):
+def compute_mean_surface_angle_grid(ds, lat_mask, month=9, speed_threshold=1.0):
     """
-    Vectorized: mean surface wind angle (relative to geostrophic wind)
-    for every (lat, lon) point in the midlatitude band, averaged over time.
+    Mean surface wind angle for every (lat, lon).
+
+    Parameters
+    ----------
+    month : int or None
+        Month number (1=Jan, ..., 12=Dec). If None, use all months.
     """
-    # Extract full arrays for the midlatitude rows only: shape (time, level, lat, lon)
+
+    # Select one month if requested
+    if month is not None:
+        ds = ds.sel(time=ds.time.dt.month == month)
+
     u = ds.u.isel(latitude=np.where(lat_mask)[0]).values
     v = ds.v.isel(latitude=np.where(lat_mask)[0]).values
     p = ds.isobaricInhPa.values
@@ -75,24 +83,21 @@ def compute_mean_surface_angle_grid(ds, lat_mask, speed_threshold=1.0):
 
     speed = np.hypot(u, v)
 
-    # Geostrophic reference level per (time, lat, lon)
-    max_idx = np.argmax(speed, axis=1)  # (time, lat, lon)
-    u_ref = np.take_along_axis(u, max_idx[:, None, :, :], axis=1)  # (time, 1, lat, lon)
+    max_idx = np.argmax(speed, axis=1)
+    u_ref = np.take_along_axis(u, max_idx[:, None, :, :], axis=1)
     v_ref = np.take_along_axis(v, max_idx[:, None, :, :], axis=1)
 
     dot = u_ref * u + v_ref * v
     cross = u_ref * v - v_ref * u
-    angle = np.degrees(np.arctan2(cross, dot))  # (time, level, lat, lon)
+    angle = np.degrees(np.arctan2(cross, dot))
 
-    # Surface = last level after sorting (highest pressure)
-    u_surf, v_surf = u[:, -1, :, :], v[:, -1, :, :]
-    speed_surf = np.hypot(u_surf, v_surf)
+    speed_surf = speed[:, -1, :, :]
+    wind_angle_surf = angle[:, -1, :, :]
+    wind_angle_surf = np.where(speed_surf > speed_threshold,
+                               wind_angle_surf,
+                               np.nan)
 
-    wind_angle_surf = angle[:, -1, :, :]  # (time, lat, lon)
-    wind_angle_surf = np.where(speed_surf > speed_threshold, wind_angle_surf, np.nan)
-
-    mean_angle_grid = np.nanmean(wind_angle_surf, axis=0)  # (lat, lon)
-    return mean_angle_grid
+    return np.nanmean(wind_angle_surf, axis=0)
 
 
 # --- Run it ---

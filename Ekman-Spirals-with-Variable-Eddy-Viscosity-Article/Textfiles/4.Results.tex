@@ -1,5 +1,7 @@
 \section{Result}
-\subsection{The vertical structure of the momentum flux}
+\subsection{The theoretical surface angles}
+
+\subsubsection{The vertical structure of the momentum flux}
 
 The vertical profiles from the numerical SUBC model can be viewed in \autoref{fig:numerical_SUBC_linear_d_structure}--\ref{fig:numerical_SUBC_parabolic_structure} together with the normalized Ekman height for the different layers. An important note is that when $\varphi<1$ then the Ekman heights become larger than the limit $H$. This is the same as stating that the entire spiral occurs really close to the surface. 
 
@@ -26,7 +28,7 @@ Since the surface wind-turning angle is calculated by comparing the initial chan
     \label{fig:numerical_SUBC_parabolic_structure}
 \end{figure*}
 
-\subsection{The surface angles}
+\subsubsection{The surface angles}
 
 \autoref{fig:numerical_SUBC_linear_d_angle}--\ref{fig:numerical_SUBC_parabolic_angle} show the surface angles from the numerical SUBC models. Similarities between these models, the decreasing two-layer model, and the exponentially decaying model can be observed. They all have a lower limit of \ang{90} and an upper limit of \ang{45}. The reason for the similarly between the exponential model and the increasing two layer model, is that the SUBC model is based on the decreasing two layer model, as $\nu=0$ above the height $H$. 
 
@@ -63,8 +65,27 @@ The SUBC model with a parabolic viscosity profile gave \autoref{fig:numerical_SU
     \label{fig:numerical_SUBC_parabolic_angle}
 \end{figure*}
 
-
 \subsubsection{The Ekman transport}
 Computing the transport with the surface vertical momentum flux as \autoref{eq:Transport} yielded exactly the same shapes as seen in \autoref{fig:2layer_angle}--\ref{fig:numerical_SUBC_parabolic_angle}, but centred around \ang{135} rather then \ang{45}. The angle differences between the surface angles and the transport angle was thus always \ang{90}, just like in the classical Ekman theory. 
 
+\subsection{The ERA5 surface angles}
+\SI{24535}{} data points were fit for analysis and were obtained from the ERA5 dataset. These surface wind-turning angles, due to the presence of a jet stream for flat land points in the northern midlatitudes, are shown in \autoref{fig:ERA5_angles}. The geographical spread of the data points can be observed in \autoref{fig:ERA5_angle_map}. \autoref{fig:ERA5_angle_histogram} shows a wide range of surface turning angles, but with a clear peak between \ang{0}--\ang{60}. Comparing this peak with the reference value of \ang{45} shows that a clear majority of the surface angles are smaller than the reference, although a minority can be observed to be greater than the reference angle.
 
+\begin{figure*}[hbt!]
+    \centering
+    \begin{subfigure}{\textwidth}
+        \centering
+        \includegraphics[height=0.42\textwidth]{Figures/ERA5_angle_map.png}
+        \caption{Mean surface wind-turning angle over flat land points from ERA5.}
+        \label{fig:ERA5_angle_map}
+    \end{subfigure}
+    \vspace{0.5cm}
+    \begin{subfigure}{\textwidth}
+        \centering
+        \includegraphics[height=0.42\textwidth]{Figures/ERA5_angle_histogram.png}
+        \caption{Distribution of the mean surface wind-turning angles.}
+        \label{fig:ERA5_angle_histogram}
+    \end{subfigure}
+    \caption{Statistical analysis of the surface wind-turning angles from ERA5 for flat land points located under a jet stream.}
+    \label{fig:ERA5_angles}
+\end{figure*}

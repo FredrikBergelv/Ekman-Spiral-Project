@@ -1,14 +1,29 @@
-\begin{thebibliography}{3}
+\begin{thebibliography}{5}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
+\bibitem[{Copernicus Climate Change Service}(2019)]{copernicusclimatechangeservice2019}
+{Copernicus Climate Change Service}.
+\newblock {ERA5} monthly averaged data on pressure levels from 1940 to present, 2019.
+\newblock URL \url{https://cds.climate.copernicus.eu/doi/10.24381/cds.6860a573}.
+
 \bibitem[Ekman(1905)]{ekman1905}
 V.~Walfrid Ekman.
 \newblock On the {Influence} of the {Earth}'s {Rotation} on {Ocean}-{Currents}.
 \newblock \emph{Arkiv för matematik, astronomi och fysik}, 2\penalty0 (11):\penalty0 1--52, May 1905.
+
+\bibitem[{NOAA National Centers for Environmental Information}(1999)]{noaanationalcentersforenvironmentalinformation1999}
+{NOAA National Centers for Environmental Information}.
+\newblock Global {Land} {One}-km {Base} {Elevation} {Project} ({GLOBE} {Topography}), 1999.
+\newblock URL \url{https://www.ngdc.noaa.gov/mgg/topo/globe.html}.
+
+\bibitem[{NOAA National Centers for Environmental Information}(2022)]{noaanationalcentersforenvironmentalinformation2022}
+{NOAA National Centers for Environmental Information}.
+\newblock {ETOPO} 2022 15 {Arc}-{Second} {Global} {Relief} {Model}, 2022.
+\newblock URL \url{https://data.noaa.gov/metaview/page?xml=NOAA/NESDIS/NGDC/MGG/DEM//iso/xml/etopo_2022.xml&view=getDataView&header=none}.
 
 \bibitem[Virtanen et~al.(2020)Virtanen, Gommers, Oliphant, Haberland, Reddy, Cournapeau, Burovski, Peterson, Weckesser, Bright, Van Der~Walt, Brett, Wilson, Millman, Mayorov, Nelson, Jones, Kern, Larson, Carey, Polat, Feng, Moore, VanderPlas, Laxalde, Perktold, Cimrman, Henriksen, Quintero, Harris, Archibald, Ribeiro, Pedregosa, Van~Mulbregt, {SciPy 1.0 Contributors}, Vijaykumar, Bardelli, Rothberg, Hilboll, Kloeckner, Scopatz, Lee, Rokem, Woods, Fulton, Masson, Häggström, Fitzgerald, Nicholson, Hagen, Pasechnik, Olivetti, Martin, Wieser, Silva, Lenders, Wilhelm, Young, Price, Ingold, Allen, Lee, Audren, Probst, Dietrich, Silterra, Webber, Slavič, Nothman, Buchner, Kulick, Schönberger, De~Miranda~Cardoso, Reimer, Harrington, Rodríguez, Nunez-Iglesias, Kuczynski, Tritz, Thoma, Newville, Kümmerer, Bolingbroke, Tartre, Pak, Smith, Nowaczyk, Shebanov, Pavlyk, Brodtkorb, Lee, McGibbon, Feldbauer, Lewis, Tygier, Sievert, Vigna, Peterson, More, Pudlik, Oshima, Pingel, Robitaille, Spura, Jones, Cera, Leslie, Zito, Krauss, Upadhyay, Halchenko, and Vázquez-Baeza]{virtanen2020}
 Pauli Virtanen, Ralf Gommers, Travis~E. Oliphant, Matt Haberland, Tyler Reddy, David Cournapeau, Evgeni Burovski, Pearu Peterson, Warren Weckesser, Jonathan Bright, Stéfan~J. Van Der~Walt, Matthew Brett, Joshua Wilson, K.~Jarrod Millman, Nikolay Mayorov, Andrew R.~J. Nelson, Eric Jones, Robert Kern, Eric Larson, C~J Carey, İlhan Polat, Yu~Feng, Eric~W. Moore, Jake VanderPlas, Denis Laxalde, Josef Perktold, Robert Cimrman, Ian Henriksen, E.~A. Quintero, Charles~R. Harris, Anne~M. Archibald, Antônio~H. Ribeiro, Fabian Pedregosa, Paul Van~Mulbregt, {SciPy 1.0 Contributors}, Aditya Vijaykumar, Alessandro~Pietro Bardelli, Alex Rothberg, Andreas Hilboll, Andreas Kloeckner, Anthony Scopatz, Antony Lee, Ariel Rokem, C.~Nathan Woods, Chad Fulton, Charles Masson, Christian Häggström, Clark Fitzgerald, David~A. Nicholson, David~R. Hagen, Dmitrii~V. Pasechnik, Emanuele Olivetti, Eric Martin, Eric Wieser, Fabrice Silva, Felix Lenders, Florian Wilhelm, G.~Young, Gavin~A. Price, Gert-Ludwig Ingold, Gregory~E. Allen, Gregory~R. Lee, Hervé Audren, Irvin Probst, Jörg~P. Dietrich, Jacob Silterra, James~T Webber, Janko Slavič, Joel Nothman, Johannes Buchner, Johannes Kulick, Johannes~L. Schönberger, José~Vinícius De~Miranda~Cardoso, Joscha Reimer, Joseph Harrington, Juan Luis~Cano Rodríguez, Juan Nunez-Iglesias, Justin Kuczynski, Kevin Tritz, Martin Thoma, Matthew Newville, Matthias Kümmerer, Maximilian Bolingbroke, Michael Tartre, Mikhail Pak, Nathaniel~J. Smith, Nikolai Nowaczyk, Nikolay Shebanov, Oleksandr Pavlyk, Per~A. Brodtkorb, Perry Lee, Robert~T. McGibbon, Roman Feldbauer, Sam Lewis, Sam Tygier, Scott Sievert, Sebastiano Vigna, Stefan Peterson, Surhud More, Tadeusz Pudlik, Takuya Oshima, Thomas~J. Pingel, Thomas~P. Robitaille, Thomas Spura, Thouis~R. Jones, Tim Cera, Tim Leslie, Tiziano Zito, Tom Krauss, Utkarsh Upadhyay, Yaroslav~O. Halchenko, and Yoshiki Vázquez-Baeza.
@@ -17,11 +32,5 @@ Pauli Virtanen, Ralf Gommers, Travis~E. Oliphant, Matt Haberland, Tyler Reddy, D
 \newblock ISSN 1548-7091, 1548-7105.
 \newblock \doi{10.1038/s41592-019-0686-2}.
 \newblock URL \url{https://www.nature.com/articles/s41592-019-0686-2}.
-
-\bibitem[Wallace and Hobbs(2006)]{wallace2006}
-John~Michael Wallace and Peter~Victor Hobbs.
-\newblock \emph{Atmospheric Science: An Introductory Survey}.
-\newblock Number volume 92 in International Geophysics Series. Academic press, 2nd ed edition, 2006.
-\newblock ISBN 978-0-12-732951-2.
 
 \end{thebibliography}
