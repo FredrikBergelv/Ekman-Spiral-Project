@@ -2,12 +2,15 @@
 
 This project investigates how vertically varying eddy viscosity affects the structure of the Ekman spiral, Ekman transport, and surface turning angle.
 
-Both analytical and numerical approaches are used to study several viscosity profiles, including:
+Both theoretical approaches, analytical and numerical, and statistical approaches with ERA5 was done to analyse the Ekman spiral with variable eddy viscosity. 
 
+Analytical solutions: 
 - Constant viscosity
 - Two-layer step-function viscosity
-- "1.5-layer" step-function viscosity
 - Exponentially decaying viscosity
+
+Numerical solutions: 
+- A simplified upper boundary condition model with:
 - Linearly varying viscosity
 - Parabolic viscosity
 
@@ -24,6 +27,7 @@ The numerical solutions are obtained using boundary value problem solvers in Pyt
 - Dimensionless parameter studies
 - Analytical derivations for selected cases
 - Visualization of velocity profiles and spiral geometry
+- Statistical analysis
 
 ---
 
