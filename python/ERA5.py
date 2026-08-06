@@ -149,7 +149,6 @@ def compute_mean_surface_angle_grid(ds, lat_mask, speed_threshold=1.0):
 
     return mean_angle_grid
 
-
 # ---------------------------------------------------------------------
 # Run the code
 # ---------------------------------------------------------------------
@@ -214,7 +213,7 @@ cbar = fig1.colorbar(mesh2, ax=[ax_americas, ax_eurasia],
 cbar.set_label('Mean surface angle [deg]', fontsize=11)
 cbar.ax.tick_params(labelsize=11)
 
-fig1.suptitle('Geographical Spread of Mean Surface Angles', fontsize=14)
+fig1.suptitle('Spatial Distribution of Mean Surface Wind Angle', fontsize=14)
 
 save_name1 = "ERA5_angle_map"
 plt.savefig(f'plots/{save_name1}.png', dpi=300)
@@ -234,8 +233,9 @@ ax2.hist(valid_angles, bins=n_bins, density=True,
 ax2.axvline(45, color='black', linestyle='--', alpha=0.7, label='45° reference')
 ax2.set_xlabel('Mean surface angle [deg]', fontsize=11)
 ax2.set_ylabel('Density [-]', fontsize=11)
-plt.suptitle('Distribution of Mean Surface Angles',
-              fontsize=14)
+
+plt.suptitle('Probability Distribution of Mean Surface Wind Angle', fontsize=14)
+
 ax2.set_title('Midllatitude flat land points',
               fontsize=11)
 ax2.legend(loc="center right", fontsize=11)
