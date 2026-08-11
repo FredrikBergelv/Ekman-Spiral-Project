@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 
 # Parameters
 f = 1e-4  # Coriolis parameter
-U0 = 1.0  # Reference velocity
+U0 = 10.0  # Reference velocity
 
   
 def surface_angle(phi, gamma):        
@@ -60,6 +60,10 @@ phis =  np.linspace(0, extent, 1000)
 
 #%%
 plt.figure(figsize=(8*extent/4,5))
+ang_15 = surface_angle(phis, 0)
+ang_15_reversed = 2 * 45 - ang_15
+plt.plot(phis, ang_15, label=r'1.5 model', color="black", linestyle='--')
+
 for ratio in nu_ratios:
     
     gamma = np.sqrt(ratio)
@@ -73,9 +77,6 @@ for ratio in nu_ratios:
 ref = surface_angle(phis, 1)
 plt.plot(phis, ref, label=r'$\nu_2/\nu_1=1$', color="black")
 
-ang_15 = surface_angle(phis, 0)
-ang_15_reversed = 2 * 45 - ang_15
-plt.plot(phis, ang_15, label=r'1.5 model', color="black", linestyle='--')
 plt.plot(phis, ang_15_reversed, color="black", linestyle='--')
 
 
@@ -99,6 +100,10 @@ plt.show()
 #%%
 
 plt.figure(figsize=(8*extent/4,5))
+ang_15 = ekman_transport(phis, 0)
+ang_15_reversed = ekman_transport(phis, 1e32)
+plt.plot(phis, ang_15, label=r'1.5 model', color="black", linestyle='--')
+
 for ratio in nu_ratios:
     gamma = np.sqrt(ratio)
     
@@ -111,9 +116,7 @@ for ratio in nu_ratios:
 plt.vlines([np.pi/2, np.pi], 95, 180, color="black", linestyle=":", label=r"$\pi/2$ and $\pi$")
 plt.hlines(135, min(phis), max(phis), color="black", linestyle='--', label="135° reference")
 
-ang_15 = ekman_transport(phis, 0)
-ang_15_reversed = ekman_transport(phis, 1e32)
-plt.plot(phis, ang_15, label=r'1.5 model', color="black", linestyle='--')
+
 plt.plot(phis, ang_15_reversed, color="black", linestyle='--')
 
 plt.xlabel(r"Dimensionless lower layer thickness, $\varphi$ [-]",fontsize=11)
@@ -132,31 +135,32 @@ plt.show()
 
 #%%
 
-nu_ratios = [0.1, 10.0]
-phis_to_plot = [0.2, 1.0, 4]
+nu_ratios = [0.5, 2.0]
+phis_to_plot = [0.5, 1.0, 1.5]
+H = 100
 
-
-fig, axes = plt.subplots(2, 2, figsize=(12, 6), gridspec_kw={'height_ratios': [3, 1]}, sharex="row", sharey="row")
+fig, axes = plt.subplots(1, 2, figsize=(11, 5), sharex="row", sharey="row")
 
 for i, nu_ratio in enumerate(nu_ratios):
-    if nu_ratio == 0.1:
-        nu1 = 1
-    if nu_ratio == 10:
-        nu1 = 0.1
-    hEk1 = np.sqrt(2 * nu1 / f)
 
-    zmax = 15 * hEk1
-    Nz = 10000
-    z = np.linspace(0, zmax, Nz)
-    
-    gamma = np.sqrt(nu_ratio)
-    nu2 = gamma**2 * nu1
-    hEk2 = np.sqrt(2 * nu2 / f)
-
-    ax = axes[0, i]    
-    
-    xmin, xmax = ax.get_xlim()
+    ax = axes[i]   
+    print(nu_ratio)
     for j, phi in enumerate(phis_to_plot):
+        
+        gamma = np.sqrt(nu_ratio)
+        nu1 = f * H**2 / (2 * phi**2)
+        hEk1 = np.sqrt(2 * nu1 / f)
+        nu2 = gamma**2 * nu1
+        hEk2 = np.sqrt(2 * nu2 / f)
+    
+        zmax = 10 * hEk1
+        Nz = 10000
+        z = np.linspace(0, zmax, Nz)
+    
+        ax = axes[i]
+                
+        print(f"nu1 = {nu1:.2e}, nu2={nu2:.2e}")
+        
         tau_vals = tau(z, phi, gamma, nu1=nu1)
         
         ang = np.angle(tau_vals, deg=True)
@@ -165,20 +169,15 @@ for i, nu_ratio in enumerate(nu_ratios):
         ax.plot(np.real(tau_vals), z, c=f"C{j}", label=fr'$\varphi={phi:.1f}$')
         ax.plot(np.imag(tau_vals), z, '--', c=f"C{j}")
         
-                            
-    xmin, xmax = ax.get_xlim()
-    for j, phi in enumerate(phis_to_plot):    
-        line = np.linspace(xmin, xmin*0.9, 10)
-        diff = (0.05+0.2*j)*(xmax+xmin)
-        H = phi*hEk1
-        ax.scatter(xmin, H, c=f"C{j}")
-        ax.fill_between([xmin, xmax-diff], H, H+hEk2, color=f"C{j}", alpha=0.1, ec="black")
+        xaxis = 0.12+0.025
+        position = [j*0.1*xaxis+0.12, xaxis/30+j*0.1*xaxis+0.12]
+        ax.fill_between(position, H, H+hEk2, color=f"C{j}", alpha=0.5, hatch="//", ec="gray")
+        ax.fill_between(position, 0, hEk1, color=f"C{j}", alpha=0.5, ec="gray")
 
-    ax.scatter([], [], c="black", label=r'$H$')
-    ax.fill_between([xmin, xmax], 0, hEk1, color='gray', alpha=0.2, label=r"$h_\text{Ek1}$", ec="black")
-    ax.fill_between([], [], [], color='C0',  alpha=0.2, ec="black", label=r"$h_\text{Ek2}$")
-    ax.fill_between([], [], [], color='C1',  alpha=0.2, ec="black", label=r"$h_\text{Ek2}$")
-    ax.fill_between([], [], [], color='C2',  alpha=0.2, ec="black", label=r"$h_\text{Ek2}$")
+   
+    ax.axhline(H, c="black", linestyle=":", label=r'$H$')
+    ax.fill_between([], [], [], color='gray',  alpha=0.6, label=r"$h_\text{Ek1}$", ec="gray")
+    ax.fill_between([], [], [], color='gray',  alpha=0.6, label=r"$h_\text{Ek2}$", hatch="//", ec="gray")
     
     ax.set_xlabel(r"Momentum flux, $\tau$ [m$^2$/s$^2$]", fontsize=11)
     ax.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
@@ -193,102 +192,72 @@ for i, nu_ratio in enumerate(nu_ratios):
     ax.grid(True, linestyle='--', alpha=0.6)
     
 
-    # --- Potential well below ---
-    ax_pot = axes[1, i]
-    for j, phi in enumerate(phis_to_plot):
-        H = phi * hEk1  # interface height in metres
-        nu_z = np.where(z < H, nu1, nu2)
-        ax_pot.plot(f / nu_z, z, c=f"C{j}")
-
-    ax_pot.set_xlabel(r"Eigenvalue, $\lambda$ [m$^{-2}$]", fontsize=11)
-    ax_pot.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
-    ax_pot.set_ylim(0, zmax)
-    ax_pot.grid(True, linestyle='--', alpha=0.6)
     
-axes[0, 0].set_ylabel(r"Height, $z$ [m]", fontsize=11)
-axes[1, 0].set_ylabel(r"Height, $z$ [m]", fontsize=11)
+axes[0].set_ylabel(r"Height, $z$ [m]", fontsize=11)
 
-plt.suptitle(r"Momentum Flux and Potential For 2-layer Model", fontsize=14)
+plt.suptitle(r"Momentum Flux for 2-layer Model", fontsize=14)
 plt.tight_layout()
 save_name="2layer_structure"
 plt.savefig(f"plots/{save_name}.png", dpi=400)
 plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{save_name}.png", dpi=400)
 plt.show()
 
+
+
 #%%
 
-
-
-nu_ratios = np.array([0.1, 10])
-
-nu0 = 0.1  # reference viscosity at z=0
-hEk = np.sqrt(2 * nu0 / f)
-
-phis_to_plot = [0.2, 1.0, 4.0]
-Nz = 10000
-zmax = 5 *hEk
-z = np.linspace(0, zmax, Nz)
-
 from scipy.integrate import cumulative_trapezoid
+from matplotlib.colors import to_rgb
 
-nu_ratios = [0.1, 10.0]
-phis_to_plot = [0.2, 1.0, 4]
-fig, axes = plt.subplots(1, 2, figsize=(11, 5), sharey=True, sharex=True)
+nu_ratios = [0.5, 2.0]
+phis_to_plot = [0.5, 1.0, 1.5]
+H = 100
+
+fig, axes = plt.subplots(1, 2, figsize=(11, 5), sharex="row", sharey="row")
 
 for i, nu_ratio in enumerate(nu_ratios):
-    if nu_ratio == 0.1:
-        nu1 = 1
-    if nu_ratio == 10:
-        nu1 = 0.1
-    
-    hEk1 = np.sqrt(2 * nu1 / f)
-    zmax = 15 * hEk1
-    Nz = 10000
-    z = np.linspace(0, zmax, Nz)
-    gamma = np.sqrt(nu_ratio)
-    nu2 = gamma**2 * nu1
-    hEk2 = np.sqrt(2 * nu2 / f)
-    ax = axes[i]
 
-    # Classical single-layer Ekman reference
-    U_theory = U0 * (1 - np.exp(-(1 + 1j) * z / hEk1))
-    ang_theory = np.angle(U_theory, deg=True)
-    ax.plot(ang_theory[1:], z[1:], 'k--', lw=2, label='classical solution')
+    ax = axes[i]   
 
     for j, phi in enumerate(phis_to_plot):
-        H = phi * hEk1
+        gamma = np.sqrt(nu_ratio)
+        nu1  = f * H**2 / (2 * phi**2)
+        hEk1 = np.sqrt(2 * nu1 / f)
+        nu2 = gamma**2 * nu1
+        hEk2 = np.sqrt(2 * nu2 / f)
+
+        zmax = 10 * hEk1
+        Nz = 10000
+        z = np.linspace(0, zmax, Nz)
+
         tau_vals = tau(z, phi, gamma, nu1=nu1)
         nu_z = np.where(z < H, nu1, nu2)
         U = cumulative_trapezoid(tau_vals / nu_z, z, initial=0)
         ang = np.angle(U, deg=True)
         ax.plot(ang[1:], z[1:], c=f"C{j}", label=fr'$\varphi={phi:.1f}$')
+        
+        # Classical single-layer Ekman reference
+        hEk_theo = hEk1
+        U_theory = U0 * (1 - np.exp(-(1 + 1j) * z / hEk_theo))
+        ang_theory = np.angle(U_theory, deg=True)
+        color = np.array(to_rgb(f"C{j}")) * 0.5
+        ax.plot(ang_theory[1:], z[1:], '--', lw=2, c=color)
+
+        # --- H and hEk decorations (same style as tau plot) ---
+        xaxis = 55+20
+        position = [j*0.1*xaxis+55, xaxis/30+j*0.1*xaxis+55]
+        ax.fill_between(position, H, H+hEk2, color=f"C{j}", alpha=0.5, hatch="//", ec="gray")
+        ax.fill_between(position, 0, hEk1, color=f"C{j}", alpha=0.5, ec="gray")
+   
+    ax.axhline(H, c="black", linestyle=":", label=r'$H$')
+    ax.fill_between([], [], [], color='gray',  alpha=0.6, label=r"$h_\text{Ek1}$", ec="gray")
+    ax.fill_between([], [], [], color='gray',  alpha=0.6, label=r"$h_\text{Ek2}$", hatch="//", ec="gray")
+    ax.plot([], [], 'k--', lw=2, label='classical solution')
 
 
-    # --- H and hEk decorations (same style as tau plot) ---
-    xmin, xmax = ax.get_xlim()
-    for j, phi in enumerate(phis_to_plot):
-        H = phi * hEk1
-        diff = (0.05 + 0.2 * j) * (xmax - xmin)
-        # H marker line on left edge
-        ax.scatter(xmin, H, c=f"C{j}", linewidth=1)
-
-        # hEk2 shading above H
-        ax.fill_between([xmin, xmax - diff], H, H + hEk2,
-                        color=f"C{j}", alpha=0.1, ec="black")
-    # hEk1 shading near surface
-    ax.fill_between([xmin, xmax], 0, hEk1, color='gray', alpha=0.2, ec="black")
-
-    # Legend proxies for H and hEk
-    ax.scatter([], [], c="black", linewidth=1, label=r'$H$')
-    ax.fill_between([], [], [], color='gray', alpha=0.2, ec="black", label=r"$h_\text{Ek1}$")
-    ax.fill_between([], [], [], color='C0',  alpha=0.2, ec="black", label=r"$h_\text{Ek2}$")
-    ax.fill_between([], [], [], color='C1',  alpha=0.2, ec="black", label=r"$h_\text{Ek2}$")
-    ax.fill_between([], [], [], color='C2',  alpha=0.2, ec="black", label=r"$h_\text{Ek2}$")
-
-    ax.set_xlabel(r"Wind turning angle [°]", fontsize=11)
+    ax.set_xlabel(r"Wind diection [°]", fontsize=11)
     ax.set_title(fr"$\nu_2/\nu_1 = {nu_ratio}$ "
-                 + (r"($\nu_2 < \nu_1$)" if gamma < 1 else r"($\nu_2 > \nu_1$)"),
-                 fontsize=12)
+                 + (r"($\nu_2 < \nu_1$)" if gamma < 1 else r"($\nu_2 > \nu_1$)"), fontsize=12)
     ax.set_ylim(0, zmax)
     ax.grid(True, linestyle='--', alpha=0.6)
     if i == 1:
@@ -301,3 +270,4 @@ save_name = "2layer_angle_structure"
 plt.savefig(f"plots/{save_name}.png", dpi=400)
 plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{save_name}.png", dpi=400)
 plt.show()
+

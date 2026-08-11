@@ -153,15 +153,14 @@ plt.show()
 #%%
 nu0 = 1
 epsilons_to_plot = 1e-3
-phis_to_plot = [0.2, 1.0, 2.0]
+phis_to_plot = [0.5, 1.0, 1.5]
 Nz = 300
 z_plot = np.linspace(0, 1, Nz)
 
-fig, axes = plt.subplots(2, 1, figsize=(6, 6),
-                         gridspec_kw={'height_ratios': [3, 1]},
+fig, axes = plt.subplots(1, 1, figsize=(6, 5),
                          sharey='row')
 
-ax = axes[0]
+ax = axes
 
 for j, phi in enumerate(phis_to_plot):
         z_sol, Y_sol, sol = solve_profile(phi, epsilons_to_plot)
@@ -176,46 +175,33 @@ for j, phi in enumerate(phis_to_plot):
         ax.plot(taux_interp, z_plot, c=f"C{j}", label=fr'$\varphi={phi:.1f}$')
         ax.plot(tauy_interp, z_plot, '--', c=f"C{j}")
         
-        minval, maxval = ax.get_xlim()
-        #minval = min(min(taux_interp), min(tauy_interp))
-        #maxval= max(max(taux_interp), max(tauy_interp))
-        ax.fill_between([minval, maxval], 0, 1/phi, color=f"C{j}", alpha=0.15)
-
-ax.fill_between([], [], color='gray', alpha=0.15, label=r'$h_\text{Ek}$')
+        xaxis = -0.1e-3+1.1e-3
+        position = [j*0.1*xaxis+1e-3, xaxis/30+j*0.1*xaxis+1e-3]
+        ax.fill_between(position, 0, 1/phi, color=f"C{j}", alpha=0.5, ec="gray")
+   
+ax.axhline(1, c="black", linestyle=":", label=r'$H$')
+ax.fill_between([], [], [], color='gray',  alpha=0.6, label=r"$\tilde h_\text{Ek}$", ec="gray")
 
 ax.set_xlabel(r"Momentum flux, $\tau$ [m$^2$/s$^2$]", fontsize=11)
 ax.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
 ax.set_ylim(0, 1.1)
 ax.plot([], [], 'k-',  label=r'$\tau_x$')
 ax.plot([], [], 'k--', label=r'$\tau_y$')
-ax.legend(loc="upper right", fontsize=11)
+ax.legend(loc="upper center", fontsize=11)
 ax.grid(True, linestyle='--', alpha=0.6)
-
-    # --- Potential well below ---
-ax_pot = axes[1]
-    
-nu_z = nu_decreasing(z_plot, epsilons_to_plot)
-  
-ax_pot.plot(f / nu_z, z_plot,  'k')
-ax_pot.set_xlabel(r"Eigenvalue, $\lambda$ [m$^{-2}$]", fontsize=11)
-ax_pot.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
-ax_pot.set_ylim(0, 1)
-ax_pot.set_xlim(0, f*10)
-ax_pot.grid(True, linestyle='--', alpha=0.6)
-
-axes[0].set_ylabel(r"Norm. height, $\tilde z$ [-]", fontsize=11)
-axes[1].set_ylabel(r"Norm. height, $\tilde z$ [-]", fontsize=11)
-
-# Same xlim per row
+axes.set_ylabel(r"Norm. height, $\tilde z$ [-]", fontsize=11)
 
 
-plt.suptitle(r"Momentum Flux and Potential for SUBC Linear Decreasing Model",
+
+plt.suptitle(r"Momentum Flux for SUBC Linear Decreasing Model",
              fontsize=13)
 plt.tight_layout()
 save_name = "numerical_SUBC_linear_d_structure"
 plt.savefig(f"plots/{save_name}.png", dpi=400)
 plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{save_name}.png", dpi=400)
 plt.show()
+
+
 
 
 

@@ -46,7 +46,7 @@ with the boundary conditions
     \label{eq:BoundaryCondition2}
 \end{align}
 \end{subequations}
-The surface wind-turning angle can be determined by taking the argument of the infinitesimal change of the wind at the ground,
+The surface wind angle can be determined by taking the argument of the infinitesimal change of the wind at the ground,
 \begin{equation}
     \theta = \arg\left(\left.\frac{\mathrm{d}U}{\mathrm{d}z}\right|_{z=0}\right).
 \end{equation}
@@ -62,13 +62,16 @@ The Ekman equation can be reformulated by introducing a complex vertical momentu
     \tau=\nu\frac{\mathrm{d}U}{\mathrm{d}z}.
     \label{eq:UtoTau}
 \end{equation}
-Using this definition, \autoref{eq:EkmanEquation} can be rewritten as
+Using this definition, and differentiating \autoref{eq:EkmanEquation} gives
 \begin{empheq}[box=\fbox]{equation}
-    \frac{\mathrm{d}^2\tau}{\mathrm{d}z^2}=i\underbrace{\lambda}_{\equiv \frac{f}{\nu}}
-    \tau.
+    \frac{\mathrm{d}^2\tau}{\mathrm{d}z^2}=i\kappa \tau,
     \label{eq:MomentumFlux}
 \end{empheq}
-Here, an eigenvalue $\lambda$ has been introduced to the system. The new eigenvalue form is more intuitive since it directly compares the second order derivative with the variable itself. Furthermore, \autoref{eq:MomentumFlux} is similar to famous equations such as the Helmholtz equation and the time-independent Schrödinger equation, where $\lambda$ becomes analogous to the potential. The new equation also has a clear physical interpretation, as it describes the vertical structure of the momentum flux in the Ekman problem. Using \autoref{eq:MomentumFlux}, the boundary conditions become
+where 
+\begin{equation}
+    \kappa \equiv \frac{f}{\nu}.
+\end{equation}
+Here, an inverse decay scale $\kappa$ has been introduced to the system. \autoref{eq:MomentumFlux} is similar to equations such as the Helmholtz equation and the time-independent Schrödinger equation, where $\kappa$ becomes analogous to the potential. The new equation also has a clear physical interpretation, as it describes the vertical structure of the momentum flux in the Ekman problem. Using \autoref{eq:EkmanEquation} and \ref{eq:UtoTau}, the boundary conditions become
 \begin{subequations}
     \label{eq:MomentumFluxBoundaryConditions}
 \begin{align}
@@ -79,16 +82,16 @@ Here, an eigenvalue $\lambda$ has been introduced to the system. The new eigenva
     \label{eq:MomentumFluxBoundaryConditions2}
 \end{align}
 \end{subequations}
-This new quantity will not change the surface angle, as the viscosity is always a positive real value and does not affect the argument,
+Since the viscosity is always a positive real value the surface angle can also be expressed in terms of $\tau$ as
 \begin{equation}
 \theta = \arg\left[\tau(z=0)\right].
 \end{equation}
-Solving for the Ekman transport becomes easier by using the momentum flux, as it directly reduces the integral of the Ekman transport. Observing the Ekman equation (\autoref{eq:EkmanEquation}) it follows that $\frac{\mathrm{d}\tau}{\mathrm{d}z}=-if\left(U-U_g\right)$. Using the boundary condition that the momentum flux vanishes as infinity the Ekman transport reduces to
+Solving for the Ekman transport becomes easier by using the momentum flux, as it directly reduces the integral of the Ekman transport. Inserting \autoref{eq:EkmanEquation} into \ref{eq:UtoTau} it follows that $\frac{\mathrm{d}\tau}{\mathrm{d}z}=if\left(U-U_g\right)$. Using the boundary condition that the momentum flux vanishes at infinity the Ekman transport reduces to
 \begin{equation}
 T = \int_0^\infty \left[U - U_g\right] \mathrm{d}z = \frac{i}{f}\tau(z=0),
 \label{eq:Transport}
 \end{equation}
-which is proportional to the vertical momentum flux at the surface. Consequently, this can be interpreted as the surface stress at the ground being proportional to the Ekman transport of the fluid column.
+which is proportional to the vertical momentum flux at the surface. Thus, the surface stress at the ground is proportional to the Ekman transport of the fluid column.
 
 \subsection{The classical solution}
 The classical solution to the Ekman equation is obtained when the viscosity is assumed to be constant with altitude, $\nu=\text{constant}$, and was found by \citet{ekman1905}. In this case the classical Ekman spiral solution is
@@ -133,11 +136,11 @@ and where $\varphi$ is the non-dimensional layer thickness defined as
     \varphi = \frac{H}{h_\text{Ek1}}.
 \end{equation}
 
-This provides a complete expression for the vertical momentum flux in the two-layer model, as shown in \autoref{fig:2layer_structure}. The figure illustrates how the vertical momentum flux varies with altitude for different viscosity ratios and non-dimensional heights, $\varphi$. For an increasing viscosity with height, a larger surface stress in the zonal direction is observed. Conversely, for a smaller upper-layer viscosity, a larger meridional surface stress is evident. Observing the interface, $H$, reveals that for larger $\varphi$, the model behaves more like a single-layer model, as the second layer begins at a height where the Ekman spiral has already decayed. Interestingly, smaller values of $\varphi$ yield a larger difference between the zonal and meridional wind stress.
+This provides a complete expression for the vertical momentum flux in the two-layer model, as shown in \autoref{fig:2layer_structure}. The figure illustrates how the vertical momentum flux varies with altitude for different viscosity ratios and non-dimensional heights, $\varphi$. For an increasing viscosity with height, a larger surface stress in the zonal direction compared to the meridional direction is observed. Conversely, for a smaller upper-layer viscosity, a larger meridional surface stress compared to the zonal surface stress is evident. Observing the interface, $H$, reveals that for larger $\varphi$, the model behaves more like a single-layer model, as the second layer begins at a height where the Ekman spiral has already decayed. Interestingly, smaller values of $\varphi$ yield a larger difference between the zonal and meridional wind stress.
 \begin{figure*}[hbt!]
     \centering    
-    \includegraphics[height=0.50\textwidth]{Figures/2layer_structure.png}
-    \caption{The vertical structure of the momentum flux and the eigenvalues for the two layer model. The momentum flux is dependent on the dimensionless parameter $\varphi=H/h_\text{Ek1}$ and the ratio of the viscosities. The corresponding Ekman heights and interfaces are shown with the vertical momentum flux.}
+    \includegraphics[height=0.42\textwidth]{Figures/2layer_structure.png}
+    \caption{The vertical structure of the momentum flux and the inverse decay scales for the two layer model. The momentum flux is dependent on the dimensionless parameter $\varphi=H/h_\text{Ek1}$ and the ratio of the viscosities. The corresponding Ekman heights and interface are shown with the vertical momentum flux. The solution assumed a purely zonal geostrophic flow $U_g=\SI{10}{\meter\per\second}$, a Coriolis parameter of $f=\SI{1e-4}{\per\second}$ and an intersection height of $H=\SI{100}{\meter}$. The lower viscosities, derived from $H$ and $\varphi$, are $\nu_1=\SI{2e0}{\meter^2\per\second}$, $\nu_1=\SI{5e-1}{\meter^2\per\second}$, and $\nu_1=\SI{2.22e-1}{\meter^2\per\second}$ in both figures. In the left figure, $\nu_2$ used half the value of the lower viscosities, and in the right figure, it used double of that value.}
     \label{fig:2layer_structure}
 \end{figure*}
 
@@ -145,18 +148,18 @@ By defining the constant
 \begin{equation}
     R = \frac{1-\gamma}{1+\gamma}.
 \end{equation}
-and using the derived solution for the vertical momentum flux, the surface wind-turning angle becomes 
+and using the derived solution for the vertical momentum flux, the surface wind angle becomes 
 \begin{align}
     \theta &= \arg\left[\left(A_1+B_1\right)\right] \\
     &=45\degr + 
     \arg\left[\frac{e^{(1+i)\varphi}-Re^{-(1+i)\varphi}}{e^{(1+i)\varphi}+Re^{-(1+i)\varphi}}\right],
     \label{eq:2layerAngle}
 \end{align}
-which can be observed as a function of $\varphi$ in \autoref{fig:2layer_angle}. The solutions for different viscosity ratios can be observed, half of which have a higher upper-level viscosity and the other half have a lower upper-level viscosity. One can observe a convergence towards the classical Ekman value of \ang{45} when $\varphi\rightarrow\infty$ for all the viscosity ratios. This can be attributed to the high altitude interface $H$ not acting in the domain of the spiral, which reduces the problem to a one layer model. 
+which can be observed as a function of $\varphi$ in \autoref{fig:2layer_angle}. The solutions for different viscosity ratios are shown, half of which have a higher upper-level viscosity and the other half have a lower upper-level viscosity. One can observe a convergence towards the classical Ekman value of \ang{45} when $\varphi\rightarrow\infty$ for all the viscosity ratios. This can be attributed to the high altitude interface $H$ being above the spiral, which reduces the problem to a one layer model. 
 
-The zero limit is, however, dependent on the viscosity ratio, where finite ratios approach \ang{45}. This occurs when the interface $H$ is close to the surface, again reducing the problem to a one layer model if $H=0$. However, when $\tfrac{\nu_2}{\nu_1}\rightarrow0$ and $\varphi\rightarrow 0$ the angle goes to $\theta\rightarrow\ang{90}$. Respectively, when $\tfrac{\nu_2}{\nu_1}\rightarrow\infty$ and $\varphi\rightarrow0$, $\theta\rightarrow\ang{0}$. This indicates that the interface approaches the ground while the viscosity contrast becomes extreme, leading to a surface-dominated response where the surface stress aligns either perpendicular or parallel to the upper geostrophic flow. 
+The zero limit is, however, dependent on the viscosity ratio, if this ratio is finite and fixed, the surface angle approaches \ang{45} as $H \rightarrow 0$. In this case the problem again reduces to a one-layer model. But if $\varphi$ is very small but fixed, the angle approaches a value close to 0 if $\nu_2 / \nu_1 \rightarrow \infty$, and a value close to \ang{90} if $\nu_2/\nu_1 \rightarrow 0$. In all these cases, $H$ is so small that  most of the Ekman spiral occurs above $z=H$. The solution of \autoref{eq:MomentumFlux} in $0<z<H$ is then approximately a linear function, leading to a surface-dominated response where the surface stress aligns either perpendicular or parallel to the upper geostrophic flow. The lower layer works as a linear coupling between the surface and the upper layer, and the surface angle is thus determined by the momentum flux at $z=H$ together with the upper Ekman height.
 
-In the case of weaker upper viscosity the perpendicular angle can be interpreted as the entire turning, due to the Coriolis force, has to occur at the surface since the viscosity becomes negligible aloft. In the opposite case, a weaker viscosity at the ground makes the Ekman spiral less prominent. Since the Ekman spiral occurs due to the surface stress if no major viscosity is present the stress becomes negligible and the wind-turning does not occur. For $\nu_1>\nu_2$ (and $\nu_2>\nu_1$ respectively) the solution will always provide a result greater than \ang{45}, except between the $\varphi\in\left(\tfrac{\pi}{2},\pi\right)$ were a angle below \ang{45} can be observed. 
+In the case of weaker upper viscosity the perpendicular angle can be interpreted as the entire rotation, due to the Coriolis force, has to occur at the surface since the viscosity becomes negligible aloft. In the opposite case, a weaker viscosity at the ground makes the Ekman spiral less prominent. Since the Ekman spiral occurs due to the surface stress if no major viscosity is present the stress becomes negligible and the rotation does not occur. For $\nu_1>\nu_2$ (and $\nu_2>\nu_1$ respectively) the solution will always provide a result greater than \ang{45}, except between the $\varphi\in\left(\tfrac{\pi}{2},\pi\right)$ were a angle slightly below \ang{45} can be observed. 
 
 \begin{figure*}[hbt!]
     \centering    
@@ -165,12 +168,12 @@ In the case of weaker upper viscosity the perpendicular angle can be interpreted
     \label{fig:2layer_angle}
 \end{figure*}
 
-The full vertical spiral of the two-layer model can be obtained by calculating the angle at each height in \autoref{fig:2_layer_angle_structure}. This spiralling compared to the classical Ekman theory can be observed in \autoref{fig:2_layer_angle_structure}. The angles deviate throughout the structure from the classical solution, but for the larger $\varphi$-value, a closer likeness to the classical solution can be observed. Interestingly, if the viscosity increases with altitude, the angles are lower than the classical solution at the surface, but increase to be larger than the classical solution higher up. The opposite is true for the other case, when the viscosity decreases with altitude.
+The full vertical spiral of the two-layer model can be obtained by calculating the wind direction at each height. This spiralling compared to the classical Ekman theory can be observed in \autoref{fig:2_layer_angle_structure}. If $\varphi$ is large, the most of the spiral is in the lower layer, and therefore close to the classical Ekman theory. In the other cases it is seen that the angle overshoots in the layer with high viscosity and undershoots in layer with low viscosity compared to the classical solution. 
 
 \begin{figure*}[hbt!]
     \centering    
     \includegraphics[height=0.42\textwidth]{Figures/2layer_angle_structure.png}
-    \caption{The vertical spiral of the velocities for the two layer model. The angle is dependent on the dimensionless parameter $\varphi = H/h_\text{Ek1}$. The classical Ekman solution (when $\nu_\text{const}=\nu_1$) is shown as a reference.}
+    \caption{The vertical spiral of the velocities for the two layer model together with the corresponding Ekman heights. The wind direction is dependent on the dimensionless parameter $\varphi = H/h_\text{Ek1}$. The classical Ekman solution (when $\nu_\text{const}=\nu_1$) is shown as a reference. The parameters used the same values as in \autoref{fig:2layer_structure}.}
     \label{fig:2_layer_angle_structure}
 \end{figure*}
 
@@ -193,49 +196,52 @@ which is a differential equation with a standard solution. The standard solution
 \end{equation}
 where $C_1$ and $C_2$ are constants, while $I_0(t)$ and $K_0(t)$ are modified Bessel functions of the first and second kind of order zero, respectively. By applying the previously defined boundary conditions from \autoref{eq:MomentumFluxBoundaryConditions} the two constants can be found. Applying the geostrophic boundary condition from \autoref{eq:MomentumFluxBoundaryConditions2} shows that $C_1=0$ since $I_0(t)$ does not go to zero when $t\to\infty$ (which occurs when $z\to\infty$). Applying the surface boundary condition from \autoref{eq:MomentumFluxBoundaryConditions1} an expression for the second constant can be found. Transforming the solution to depend on the variable $z$ gives
 \begin{equation}
-    \tau(z)=\frac{\left(1+i\right)fU_g}
-    {2k\varphi}
+    \tau(z)=fU_g\frac{1+i}
+    {h_{\text{EK0}}}
     \frac{K_0\left(2\left[1+i\right]\varphi_\text{exp} e^{kz/2}\right)}{K_1\left(2\left[1+i\right]\varphi_\text{exp}\right)}.
     \label{eq:exponetial}
 \end{equation}
-This solution for the vertical momentum flux in the exponential model can be observed in \autoref{fig:2layer_structure}. There, the change of the vertical momentum flux with altitude for different non-dimensional heights, $\varphi$, can be observed. For smaller $\varphi$, the solution is more localized toward the surface, whereas larger $\varphi$ produces a more extended spiral. This implies that for larger $\varphi$, the viscosity changes very little, causing the spiral to behave as in the one-layer model. In contrast, smaller $\varphi$ indicates a rapid viscosity decrease from the ground.
+This solution for the vertical momentum flux in the exponential model is shown in \autoref{fig:exponential_structure} for different non-dimensional heights, $\varphi_\text{exp}$. For smaller $\varphi_\text{exp}$, the solution is more localized toward the surface, whereas larger $\varphi_\text{exp}$ produces a more extended spiral. This implies that for larger $\varphi_\text{exp}$, the viscosity changes very little, causing the spiral to behave as in the one-layer model. In contrast, smaller $\varphi_\text{exp}$ indicates a rapid viscosity decrease from the ground.
 
 \begin{figure*}[hbt!]
     \centering    
-    \includegraphics[height=0.50\textwidth]{Figures/exponential_structure.png}
-    \caption{The vertical structure of the momentum flux for exponentially decreasing viscosity. The momentum flux is dependent on the dimensionless parameter $\varphi_\text{exp}=1/k\,h_\text{Ek0}$. The corresponding Ekman heights and eigenvalue are shown with the vertical momentum flux. The solution assumed a purely zonal geostrophic flow and a Coriolis parameter of $f=\SI{1e-4}{\per\second}$ }
+    \includegraphics[height=0.42\textwidth]{Figures/exponential_structure.png}
+    \caption{The vertical structure of the momentum flux for exponentially decreasing viscosity together with the corresponding Ekman height and inverse decay rate. The momentum flux is dependent on the dimensionless parameter $\varphi_\text{exp}=1/k\,h_\text{Ek0}$. The solution assumed a purely zonal geostrophic flow $U_g=\SI{10}{\meter\per\second}$, a Coriolis parameter of $f=\SI{1e-4}{\per\second}$, a initial viscosity of $\nu_0=\SI{0.1}{\meter\squared\per\second}$ and decay rates of $k=\SI{5.59e-02}{\per\meter}$, $k=\SI{2.24e-02}{\per\meter}$ and $k=\SI{5.59e-03}{\per\meter}$. }
     \label{fig:exponential_structure}
 \end{figure*}
 
-Using \autoref{eq:exponetial} the surface angle of this model gives 
+Using \autoref{eq:exponetial} the surface angle of this model is 
 \begin{equation}
     \theta = \ang{45} + \arg\left[\frac{K_0\left(4\left[1+i\right]\,\varphi_\text{exp}\,\right)}{K_1\left(4\left[1+i\right]\,\varphi_\text{exp}\,\right)}\right],
     \label{eq:ExponetialAngle}
 \end{equation} 
-where $K_1$ is the modified Bessel function of the second kind of order one. \autoref{fig:exponential_angle} showcases the result from the surface wind-turning angle for this model. As this model only provides scenarios where the viscosity decreases from the ground, all angels are greater then the reference angle of \ang{45} (following the logic from the two layer model). One can observe a similar limit as in \autoref{fig:2layer_angle} when $\varphi\rightarrow 0$ for $\nu_2=0$, as \autoref{eq:ExponetialAngle} also approaches \ang{90}. The same limit is also true for $\varphi\rightarrow\infty$, which gives $\theta\rightarrow\ang{45}$, although this exponential solution converges slightly slower than the two-layer solution. The reasoning behind this convergence is that the lower decay rates makes the solution behave more like the classical Ekman spiral with constant viscosity. The opposite case when the layer is really thin forces a strong turning close to the surface. 
+where $K_1$ is the modified Bessel function of the second kind of order one. \autoref{eq:ExponetialAngle} is plotted in \autoref{fig:exponential_angle}. As this model only provides scenarios where the viscosity decreases from the ground, all angels are greater then the reference angle of \ang{45} (as predicted by the two layer model). One can observe a similar limit as in \autoref{fig:2layer_angle} when $\varphi_\text{exp}\rightarrow 0$ for $\nu_2=0$, as \autoref{eq:ExponetialAngle} also approaches \ang{90}. The same limit is also true for $\varphi_\text{exp}\rightarrow\infty$, which gives $\theta\rightarrow\ang{45}$, although this exponential solution converges slightly slower than the two-layer solution. The reasoning behind this convergence is that the lower decay rates makes the solution behave more like the classical Ekman spiral with constant viscosity. 
 
+The opposite case when $\varphi_\text{exp}\ll1$ then $\tau(z)$ in \autoref{eq:MomentumFlux} can be approximated as linear. Applying the lower boundary condition \autoref{eq:MomentumFluxBoundaryConditions1} gives 
+\begin{equation}
+    \tau(z)\approx \tau_0-ifU_gz.
+\end{equation}
+If the layer is very thin $\tau_0$ has to become completely imaginary in order to fulfil the vanishing upper boundary condition in \autoref{eq:MomentumFluxBoundaryConditions2}. Thus a perpendicular angle is obtained when $\varphi_\text{exp}\ll1$, which is the same limit as in the two-layer model. 
 \begin{figure*}[hbt!]
     \centering    
     \includegraphics[height=0.42\textwidth]{Figures/exponential_angle.png}
-    \caption{Surface angle for the exponentially decaying viscosity model as a function of the dimensionless parameter $\varphi=H/h_\text{Ek}$. The solution assumed a purely zonal geostrophic flow.}
+    \caption{Surface angle for the exponentially decaying viscosity model as a function of the dimensionless parameter $\varphi_\text{exp}=H/h_\text{EK0}$. The same parameters as in \autoref{fig:exponential_structure} was used.}
     \label{fig:exponential_angle}
 \end{figure*}
 
-The full vertical spiral of the exponential model can, like in the two-layer model, be obtained at each height from \autoref{fig:exponential_structure}. The spiralling of the exponential model compared to the classical Ekman theory can be observed in \autoref{fig:exponential_angle_structure}. The angles are higher than the classical solution at the surface but decrease to be smaller than the classical solution higher up, following the logic presented in the two-layer model.
+The wind directions of the exponential model is shown in \autoref{fig:exponential_structure}, compared to the classical Ekman theory. The angles are higher than the classical solution at the surface but decreases more rapidly with height, since the viscosity decreases, following the logic presented in the two-layer model.
 
 \begin{figure*}[hbt!]
     \centering    
     \includegraphics[height=0.42\textwidth]{Figures/exponential_angle_structure.png}
-    \caption{The vertical spiral for the exponentially decreasing viscosity model. The angle is dependent on the dimensionless parameter $\varphi_\text{exp}=1/k\,h_\text{Ek0}$. The classical Ekman solution (for $\nu_0$) is shown as a reference. }
+    \caption{The vertical spiral for the exponentially decreasing viscosity model together with the Ekman height and the inverse decay rate. The wind direction is dependent on the dimensionless parameter $\varphi_\text{exp}=1/k\,h_\text{Ek0}$. The classical Ekman solution (for $\nu_0$) is shown as a reference. The parameters had the same values as in \autoref{fig:exponential_structure}.}
     \label{fig:exponential_angle_structure}
 \end{figure*}
 
 \subsection{The simplified upper boundary condition model}
-In the previous sections two completely analytical solutions for two different altitude-varying viscosity profiles were derived. However, difficulty solving \autoref{eq:MomentumFlux} comes from the altitude dependence of the viscosity profile $\nu(z)$. This introduces variable coefficients into the complex second-order ordinary differential equation, which in general prevents closed-form analytical solutions. Analytical solutions therefore exist only for specific viscosity profiles that allow the equation to be transformed into a solvable form.
+There is difficulty solving \autoref{eq:MomentumFlux} due to the altitude dependence of the viscosity profile $\nu(z)$. Analytical solutions therefore exist only for specific viscosity profiles that allow the equation to be transformed into a solvable form. \autoref{eq:MomentumFlux} is furthermore also difficult to solve numerically, as the upper boundary condition is asymptotic. This will put limits on the viscosity profiles to study, as the viscosity cannot increase with altitude continuously. In the physical world, this makes sense, since we assume that high up in the atmosphere (or deep down in the ocean), the flow becomes laminar and the turbulent viscosity small. I.e. that the turbulent boundary layer has a boundary. However, by limiting ourselves to only decreasing viscosity profiles, the real-world differential equation becomes impossible to solve. 
 
-\autoref{eq:MomentumFlux} is furthermore also difficult to solve in a numerical setting, as the upper boundary condition is a limit. This will put limits on the viscosity profiles to study, as the viscosity cannot increase with altitude continuously. In the physical world, this makes sense, since we assume that high up in the atmosphere (or deep down in the ocean), the flow becomes laminar and the turbulent viscosity small. I.e. that the turbulent boundary layer has a limit, which is the same as the geostrophic limit. However, by limiting ourselves to only decreasing viscosity profiles, the real-world differential equation becomes impossible to solve. 
-
-A solution to solve this problem is to introduce a simplified upper boundary condition. For the two-layer model, this is reduced to a 1.5 layer model, where we assume that the upper-level viscosity is negligible ($\nu_2\approx0$), which could be observed as the limit in \autoref{fig:2layer_angle}. This also makes physical sense, since we know that both the atmosphere and the ocean consist of a boundary layer where turbulent mixing takes place. Allowing the viscosity to vary freely in the lower layer reduces the problem to a simplified upper boundary condition model. This will allow viscosity profiles that do not converge at $z\rightarrow\infty$, since the new domain is between $z\in[0,H]$. This modifies the boundary conditions in \autoref{eq:MomentumFluxBoundaryConditions} as 
+A solution to solve this problem is to introduce a simplified upper boundary condition. For the two-layer model, this is reduced to a 1.5 layer model, where we assume that the upper-level viscosity is negligible ($\nu_2\approx0$), which corresponds to the upper dashed curve in \autoref{fig:2layer_angle}. This also makes physical sense, since we know that both the atmosphere and the ocean consist of a boundary layer where turbulent mixing takes place. Allowing the viscosity to vary freely in the lower layer reduces the problem to a simplified upper boundary condition model. This will allow viscosity profiles that do not converge at $z\rightarrow\infty$, since the new domain is between $z\in[0,H]$. This modifies the boundary conditions in \autoref{eq:MomentumFluxBoundaryConditions} as 
 \begin{subequations}
 \label{eq:NewBoundaryConditions}
 \begin{align}
@@ -246,7 +252,7 @@ A solution to solve this problem is to introduce a simplified upper boundary con
     \label{eq:NewBoundaryCondition2}
 \end{align}
 \end{subequations}
-Above, $H$ becomes the height of the boundary layer, and the upper boundary condition was argued from the jump condition in the two-layer model, as seen in \autoref{eq:JumpCondition}.
+Here, $H$ is the height of the boundary layer, and the upper boundary condition was argued from the jump condition in the two-layer model, as seen in \autoref{eq:JumpCondition}.
 
 \subsubsection{Simple viscosity profiles for the SUBC model}
 Using the the simplified upper boundary condition, SUBC model, simple viscosity profiles can be studied and evaluated numerically. The easiest, except for the constant viscosity, is a linearly varying viscosity with height as 
@@ -259,7 +265,7 @@ Using the the simplified upper boundary condition, SUBC model, simple viscosity 
     \nu_\downarrow(z)&=\frac{\nu_\text{max}}{H}\left(H-z\right), 
 \end{align}
 \end{subequations}
-where $\nu_\text{max}$ is the maximal viscosity. For both of these profiles a dimensionless thickness coordinate can be defined as 
+where $\nu_\text{max}$ is the maximal viscosity. For both of these profiles a dimensionless vertical coordinate can be defined as 
 \begin{equation}
     \tilde z = \frac{z}{H} \implies 
     \begin{cases}
@@ -267,7 +273,7 @@ where $\nu_\text{max}$ is the maximal viscosity. For both of these profiles a di
         \nu_\downarrow(z)=\nu_\text{max}\left(1-\tilde z\right). 
     \end{cases}
 \end{equation}
-This new coordinate changes the previous $z$-derivative, by introducing a factor of $1/H$ when taking the derivative with respect to $\tilde z$. Using these linear viscosity profiles, together with the new dimensionless thickness coordinate, \autoref{eq:MomentumFlux} is rewritten for the two profiles as 
+Using these linear viscosity profiles, together with the new dimensionless vertical coordinate, \autoref{eq:MomentumFlux} is rewritten for the two profiles as 
 \begin{subequations}
 \label{eq:SUBCLinear}
 \begin{align}
@@ -289,9 +295,9 @@ Again, using the non-dimensional height coordinate $\tilde z$ and the dimensionl
     \frac{\mathrm{d}^2\tau}{\mathrm{d} \tilde z^2}=i \underbrace{\frac{1}{ 4\tilde z \left[1-\tilde z\right]}}_{\equiv 1/\tilde\nu_p} \underbrace{\frac{H^2f}{\nu_\text{max}}}_{=2\varphi^2}(U-U_g).
     \label{eq:SUBCParabolic}
 \end{equation}
-Since the height coordinate is normalized for the height $H$, the dimensionless thickness simply becomes the same as the inverse of the normalized Ekman scale height as
+Since the height coordinate is normalized for the height $H$, the dimensionless thickness simply becomes the same as the inverse of the normalized Ekman scale height, defined as
 \begin{equation}
-    \varphi=\frac{1}{\tilde h_\text{Ek}}.
+    \varphi=\frac{H}{h_\text{Ek}}=\frac{1}{\tilde h_\text{Ek}}.
 \end{equation}
 
 

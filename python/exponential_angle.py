@@ -103,9 +103,9 @@ zmax = 5 *hEk
 z = np.linspace(0, zmax, Nz)
 
 
-fig, axes = plt.subplots(2, 1, figsize=(6, 6), gridspec_kw={'height_ratios': [3, 1]}, sharex="row", sharey="row")
+fig, axes = plt.subplots(1, 1, figsize=(6, 5), sharex="row", sharey="row")
 
-ax = axes[0]
+ax = axes
 for j, phi in enumerate(phis_to_plot):
         
         k_val = 1/(hEk*phi)
@@ -119,11 +119,13 @@ xmin, xmax = ax.get_xlim()
 for j, phi in enumerate(phis_to_plot):
         line = np.linspace(xmin, xmin*0.9, 10)
         k_val = 1/(hEk*phi)
-        ax.scatter(xmin, 1/k_val, c=f"C{j}")
+        ax.axhline(1/k_val, linestyle=":", c=f"C{j}")
 
-ax.scatter([], [], c="black", label=r'$1/k$')
-ax.fill_between([xmin, xmax], 0, hEk, color="gray",  label=r"$h_\text{Ek0}$", alpha=0.15, ec="gray")
-            
+ax.plot([],[], linestyle=":", c="black", label=r'$1/k$')
+xaxis = -0.1e-2+2.3e-2
+position = [2.3e-2, xaxis/30+2.3e-2]
+ax.fill_between(position, 0, hEk, color="gray", alpha=0.6, ec="gray", label=r"$h_\text{EK0}$")   
+         
 ax.set_xlabel(r"Momentum flux, $\tau$ [m$^2$/s$^2$]", fontsize=11)
 ax.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
 ax.set_ylim(0, zmax)
@@ -132,22 +134,9 @@ ax.plot([], [], 'k--', label=r'$\tau_y$')
 ax.legend(loc="upper right", fontsize=11)
 ax.grid(True, linestyle='--', alpha=0.6)
 
-# --- Potential well below ---
-ax_pot = axes[1]
-for j, phi in enumerate(phis_to_plot):  
-        k_val = 1/(hEk*phi)      
-        nu_z = nu0 * np.exp(-k_val * z)   # nu(z) = nu0 * exp(-kz)
-        ax_pot.plot(f / nu_z, z, c=f"C{j}")
-        
-ax_pot.set_xlabel(r"Eigenvalue, $\lambda$ [m$^{-2}$]", fontsize=11)
-ax_pot.set_ylim(0, zmax)
-ax_pot.set_xlim(0, f*100)
-ax_pot.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
-ax_pot.grid(True, linestyle='--', alpha=0.6)
-axes[0].set_ylabel(r"Height, $z$ [m]", fontsize=11)
-axes[1].set_ylabel(r"Height, $z$ [m]", fontsize=11)
+
  
-plt.suptitle(r"Momentum Flux and Potential for Exponential Model",
+plt.suptitle(r"Momentum Flux for Exponential Model",
              fontsize=14)
 plt.tight_layout()
 save_name="exponential_structure"
@@ -177,6 +166,7 @@ ax.plot(ang_theory[1:], z[1:], 'k--', lw=2, label='classical solution')
 
 for j, phi in enumerate(phis_to_plot):
     k_val = 1 / (hEk * phi)
+    print(f"k = {k_val:.2e}")
     tau_vals = tau(z, phi, k=k_val)
     nu_z = nu0 * np.exp(-k_val * z)
     U = cumulative_trapezoid(tau_vals/nu_z, z, initial=0)
@@ -184,22 +174,22 @@ for j, phi in enumerate(phis_to_plot):
     ax.plot(ang[1:], z[1:], c=f"C{j}", label=fr'$\varphi_\text{{exp}}={phi:.1f}$')
     
     integrand = tau_vals / nu_z
-    print(np.trapz(integrand, z))
+    
 
 # --- Decorations: 1/k markers and hEk0 shading ---
 xmin, xmax = ax.get_xlim()
 for j, phi in enumerate(phis_to_plot):
     k_val = 1 / (hEk * phi)
-    scale_height = 1 / k_val
-    ax.scatter(xmin,  scale_height, c=f"C{j}", linewidth=1)
+    ax.axhline(1/k_val, linestyle=":", c=f"C{j}")
 
-ax.fill_between([xmin, xmax], 0, hEk, color='gray', alpha=0.2, ec="black")
 
 # Legend proxies
-ax.scatter([], [], c="black", linewidth=1, label=r'$1/k$')
-ax.fill_between([], [], [], color='gray', alpha=0.2, ec="black", label=r"$h_\text{Ek0}$")
+ax.plot([],[], linestyle=":", c="black", label=r'$1/k$')
+xaxis = 60+0
+position = [60, xaxis/30+60]
+ax.fill_between(position, 0, hEk, color="gray", alpha=0.6, ec="gray", label=r"$h_\text{EK0}$")   
 
-ax.set_xlabel(r"Wind turning angle [°]", fontsize=11)
+ax.set_xlabel(r"Wind diection [°]", fontsize=11)
 ax.set_ylabel(r"Height, $z$ [m]", fontsize=11)
 ax.set_ylim(0, zmax)
 ax.legend(loc="upper right", fontsize=11)

@@ -183,12 +183,11 @@ phis_to_plot = [0.2, 1.0, 2.0]
 Nz = 300
 z_plot = np.linspace(0, 1, Nz)
 
-fig, axes = plt.subplots(2, 2, figsize=(12, 6),
-                         gridspec_kw={'height_ratios': [3, 1]},
-                         sharey='row')
+fig, axes = plt.subplots(1, 2, figsize=(11, 5),
+                         sharey='row', sharex='row')
 
 for i, epsilon in enumerate(epsilons_to_plot[:2]):  # two columns
-    ax = axes[0, i]
+    ax = axes[i]
 
     for j, phi in enumerate(phis_to_plot):
         
@@ -203,10 +202,15 @@ for i, epsilon in enumerate(epsilons_to_plot[:2]):  # two columns
 
         ax.plot(taux_interp, z_plot, c=f"C{j}", label=fr'$\varphi={phi:.1f}$')
         ax.plot(tauy_interp, z_plot, '--', c=f"C{j}")
-        minval, maxval = ax.get_xlim()
-        ax.fill_between([minval, maxval], 0, 1/phi, color=f"C{j}", alpha=0.15)
-
-    ax.fill_between([], [], color='gray', alpha=0.15, label=r'$h_\text{Ek}$')
+        xaxis = -0.1e-3+1.1e-3
+        position = [j*0.1*xaxis+1.03e-3, xaxis/30+j*0.1*xaxis+1.03e-3]
+        if i==1:
+            xaxis = -0.1e-3+1.1e-3
+            position = [j*0.1*xaxis+0.53e-3, xaxis/30+j*0.1*xaxis+0.53e-3]
+        ax.fill_between(position, 0, 1/phi, color=f"C{j}", alpha=0.5, ec="gray")
+           
+    ax.axhline(1, c="black", linestyle=":", label=r'$H$')
+    ax.fill_between([], [], [], color='gray',  alpha=0.6, label=r"$\tilde h_\text{Ek}$", ec="gray")
 
     ax.set_xlabel(r"Momentum flux, $\tau$ [m$^2$/s$^2$]", fontsize=11)
     ax.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
@@ -218,154 +222,16 @@ for i, epsilon in enumerate(epsilons_to_plot[:2]):  # two columns
         ax.legend(loc="upper right", fontsize=11)
     ax.grid(True, linestyle='--', alpha=0.6)
 
-    # --- Potential well below ---
-    ax_pot = axes[1, i]
-    nu_z = nu_increasing(z_plot, epsilon)
-    ax_pot.plot(1 / nu_z, z_plot, 'k')
-    ax_pot.plot(f / nu_z, z_plot, 'k')
-    ax_pot.set_xlabel(r"Eigenvalue, $\lambda$ [m$^{-2}$]", fontsize=11)
-    ax_pot.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
-    ax_pot.set_ylim(0, 1)
-    ax_pot.set_xlim(0, f*10)
-    ax_pot.grid(True, linestyle='--', alpha=0.6)
-
 # Shared y-labels on left column only
-axes[0, 0].set_ylabel(r"Norm. height, $\tilde z$ [-]", fontsize=11)
-axes[1, 0].set_ylabel(r"Norm. height, $\tilde z$ [-]", fontsize=11)
+axes[0].set_ylabel(r"Norm. height, $\tilde z$ [-]", fontsize=11)
 
 # Same xlim per row
 
 
-plt.suptitle(r"Momentum Flux and Potential for SUBC Linear Increasing Model",
+plt.suptitle(r"Momentum Flux for SUBC Linear Increasing Model",
              fontsize=14)
 plt.tight_layout()
 save_name = "numerical_SUBC_linear_i_structure"
 plt.savefig(f"plots/{save_name}.png", dpi=400)
 plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{save_name}.png", dpi=400)
 plt.show()
-
-"""
-#%%
-
-u0 = 10.0
-f = 1e-4
-
-H = 1000
-
-# -------------------------
-# VISCOCITY SCHEMES
-# -------------------------
-
-def nu_increasing(z, eps):
-    return np.where(z > H, eps, z/H + eps)
-
-# -------------------------
-# SOLVER
-# -------------------------
-def solve_profile(phi, eps, prev_sol):
-    z = np.linspace(0, 5*H, 10000)
-
-    def fun(z, Y):
-        taux, taupx, tauy, taupy = Y
-        nu = nu_increasing(z, eps)
-        return np.vstack([
-            taupx,
-            -2*phi**2*tauy / (H**2*nu),
-            taupy,
-            2*phi**2*taux / (H**2*nu)
-        ])
-
-    def bc(Y0, Y1):
-        return np.array([
-            Y1[0],      # taux(0) = 0
-            Y1[2],      # tauy(0) = 0
-            Y0[1],      # taux'(0) = 0
-            Y0[3] + f*u0/H,  # tauy'(0) = -f*u0/H
-        ])
-
-    # Classical Ekman solution as initial guess
-    if prev_sol is not None:
-        z0 = prev_sol.x
-        Y0 = prev_sol.y
-    else:
-        z0 = np.linspace(0, 5*H, 10000)
-        nu_mid = nu_increasing(H/2, eps)
-        h_Ek = np.sqrt(2 * nu_mid / f)
-        exp_decay = np.exp(-z0 / h_Ek)
-        Fx_g  =  (nu_mid * u0 / h_Ek) * exp_decay * np.cos(z0 / h_Ek)
-        Fy_g  = -(nu_mid * u0 / h_Ek) * exp_decay * np.sin(z0 / h_Ek)
-        Fpx_g =  (nu_mid * u0 / h_Ek**2) * exp_decay * (-np.cos(z0/h_Ek) - np.sin(z0/h_Ek))
-        Fpy_g =  (nu_mid * u0 / h_Ek**2) * exp_decay * (-np.sin(z0/h_Ek) + np.cos(z0/h_Ek))
-        Y0 = np.vstack([Fx_g, Fpx_g, Fy_g, Fpy_g])
-
-    sol = solve_bvp(fun, bc, z0, Y0, tol=1e-6, max_nodes=100000)
-    return sol.x, sol.y, sol
-
-
-
-from scipy.integrate import cumulative_trapezoid
-
-
-epsilons_to_plot = [1e-1, 1e-6]
-phis_to_plot = [0.2, 1.0, 2.0]
-Nz = 10000
-z_plot = np.linspace(0, 5*H, Nz)
-
-
-
-fig, ax = plt.subplots(1, 2, figsize=(12, 5), sharey=True, sharex=True)
-
-for i, epsilon in enumerate(epsilons_to_plot):
-    a = ax[i]
-
-    # Classical single-layer reference with appropriate hEk
-    nu_mid = nu_increasing(H/2, epsilon)
-    hEk_ref = np.sqrt(2 * nu_mid / f)
-    U_theory = u0 * (1 - np.exp(-(1 + 1j) * ( z_plot) / hEk_ref))
-    ang_theory = np.angle(U_theory, deg=True)
-    a.plot(ang_theory[1:], z_plot[1:], 'k--', lw=2, label='classical solution')
-    
-    for j, phi in enumerate(phis_to_plot):
-        z_sol, Y_sol, sol = solve_profile(phi, epsilon, None)
-        
-        taux_interp = np.interp(z_plot, z_sol, Y_sol[0])
-        tauy_interp = np.interp(z_plot, z_sol, Y_sol[2])
-        tau_complex = taux_interp + 1j * tauy_interp
-        nu_z = nu_increasing(z_plot, epsilon)
-
-        integrand = tau_complex / nu_z
-        U = cumulative_trapezoid(integrand, z_plot, initial=0)
-        
-        print("U(0) = ", U[0])
-        #a.plot(np.real(U), z_plot, c=f"C{j}", label=fr'$U={phi:.1f}$')
-        #a.plot(np.imag(U), z_plot, c=f"C{j}",linestyle="--", label=fr'$V={phi:.1f}$')
-        
-        ang = np.angle(U, deg=True)
-        a.plot(ang[1:], z_plot[1:], c=f"C{j}", label=fr'$\varphi={phi:.1f}$')
-        
-    # Decorations
-    xmin, xmax = a.get_xlim()
-    for j, phi in enumerate(phis_to_plot):
-        a.fill_between([xmin+j*5, xmax-j*5], phi * H, color=f"C{j}", alpha=0.1)
-    
-    a.scatter(xmin, H, c="black")
-    
-    a.scatter([], [], c="black", label=r'$ H$')
-    a.fill_between([], [], [], color='gray', alpha=0.2, ec="black", label=r"$h_\text{Ek}$")
-    
-    #a.set_ylim(0,1.1*H)
-    a.set_xlabel(r"Wind turning angle [°]", fontsize=11)
-    a.set_title(fr"$\epsilon = {epsilon:.0e}$", fontsize=12)
-    a.grid(True, linestyle='--', alpha=0.6)
-    if i == 1:
-        a.legend(loc="upper right", fontsize=11)
-
-ax[0].set_ylabel(r"Height, $z$ [m]", fontsize=11)
-plt.suptitle(r"Spiral for the SUBC Linear Increasing Model", fontsize=14)
-plt.tight_layout()
-
-save_name = "numerical_SUBC_linear_i_angle_structure"
-plt.savefig(f"plots/{save_name}.png", dpi=400)
-plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{save_name}.png", dpi=400)
-plt.show()
-"""
