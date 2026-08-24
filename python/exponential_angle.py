@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 
 f = 1e-4 
 U0 = 10
-k = 10 # do not need in reality 
+k = 0.01 # do not need in reality 
 
 
 def tau(z, phi, k=k):
@@ -29,19 +29,104 @@ def surface_angle(phi):
     return theta
 
 def ekman_transport(phi):
-    T = (1j/f) * tau(0, phi)
-    theta = np.angle(T, deg=True)
-    return theta
+    T = (1j/f) * tau(0, phi, k=k)
+    return T
 
 extent = 4
 phis = np.linspace(1e-50, extent, 1000)
 
+#%%
+# ============================================================
+# Check the small-phi_exp limit
+#
+# For phi_exp << 1:
+#
+#   tau'' = 2 i k^2 phi_exp^2 exp(kz) tau
+#
+# Initially the curvature is small, so
+#
+#   tau'(z) ~ tau'(0) = -i U0
+#
+# and
+#
+#   tau(z) ~ tau(0) - i U0 z
+#
+# until approximately
+#
+#   z_star ~ (2/k) log(1/phi_exp)
+#
+# ============================================================
+
+phi_exp = 0.1
+
+h_ek0 = 100
+
+# phi_exp = 1 / (k h_ek0)
+k = 1 / (phi_exp * h_ek0)
+
+z_1k = 1 / k
+
+# Estimated end of approximately-linear region
+z_star = (2 / k) * np.log(1 / phi_exp)
+
+print("\n" + "=" * 70)
+print("EXPONENTIAL MODEL: SMALL-PHI CHECK")
+print("=" * 70)
+
+print(f"phi_exp       = {phi_exp}")
+print(f"h_Ek0         = {h_ek0:.6f}")
+print(f"k             = {k:.6f}")
+print(f"z_star        = {z_star:.6e}")
+
+
+
+# ============================================================
+# Function for numerical derivative
+# ============================================================
+
+def numerical_derivative(z, phi, dz):
+
+    tau_plus = tau(z + dz, phi)
+    tau_minus = tau(z - dz, phi)
+
+    return (tau_plus - tau_minus) / (2 * dz)
+
+
+# ============================================================
+# Check at z = z_star
+# ============================================================
+
+z = z_star
+
+tau_check = tau(z, phi_exp, k)
+
+dz = z * 1e-4
+
+tau_prime_check = numerical_derivative(
+    z,
+    phi_exp,
+    dz
+)
+
+
+print("\n" + "-" * 70)
+print("AT z = z_star")
+print("-" * 70)
+
+print(f"z             = {z:.6e}")
+
+print(f"|tau(z_star)| = {abs(tau_check):.4e}")
+
+print(f"|tau'(z_star)| = {abs(tau_prime_check):.4e}")
+
+print(f"|tau(z_star)/tau'(z_star)| = {abs(tau_check/tau_prime_check):.4f}")
 
 
 #%%
 # ===============================
-# Plotting
+# Plotting surface angle
 # ===============================
+
 plt.figure(figsize=(8, 5))
 plt.suptitle("Surface Angle for Exponetial Model", fontsize=14)
 
@@ -67,23 +152,25 @@ plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{sav
 plt.show()
 
 
-#%%
-
+#%%%
+# ===============================
+# Plotting Transport 
+# ===============================
 
 plt.figure(figsize=(8, 5))
-plt.suptitle("Transport Angle for Exponetial Model", fontsize=14)
+plt.suptitle("Transport for Exponetial Model", fontsize=14)
 
-angles = np.array([ekman_transport(phi) for phi in phis])
+T = np.array([ekman_transport(phi) for phi in phis])
+Tr, Ti = np.real(T), np.imag(T)
+plt.plot(phis, Tr, color="C0", label=r"$T_x$")
+plt.plot(phis, Ti, linestyle="--", color="C0", label=r"$T_y$")
 
-plt.hlines(135, min(phis), max(phis), color="black", linestyle='--', label="135° reference")
-plt.plot(phis, angles)
 
 plt.xlabel(r"Dimensionless layer thickness, $\varphi$ [-]",fontsize=11)
-plt.ylabel(r"Transport angle, $\theta_T$ [deg]",fontsize=11)
+plt.ylabel(r"Transport, $T$ [m$^2$/s]",fontsize=11)
 plt.grid(True, linestyle='--', alpha=0.6)
 
-plt.ylim(90,185)
-plt.yticks([90, 105, 120, 135, 150, 165, 180])
+plt.yscale("symlog", linthresh=100)
 plt.xticks(np.arange(0, extent + 0.5, 0.5))
 plt.legend(fontsize=11)
 
@@ -93,22 +180,26 @@ plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{sav
 plt.show()
 
 #%%
+# ===============================
+# Momentum flux
+# ===============================
 
-nu0 = 0.1  # reference viscosity at z=0
-hEk = np.sqrt(2 * nu0 / f)
-
-phis_to_plot = [0.2, 1.0, 4.0]
+k_val = 0.01
+phis_to_plot = [0.5, 1.0, 1.5]
 Nz = 98
-zmax = 5 *hEk
+zmax = 5.2 * 1 / k_val
 z = np.linspace(0, zmax, Nz)
 
 
 fig, axes = plt.subplots(1, 1, figsize=(6, 5), sharex="row", sharey="row")
 
+axes.axhline((2/k_val) * np.log(1/phis_to_plot[0]), c="black", linestyle="-.", label=r"$\frac{2}{k}\log\left(\frac{1}{\varphi_\text{exp}}\right)$")
+
 ax = axes
 for j, phi in enumerate(phis_to_plot):
         
-        k_val = 1/(hEk*phi)
+        nu0 = f / ( 2 * (phi*k_val)**2 )
+        hEk = np.sqrt(2*nu0/f)
         tau_vals = tau(z, phi, k=k_val)
         ang = np.angle(tau_vals, deg=True)
         #ax.plot(ang, z, c=f"C{j}", label=fr'$\varphi={phi:.1f}$')
@@ -117,21 +208,28 @@ for j, phi in enumerate(phis_to_plot):
 
 xmin, xmax = ax.get_xlim()
 for j, phi in enumerate(phis_to_plot):
-        line = np.linspace(xmin, xmin*0.9, 10)
-        k_val = 1/(hEk*phi)
-        ax.axhline(1/k_val, linestyle=":", c=f"C{j}")
+        nu0 = f / ( 2 * (phi*k_val)**2 )
+        print(nu0)
+        hEk = np.sqrt(2*nu0/f)
+        xaxis_old = 75  # 55 + 20
+        new_xaxis = 0.12
+        scaling_factor = new_xaxis / 70  # 0.02 / 70 ≈ 0.0002857
 
-ax.plot([],[], linestyle=":", c="black", label=r'$1/k$')
-xaxis = -0.1e-2+2.3e-2
-position = [2.3e-2, xaxis/30+2.3e-2]
-ax.fill_between(position, 0, hEk, color="gray", alpha=0.6, ec="gray", label=r"$h_\text{EK0}$")   
-         
+        position = [(j * 0.1 * xaxis_old + 55) * scaling_factor,
+        (xaxis_old / 30 + j * 0.1 * xaxis_old + 55) * scaling_factor]
+        
+        ax.fill_between(position, 0, hEk, color=f"C{j}", alpha=0.5, ec="gray")   
+
+
+ax.axhline(1/k_val, linestyle=":", c="black", label=r'$1/k$')
+ax.fill_between([], [], alpha=0.5, color='gray', ec="gray", label=r"$h_\text{EK0}$")   
+
 ax.set_xlabel(r"Momentum flux, $\tau$ [m$^2$/s$^2$]", fontsize=11)
 ax.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
 ax.set_ylim(0, zmax)
 ax.plot([], [], 'k-',  label=r'$\tau_x$')
 ax.plot([], [], 'k--', label=r'$\tau_y$')
-ax.legend(loc="upper right", fontsize=11)
+ax.legend(loc="upper center", fontsize=11)
 ax.grid(True, linestyle='--', alpha=0.6)
 
 
@@ -147,26 +245,21 @@ plt.show()
 #%%
 
 from scipy.integrate import cumulative_trapezoid
+from matplotlib.colors import to_rgb
 
 
-nu0 = 0.1
-hEk = np.sqrt(2 * nu0 / f)
-phis_to_plot = [0.4, 1.0, 4.0]
+k_val = 0.01
+phis_to_plot = [0.5, 1.0, 1.5]
 Nz = 10000
-zmax = 5 * hEk
+zmax = 5.2 * 1 / k_val
+
 z = np.linspace(0, zmax, Nz)
 
 fig, ax = plt.subplots(1, 1, figsize=(6, 5))
 
-# Classical single-layer Ekman reference
-U_theory = U0 * (1 - np.exp(-(1 + 1j) * z / hEk))
-ang_theory = np.angle(U_theory, deg=True)
-ax.plot(ang_theory[1:], z[1:], 'k--', lw=2, label='classical solution')
-
-
 for j, phi in enumerate(phis_to_plot):
-    k_val = 1 / (hEk * phi)
-    print(f"k = {k_val:.2e}")
+    nu0 = f / ( 2 * (phi*k_val)**2 )
+    print(nu0)
     tau_vals = tau(z, phi, k=k_val)
     nu_z = nu0 * np.exp(-k_val * z)
     U = cumulative_trapezoid(tau_vals/nu_z, z, initial=0)
@@ -177,17 +270,27 @@ for j, phi in enumerate(phis_to_plot):
     
 
 # --- Decorations: 1/k markers and hEk0 shading ---
-xmin, xmax = ax.get_xlim()
 for j, phi in enumerate(phis_to_plot):
-    k_val = 1 / (hEk * phi)
-    ax.axhline(1/k_val, linestyle=":", c=f"C{j}")
+    nu0 = f / ( 2 * (phi*k_val)**2 )
+    hEk = np.sqrt(2*nu0/f)
+    xaxis_old = 75  # 55 + 20
+    new_xaxis = 75
+    scaling_factor = new_xaxis / 70  
+    position = [(j * 0.1 * xaxis_old + 55) * scaling_factor,
+    (xaxis_old / 30 + j * 0.1 * xaxis_old + 55) * scaling_factor]
+    ax.fill_between(position, 0, hEk, color=f"C{j}", alpha=0.5, ec="gray")  
+    
+    # Classical single-layer Ekman reference
+    U_theory = U0 * (1 - np.exp(-(1 + 1j) * z / hEk))
+    ang_theory = np.angle(U_theory, deg=True)
+    color = np.array(to_rgb(f"C{j}")) * 0.5
+    ax.plot(ang_theory[1:], z[1:], c=color, linestyle="--", lw=2)
 
 
 # Legend proxies
-ax.plot([],[], linestyle=":", c="black", label=r'$1/k$')
-xaxis = 60+0
-position = [60, xaxis/30+60]
-ax.fill_between(position, 0, hEk, color="gray", alpha=0.6, ec="gray", label=r"$h_\text{EK0}$")   
+ax.axhline(1/k_val, linestyle=":", c="black", label=r'$1/k$')
+ax.fill_between([], [], alpha=0.5, color='gray', ec="gray", label=r"$h_\text{EK0}$")  
+ax.plot([], [], 'k--', lw=2, label='classical solution')
 
 ax.set_xlabel(r"Wind diection [°]", fontsize=11)
 ax.set_ylabel(r"Height, $z$ [m]", fontsize=11)

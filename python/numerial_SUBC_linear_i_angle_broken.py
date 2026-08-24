@@ -60,6 +60,14 @@ def surface_angle(sol):
     taux0, taupx0, tauy0, taupy0 = Y0
     return np.degrees(np.arctan2(tauy0, taux0))
 
+def transport(sol):
+    Y0 = sol.sol(0.0)
+    taux0, _, tauy0, _ = Y0
+    Tx = -(1/f )* tauy0
+    Ty = (1/f )* taux0
+
+    return [Tx, Ty]
+
 # -------------------------
 # COMPUTE
 # -------------------------
@@ -72,12 +80,15 @@ phi_wide   = np.logspace(np.log(4), 5, 40)
 phi_values = np.concatenate([phi_zoom, phi_wide])
 
 results = {eps: [] for eps in min_viscosities}
+T_results  = {eps: [] for eps in min_viscosities}
 
 for j, epsilon in enumerate(min_viscosities):
     prev_sol = None
     for i, phi in enumerate(phi_values):
         sol = solve_profile(phi, epsilon, prev_sol)
+        
         results[epsilon].append(surface_angle(sol))
+        T_results[epsilon].append(transport(sol))
         
         if sol.success:
             prev_sol = sol
@@ -87,9 +98,11 @@ for j, epsilon in enumerate(min_viscosities):
         percent = 100 * (j * len(phi_values) + i + 1) / (len(phi_values) * len(min_viscosities))
         print(f"{percent:.1f}%  phi={phi:.2f}  eps={epsilon:.0e}  angle={results[epsilon][-1]:.2f}")
 
-# -------------------------
-# PLOT: broken x-axis
-# -------------------------
+#%%
+# ===============================
+# Plotting surface angle
+# ===============================
+
 fig, (ax1, ax2) = plt.subplots(1, 2,
                                 figsize=(12, 5),
                                 sharey=True,
@@ -139,6 +152,65 @@ ax2.legend(fontsize=11, loc="upper right")
 fig.suptitle("Surface Angle for the SUBC Linear Increasing Model", fontsize=14)
 
 save_name = "numerical_SUBC_linear_i_angle_broken"
+plt.savefig(f"plots/{save_name}.png", dpi=400, bbox_inches='tight')
+plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{save_name}.png", dpi=400, bbox_inches='tight')
+plt.show()
+
+#%%
+# ===============================
+# Plotting transport values
+# ===============================
+
+fig, (ax1, ax2) = plt.subplots(1, 2,
+                              figsize=(12, 5),
+                              sharey=True,
+                              gridspec_kw={'width_ratios': [8, 4],
+                                           'wspace': 0.05})
+
+mask_zoom = phi_values <= 4
+mask_wide = phi_values >= 4
+
+# Extract Tx and Ty from transport_d
+Tx = [np.real(T[0]) for T in T_results]
+Ty = [np.real(T[1]) for T in T_results]
+
+# Plot Tx and Ty
+ax1.plot(phi_values[mask_zoom], np.array(Tx)[mask_zoom], label=r'$T_x$', color='C0')
+ax2.plot(phi_values[mask_wide], np.array(Tx)[mask_wide], label=r'$T_x$', color='C0', alpha=0.6)
+
+ax1.plot(phi_values[mask_zoom], np.array(Ty)[mask_zoom], label=r'$T_y$', color='C0', linestyle='--')
+ax2.plot(phi_values[mask_wide], np.array(Ty)[mask_wide], label=r'$T_y$', color='C0', linestyle='--', alpha=0.6)
+
+# Reference line (e.g., zero line)
+for ax in (ax1, ax2):
+    ax.axhline(0, color="black", linestyle='--', linewidth=1, label="Zero reference")
+    ax.set_ylim(-1000, 1000)  # Adjust based on your data
+    ax.set_yticks([-1000, -500, 0, 500, 1000])  # Adjust based on your data
+
+ax1.grid(True, linestyle='--', alpha=0.6)
+ax1.set_xlim(0, 4)
+ax1.set_xticks(np.arange(0, 4.5, 0.5))
+ax2.set_xscale("log")
+plt.setp(ax2.get_xticklabels(), style='italic')
+ax2.grid(True, linestyle='--', alpha=0.4)
+
+# Broken axis decoration
+ax1.spines['right'].set_visible(False)
+ax2.spines['left'].set_visible(False)
+ax2.tick_params(left=False)
+
+# Labels
+fig.text(0.5, 0.03, r"Dimensionless layer thickness, $\varphi$ [-]",
+         ha='center', fontsize=11)
+ax1.set_xlabel("")
+ax2.set_xlabel("")
+plt.subplots_adjust(bottom=0.13)
+ax1.set_ylabel(r"Transport, $T$ [m$^2$/s]", fontsize=11)
+
+ax2.legend(fontsize=11, loc="upper right")
+fig.suptitle("Ekman Transport for the SUBC Linear Decreasing Model", fontsize=14)
+
+save_name = "numerical_SUBC_linear_transport_broken"
 plt.savefig(f"plots/{save_name}.png", dpi=400, bbox_inches='tight')
 plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{save_name}.png", dpi=400, bbox_inches='tight')
 plt.show()

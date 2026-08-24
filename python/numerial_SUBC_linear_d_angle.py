@@ -27,7 +27,6 @@ def nu_decreasing(z, epsilon=min_viscosity):
 # SOLVER
 # -------------------------
 def solve_profile(phi, epsilon=min_viscosity):
-    z = np.linspace(0, 1, 300)
 
     def fun(z, Y):
         taux, taupx, tauy, taupy = Y
@@ -72,25 +71,24 @@ def surface_angle(z, Y):
     angle = np.arctan2(tauy[idx], taux[idx])
     return np.degrees(angle)
 
-def transport_angle(z, Y):
+def transport(z, Y):
     taux, taupx, tauy, taupy = Y
 
     # T = i/f tau(z=0) gives
     taux0 = taux[0]
     tauy0 = tauy[0]
-    angle = np.arctan2(taux0, -tauy0)
+    
+    Tx = -(1/f )* tauy0
+    Ty = (1/f )* taux0
 
-    return np.degrees(angle)
+    return [Tx, Ty]
 
 extent=4
 phi_values = np.logspace(-2, np.log10(extent), 1000)
 phi_values = np.linspace(0, extent, 200)
 
-
-
 surface_angles_d = []
-transport_angles_d = []
-
+transport_d = []
 
 for i, phi in enumerate(phi_values):
 
@@ -99,8 +97,8 @@ for i, phi in enumerate(phi_values):
         surf_angle_d = surface_angle(z_d, Y_d)
         surface_angles_d.append(surf_angle_d)
         
-        trans_angle_d = transport_angle(z_d, Y_d)
-        transport_angles_d.append(trans_angle_d)
+        T_d = transport(z_d, Y_d)
+        transport_d.append(T_d)
         
         #if surf_angle_i<45.0001:
             #print("Bingo!, varphi = ", phi)
@@ -110,6 +108,10 @@ for i, phi in enumerate(phi_values):
         print(f"{percent:.2f}% (surf = {surf_angle_d:.2f} deg) ")
 
 #%%
+# ===============================
+# Plotting surface angle
+# ===============================
+
 plt.figure(figsize=(8,5))
 plt.plot(phi_values, surface_angles_d)
 
@@ -130,18 +132,25 @@ plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{sav
 plt.show()
 
 #%%
-plt.figure(figsize=(8,5))
-plt.plot(phi_values[1:], transport_angles_d[1:])
+# ===============================
+# Plotting Transport 
+# ===============================
 
-plt.hlines(135, min(phi_values), max(phi_values), color="black", linestyle='--', label="135° reference")
+plt.figure(figsize=(8,5))
+
+Tx = [T[0] for T in transport_d]
+Ty = [T[1] for T in transport_d]
+
+plt.plot(phi_values, Tx, label=r'$T_x$', color='C0')
+plt.plot(phi_values, Ty, label=r'$T_y$', color='C0', linestyle="--")
 
 plt.xlabel(r"Dimensionless layer thickness, $\varphi$ [-]", fontsize=11)
-plt.ylabel(r"Transport angle, $\theta_T$ [deg]", fontsize=11)
-plt.suptitle("Ekman Transport Angle for the SUBC Linear Decreasing Model", fontsize=14)
+plt.ylabel(r"Transport, $T$ [m$^2$/s]",fontsize=11)
+plt.suptitle("Ekman Transport for the SUBC Linear Decreasing Model", fontsize=14)
 plt.grid(True, linestyle='--', alpha=0.6)
 plt.legend(fontsize=11)
-plt.ylim(90,185)
-plt.yticks([90, 105, 120, 135, 150, 165, 180])
+
+
 plt.xticks(np.arange(0, extent + 0.5, 0.5))
 
 save_name="numerical_SUBC_linear_transport"

@@ -59,6 +59,14 @@ def surface_angle(sol):
     taux0, _, tauy0, _ = Y0
     return np.degrees(np.arctan2(tauy0, taux0))
 
+def transport(sol):
+    Y0 = sol.sol(0.0)
+    taux0, _, tauy0, _ = Y0
+    Tx = -(1/f )* tauy0
+    Ty = (1/f )* taux0
+
+    return [Tx, Ty]
+
 
 # -------------------------
 # COMPUTE
@@ -72,12 +80,16 @@ phi_wide   = np.logspace(np.log(4), 5, 40)
 phi_values = np.concatenate([phi_zoom, phi_wide])
 
 surf_results  = {eps: [] for eps in min_viscosities}
+T_results  = {eps: [] for eps in min_viscosities}
+
 
 for j, epsilon in enumerate(min_viscosities):
     prev_sol = None
     for i, phi in enumerate(phi_values):
         sol = solve_profile(phi, epsilon, prev_sol)
+        
         surf_results[epsilon].append(surface_angle(sol))
+        T_results[epsilon].append(transport(sol))
 
         if sol.success:
             prev_sol = sol
@@ -91,9 +103,11 @@ for j, epsilon in enumerate(min_viscosities):
 mask_zoom = phi_values <= 4
 mask_wide = phi_values >= 4
 
-# -------------------------
-# PLOT: surface angle
-# -------------------------
+#%%
+# ===============================
+# Plotting surface angle
+# ===============================
+
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5), sharey=True,
                                 gridspec_kw={'width_ratios': [8, 4], 'wspace': 0.05})
 
@@ -134,3 +148,9 @@ save_name = "numerical_SUBC_parabolic_angle_broken"
 plt.savefig(f"plots/{save_name}.png", dpi=400, bbox_inches='tight')
 plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{save_name}.png", dpi=400, bbox_inches='tight')
 plt.show()
+
+#%%
+
+# ===============================
+# Plotting Transport 
+# ===============================

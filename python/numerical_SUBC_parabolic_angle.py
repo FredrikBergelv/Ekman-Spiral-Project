@@ -175,7 +175,7 @@ plt.show()
 #%%
 
 epsilons_to_plot = [1e-1, 1e-6]
-phis_to_plot = [0.2, 1.0, 2.0]
+phis_to_plot = [0.5, 1.0, 1.5]
 Nz = 300
 z_plot = np.linspace(0, 1, Nz)
 

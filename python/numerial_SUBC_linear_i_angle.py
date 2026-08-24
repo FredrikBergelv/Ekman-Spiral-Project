@@ -148,6 +148,10 @@ plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{sav
 plt.show()
 
 #%%
+# ===============================
+# Plotting Transport 
+# ===============================
+
 plt.figure(figsize=(8,5))
 transport_angles_i = np.squeeze(np.array(transport_angles_i))
 for j, epsilon in enumerate(min_viscosities):
@@ -179,7 +183,7 @@ plt.show()
 #%%
 
 epsilons_to_plot = [1e-1, 1e-6]
-phis_to_plot = [0.2, 1.0, 2.0]
+phis_to_plot = [0.5, 1.0, 1.5]
 Nz = 300
 z_plot = np.linspace(0, 1, Nz)
 

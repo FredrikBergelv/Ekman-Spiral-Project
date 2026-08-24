@@ -42,8 +42,10 @@ def ekman_transport(phi, gamma):
     den = 1 - gamma + np.exp(2 * (1 + 1j) * phi) * (1 + gamma)
     # Only the complex structure matters for the angle
     tau0 = (1 + 1j) * (-(1 - gamma) + (1 + gamma) * np.exp(2 * (1 + 1j) * phi)) / den
-    T = 1j * tau0  # i/f * tau0, f real so doesn't affect angle
-    return np.angle(T, deg=True)
+    T = 1j * tau0 / f  # i/f * tau0, f real so doesn't affect angle
+    
+    T = (1j/f) * tau(0, phi, gamma)
+    return T
 
 
 
@@ -56,29 +58,94 @@ nu_ratios = np.array([0.001, 0.1, 0.5, 1/0.5, 1/0.1, 1/0.001])
 phis =  np.logspace(-6, np.log10(extent), 1000)
 phis =  np.linspace(0, extent, 1000)
 
+#%%
+
+# ============================================================
+# Check the small-phi_exp limit at z = H 
+#
+# Prediction:
+#     tau'(0) ~ -(1+i)/h2 * tau(0)
+#
+#     or tau(0) ~ 0
+# ============================================================
+
+phi = 0.1
+gamma = 0.01
+
+nu1  = 0.1
+hek1 = np.sqrt(2*nu1/f)
+H = hek1*phi
+
+z_check = H
+
+print("\n" + "=" * 70)
+print("2-layer MODEL: CHECK AT z = H")
+print("=" * 70)
+
+print(f"phi       = {phi}")
+print(f"gamma     = {gamma:.6e}")
+print(f"H         = {z_check:.6f}")
+print(f"|-iU_g|       = {U0:.6f}")
+
+# ------------------------------------------------------------
+# Evaluate tau and tau' at z = 1/k
+# ------------------------------------------------------------
+
+tau_check = tau(z_check, phi, gamma, nu1)
+
+# Numerical derivative
+dz = z_check / 100
+
+tau_plus = tau(z_check + dz, phi, gamma)
+tau_minus = tau(z_check - dz, phi, gamma)
+
+tau_prime_check = (tau_plus - tau_minus) / (2 * dz)
+
+
+# ------------------------------------------------------------
+# Compare 
+# ------------------------------------------------------------
+
+ratio = tau_prime_check / tau_check
+
+print("\ntau(H)       =", tau_check)
+print("|tau(H)|     =", abs(tau_check))
+
+print("\ntau'(H)      =", tau_prime_check)
+print("|tau'(H)|    =", abs(tau_prime_check))
+
+print("\n|tau'(H)| / |tau(H)|   =", abs(tau_prime_check)/abs(tau_check))
+
+
 
 
 #%%
+# ===============================
+# Plotting surface angle
+# ===============================
+
+
 plt.figure(figsize=(8*extent/4,5))
 ang_15 = surface_angle(phis, 0)
 ang_15_reversed = 2 * 45 - ang_15
 plt.plot(phis, ang_15, label=r'1.5 model', color="black", linestyle='--')
 
-for ratio in nu_ratios:
+#plt.hlines(45, min(phis), max(phis), color="black", linestyle='--', label="45° reference")
+ref = surface_angle(phis, 1)
+plt.plot(phis, ang_15_reversed, color="black", linestyle='--')
+
+tf = True
+for  ratio in nu_ratios:
     
     gamma = np.sqrt(ratio)
 
     layer_angle =surface_angle(phis, gamma)
+    
+    if ratio>1 and f:
+        plt.plot(phis, ref, label=r'$\nu_2/\nu_1=1$', color="black")
+        tf = False
 
     plt.plot(phis, layer_angle, label=fr'$\nu_2/\nu_1={gamma**2:.0e}$')
-
-
-#plt.hlines(45, min(phis), max(phis), color="black", linestyle='--', label="45° reference")
-ref = surface_angle(phis, 1)
-plt.plot(phis, ref, label=r'$\nu_2/\nu_1=1$', color="black")
-
-plt.plot(phis, ang_15_reversed, color="black", linestyle='--')
-
 
 
 plt.vlines([np.pi/2, np.pi], 5, 90, color="black", linestyle=":", label=r"$\pi/2$ and $\pi$")
@@ -98,34 +165,38 @@ plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{sav
 plt.show()
 
 #%%
+# ===============================
+# Plotting Transport 
+# ===============================
 
 plt.figure(figsize=(8*extent/4,5))
-ang_15 = ekman_transport(phis, 0)
-ang_15_reversed = ekman_transport(phis, 1e32)
-plt.plot(phis, ang_15, label=r'1.5 model', color="black", linestyle='--')
 
-for ratio in nu_ratios:
+
+tf = True
+for j, ratio in enumerate(nu_ratios):
     gamma = np.sqrt(ratio)
     
-    trans_angle = np.array([ekman_transport(phi, gamma) for phi in phis])
-    plt.plot(phis, trans_angle, label=fr'$\nu_2/\nu_1={gamma**2:.0e}$')
-
-# -------------------------
-# Reference lines
-# -------------------------
-plt.vlines([np.pi/2, np.pi], 95, 180, color="black", linestyle=":", label=r"$\pi/2$ and $\pi$")
-plt.hlines(135, min(phis), max(phis), color="black", linestyle='--', label="135° reference")
-
-
-plt.plot(phis, ang_15_reversed, color="black", linestyle='--')
+    if ratio > 1 and tf:
+        T_ref = ekman_transport(phis, 1)
+        Tr, Ti = np.real(T_ref), np.imag(T_ref)
+        plt.plot(phis, Tr, label=r'$T_x$, $\nu_2/\nu_1=1$', color="black")
+        plt.plot(phis, Ti, linestyle="--", label=r'$T_y$, $\nu_2/\nu_1=1$', color="black")
+        tf = False
+    
+    T = np.array([ekman_transport(phi, gamma) for phi in phis])
+    Tr, Ti = np.real(T), np.imag(T)
+    plt.plot(phis, Tr, label=fr'$\nu_2/\nu_1={gamma**2:.0e}$', color=f"C{j}")
+    plt.plot(phis, Ti, linestyle="--", color=f"C{j}")
+    
+plt.yscale("symlog", linthresh=100)
 
 plt.xlabel(r"Dimensionless lower layer thickness, $\varphi$ [-]",fontsize=11)
-plt.ylabel(r"Transport angle, $\theta_T$ [deg]", fontsize=11)
-plt.suptitle("Transport Angle for 2-layer Model", fontsize=14)
+plt.ylabel(r"Transport, $T$ [m$^2$/s]",fontsize=11)
+plt.suptitle("Transport for 2-layer Model", fontsize=14)
 plt.grid(True, linestyle='--', alpha=0.6)
 plt.legend(loc="lower right", fontsize=11)
-plt.ylim(90,185)
-plt.yticks([90, 105, 120, 135, 150, 165, 180])
+#plt.ylim(90,185)
+#plt.yticks([90, 105, 120, 135, 150, 165, 180])
 plt.xticks(np.arange(0, extent + 0.5, 0.5))
 save_name="2layer_transport"
 plt.savefig(f"plots/{save_name}.png", dpi=400)
@@ -261,7 +332,7 @@ for i, nu_ratio in enumerate(nu_ratios):
     ax.set_ylim(0, zmax)
     ax.grid(True, linestyle='--', alpha=0.6)
     if i == 1:
-        ax.legend(loc="upper right", fontsize=11)
+        ax.legend(loc="upper center", fontsize=11)
 
 axes[0].set_ylabel(r"Height, $z$ [m]", fontsize=11)
 plt.suptitle(r"Spiral For 2-layer Model", fontsize=14)
