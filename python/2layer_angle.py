@@ -38,13 +38,13 @@ def tau(z, phi, gamma, nu1=1):
 
     return np.where(z < H, tau1, tau2)
 
-def ekman_transport(phi, gamma):
+def ekman_transport(phi, gamma, nu1=1):
     den = 1 - gamma + np.exp(2 * (1 + 1j) * phi) * (1 + gamma)
     # Only the complex structure matters for the angle
     tau0 = (1 + 1j) * (-(1 - gamma) + (1 + gamma) * np.exp(2 * (1 + 1j) * phi)) / den
     T = 1j * tau0 / f  # i/f * tau0, f real so doesn't affect angle
     
-    T = (1j/f) * tau(0, phi, gamma)
+    T = (1j/f) * tau(0, phi, gamma, nu1)
     return T
 
 
@@ -62,11 +62,6 @@ phis =  np.linspace(0, extent, 1000)
 
 # ============================================================
 # Check the small-phi_exp limit at z = H 
-#
-# Prediction:
-#     tau'(0) ~ -(1+i)/h2 * tau(0)
-#
-#     or tau(0) ~ 0
 # ============================================================
 
 phi = 0.1
@@ -74,6 +69,7 @@ gamma = 0.01
 
 nu1  = 0.1
 hek1 = np.sqrt(2*nu1/f)
+hek2 = gamma * hek1
 H = hek1*phi
 
 z_check = H
@@ -85,6 +81,8 @@ print("=" * 70)
 print(f"phi       = {phi}")
 print(f"gamma     = {gamma:.6e}")
 print(f"H         = {z_check:.6f}")
+print(f"h_Ek1         = {hek1:.6f}")
+print(f"h_Ek2         = {hek2:.6f}")
 print(f"|-iU_g|       = {U0:.6f}")
 
 # ------------------------------------------------------------
@@ -111,10 +109,10 @@ ratio = tau_prime_check / tau_check
 print("\ntau(H)       =", tau_check)
 print("|tau(H)|     =", abs(tau_check))
 
-print("\ntau'(H)      =", tau_prime_check)
-print("|tau'(H)|    =", abs(tau_prime_check))
+print("H\ntau'(H)      =", H*tau_prime_check)
+print("H|tau'(H)|    =", H*abs(tau_prime_check))
 
-print("\n|tau'(H)| / |tau(H)|   =", abs(tau_prime_check)/abs(tau_check))
+print("\n H|tau'(H)| / |tau(H)|   =", H*abs(tau_prime_check)/abs(tau_check))
 
 
 
@@ -124,7 +122,7 @@ print("\n|tau'(H)| / |tau(H)|   =", abs(tau_prime_check)/abs(tau_check))
 # Plotting surface angle
 # ===============================
 
-
+nu1 = 0.01
 plt.figure(figsize=(8*extent/4,5))
 ang_15 = surface_angle(phis, 0)
 ang_15_reversed = 2 * 45 - ang_15
@@ -170,20 +168,20 @@ plt.show()
 # ===============================
 
 plt.figure(figsize=(8*extent/4,5))
-
+nu1_T = 0.01
 
 tf = True
 for j, ratio in enumerate(nu_ratios):
     gamma = np.sqrt(ratio)
     
     if ratio > 1 and tf:
-        T_ref = ekman_transport(phis, 1)
+        T_ref = ekman_transport(phis, 1, nu1)
         Tr, Ti = np.real(T_ref), np.imag(T_ref)
         plt.plot(phis, Tr, label=r'$T_x$, $\nu_2/\nu_1=1$', color="black")
         plt.plot(phis, Ti, linestyle="--", label=r'$T_y$, $\nu_2/\nu_1=1$', color="black")
         tf = False
     
-    T = np.array([ekman_transport(phi, gamma) for phi in phis])
+    T = np.array([ekman_transport(phi, gamma, nu1) for phi in phis])
     Tr, Ti = np.real(T), np.imag(T)
     plt.plot(phis, Tr, label=fr'$\nu_2/\nu_1={gamma**2:.0e}$', color=f"C{j}")
     plt.plot(phis, Ti, linestyle="--", color=f"C{j}")
@@ -205,6 +203,9 @@ plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{sav
 plt.show()
 
 #%%
+# ===============================
+# Momentum flux
+# ===============================
 
 nu_ratios = [0.5, 2.0]
 phis_to_plot = [0.5, 1.0, 1.5]

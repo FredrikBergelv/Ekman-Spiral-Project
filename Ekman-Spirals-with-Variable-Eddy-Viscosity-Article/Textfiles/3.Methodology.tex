@@ -2,6 +2,7 @@
 \subsection{Numerical method}
 \autoref{eq:MomentumFlux} was solved numerically as a boundary value problem using the \texttt{solve\_bvp} routine available in \texttt{SciPy} \citep{virtanen2020}. For the SUBC model, the equation was shown to be expressed in terms of a dimensionless layer thickness by using an height-normalized eddy viscosity profile, $\tilde{\nu}(z)$. Separating \autoref{eq:SUBCLinearIncreasing}, \ref{eq:SUBCLinearDecreasing} and \ref{eq:SUBCParabolic} into zonal and meridional components yields
 \begin{subequations}
+    \label{eq:Method}
     \begin{align}
     \frac{\mathrm{d^2\tau_x}}{\mathrm{d} z^2}
     &=
@@ -10,7 +11,6 @@
     \frac{\mathrm{d^2\tau_y}}{\mathrm{d} z^2}
     &=
     \frac{1}{\tilde\nu(z)}2\varphi^2 \tau_x.
-    \label{eq:Method}
 \end{align}
 \end{subequations}
 To apply the numerical boundary value solver, the equations were rewritten as a first-order system by introducing the variables
@@ -44,25 +44,25 @@ with the boundary conditions
     &
     \tau_x(\varphi=1) &= 0,
     \\
-    \tau_y^\prime(\varphi=0) &= -fu_g,
+    \tau_y^\prime(\varphi=0) &= -fU_g,
     &
     \tau_y(\varphi=1) &= 0.
 \end{align}
 \end{subequations}
-If the viscosity profile, $\tilde\nu$, includes a zero value in the domain, then the coupled \autoref{eq:modelsolver} becomes singular. We therefore add a constant background viscosity, $\epsilon$ as
+If the viscosity profile, $\tilde\nu$, includes a zero value in the domain, then the coupled \autoref{eq:modelsolver} becomes singular. We therefore add a constant background viscosity, $\epsilon$
 \begin{equation}
     \hat{\nu}\rightarrow\hat{\nu}+\epsilon, \quad \text{where } \epsilon=\frac{\nu_\text{background}}{\nu_\text{max}}
 \end{equation}
 and $\hat{\nu}/\epsilon\gg1$ is assumed. This background viscosity was thus applied for the linear decreasing, linear increasing, and the parabolic model since they have zero viscosity at the surface (or at the top).
 
-The SUBC model equations were solved iteratively on a vertical grid. The solver required an initial guess, which was chosen based on the initial setup of the system. The initial guess was therefore set as the classical solution for a constant viscosity. The final solution was found when the iterative solution reached a steady state for the differential equations with the imposed boundary conditions.
+The SUBC model equations were solved iteratively on a vertical grid with the imposed boundary conditions. The solver required an initial guess, which was chosen as the classical solution for a constant viscosity. The final solution was found when the iterative solution reached a steady state.
 
 \subsection{Analysis of wind-turning angles from ERA5}
-Reanalysed atmospheric data for different pressure levels were downloaded from the ERA5 dataset \citep{copernicusclimatechangeservice2019} in order to observe the real-world surface wind angles. The data used an annual mean wind dataset for the year 2025. The analysis was restricted to the northern mid-latitudes in order to capture the Ekman spiral from the presence of the jet stream. In order to only analyse land points, a land mask was used from the package \texttt{Global\_Land\_Mask}, which is based on data from \citet{noaanationalcentersforenvironmentalinformation1999}. To avoid mountainous or very hilly terrain, an elevation dataset from \citet{noaanationalcentersforenvironmentalinformation2022} was used in order to dismiss points with a very steep linear slope. For the remaining grid points, the horizontal wind vectors were analysed. The surface wind vectors were compared to the wind at the location of the highest wind speed, i.e., the jet stream. The angle between these two vectors was computed as the signed angle between them by using the cross product. To avoid poorly defined angles, surface wind speeds below a threshold were discarded. The criteria for the data points can be summarised as follows:
+Reanalysed atmospheric data for different pressure levels was downloaded from the ERA5 dataset \citep{copernicusclimatechangeservice2019} in order to observe the real-world surface wind angles. The data used an annual mean wind dataset for the year 2025. The analysis was restricted to the northern mid-latitudes in order to capture the Ekman spiral from the presence of the jet stream. In order to only analyse land points, a land mask was used from the package \texttt{Global\_Land\_Mask}, which is based on data from \citet{noaanationalcentersforenvironmentalinformation1999}. To avoid mountainous or very hilly terrain, an elevation dataset from \citet{noaanationalcentersforenvironmentalinformation2022} was used in order to dismiss points with a very steep linear slope. For the remaining grid points, the horizontal wind vectors were analysed. The surface wind vectors were compared to the wind at the location of the highest wind speed, i.e., the jet stream. The angle between these two vectors was computed as the signed angle between them by using the cross product. To avoid poorly defined angles, surface wind speeds below a threshold were discarded. The criteria for the data points can be summarised as follows:
 \begin{itemize}
 \item Northern mid-latitude band between $\left[\ang{30}, \ang{60}\right]$.
 \item Land points only.
 \item Flat points with a linear slope below \SI{1000}{\meter\per\kilo\meter}.
 \item Surface wind speeds above \SI{1}{\meter\per\second}.
 \end{itemize}
-Lastly, a circular mean was calculated for the different times in order to obtain a average value for the temporal series. Thus, a geographical map together with angle distributions for the surface wind angles were obtained.
+Lastly, a circular mean was calculated for the different times in order to obtain a average value for the temporal series. Thus, a geographical map together with angle distributions for the surface wind angles was obtained.

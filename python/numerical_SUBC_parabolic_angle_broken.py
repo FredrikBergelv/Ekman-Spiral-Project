@@ -103,6 +103,48 @@ for j, epsilon in enumerate(min_viscosities):
 mask_zoom = phi_values <= 4
 mask_wide = phi_values >= 4
 
+
+# Save
+np.savez(
+    "numerical_SUBC_parabolic_DATA.npz",
+    phi_values=phi_values,
+    min_viscosities=np.array(min_viscosities),
+    surface_angles=np.array([
+        surf_results[eps] for eps in min_viscosities
+    ]),
+    transport=np.array([
+        T_results[eps] for eps in min_viscosities
+    ]))
+
+print("Saved numerical data to numerical_SUBC_parabolic_DATA.npz")
+
+#%%
+
+# ===============================
+# LOAD NUMERICAL RESULTS
+# ===============================
+
+data = np.load("numerical_SUBC_parabolic_DATA.npz")
+
+phi_values = data["phi_values"]
+min_viscosities = data["min_viscosities"]
+
+surface_angles = data["surface_angles"]
+transport = data["transport"]
+
+# Reconstruct dictionaries to make the existing plotting
+# code work without modification
+surf_results = {
+    eps: surface_angles[j]
+    for j, eps in enumerate(min_viscosities)
+}
+
+T_results = {
+    eps: transport[j]
+    for j, eps in enumerate(min_viscosities)
+}
+
+
 #%%
 # ===============================
 # Plotting surface angle
@@ -152,5 +194,87 @@ plt.show()
 #%%
 
 # ===============================
-# Plotting Transport 
+# Plotting transport values
 # ===============================
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5), sharey=True, gridspec_kw={'width_ratios': [8, 4], 'wspace': 0.05})
+
+mask_zoom = phi_values <= 4
+mask_wide = phi_values >= 4
+
+
+# Plot all viscosities
+for j, epsilon in enumerate(min_viscosities):
+
+    # Shape: (N_phi, 2)
+    transport_data = np.array(T_results[epsilon])
+
+    # First column = Tx
+    # Second column = Ty
+    Tx = transport_data[:, 0]
+    Ty = transport_data[:, 1]
+
+    label = fr'$\epsilon={epsilon:.0e}$'
+
+    # Zoomed region
+    ax1.plot(phi_values[mask_zoom], Tx[mask_zoom], label=label, c=f"C{j}")
+    ax1.plot(phi_values[mask_zoom], Ty[mask_zoom], linestyle='--', c=f"C{j}")
+
+    # Wide region
+    ax2.plot(phi_values[mask_wide], Tx[mask_wide], label=label, c=f"C{j}")
+    ax2.plot(phi_values[mask_wide], Ty[mask_wide], linestyle='--', c=f"C{j}")
+
+# Reference line
+ax2.plot([] ,[], c="black", label=r"$T_x$")
+ax2.plot([] ,[], c="black", label=r"$T_y$", linestyle="--")
+
+
+ax1.plot(phi_values[mask_zoom], Ty[mask_zoom], linestyle='--')
+
+for ax in (ax1, ax2):
+    ax.set_ylim(-10, 10)
+
+
+# Axes
+ax1.grid(True, linestyle='--', alpha=0.6)
+ax2.grid(True, linestyle='--', alpha=0.4)
+
+ax1.set_xlim(0, 4)
+ax1.set_xticks(np.arange(0, 4.5, 0.5))
+
+ax2.set_xscale("log")
+
+plt.setp(ax2.get_xticklabels(), style='italic')
+
+# Broken axis appearance
+ax1.spines['right'].set_visible(False)
+ax2.spines['left'].set_visible(False)
+ax2.tick_params(left=False)
+
+# Labels
+fig.text(0.5, 0.03,
+    r"Dimensionless layer thickness, $\varphi$ [-]",
+    ha='center', fontsize=11)
+
+ax1.set_xlabel("")
+ax2.set_xlabel("")
+
+ax1.set_ylabel(
+    r"Transport, $T$ [m$^2$/s]",
+    fontsize=11
+)
+
+plt.subplots_adjust(bottom=0.13)
+
+ax2.legend(fontsize=11, loc="upper right")
+
+fig.suptitle("Ekman Transport for the SUBC Parabolic Model",
+             fontsize=14)
+
+save_name = "numerical_SUBC_parabolic_transport_broken"
+
+plt.savefig(f"plots/{save_name}.png", dpi=400, bbox_inches='tight')
+
+plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{save_name}.png", dpi=400, bbox_inches='tight')
+
+plt.show()

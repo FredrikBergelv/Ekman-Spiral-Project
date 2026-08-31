@@ -107,6 +107,29 @@ for i, phi in enumerate(phi_values):
         percent = 100* i / len(phi_values)
         print(f"{percent:.2f}% (surf = {surf_angle_d:.2f} deg) ")
 
+# save data
+filename = "numerical_SUBC_linear_d_DATA.npz"
+
+np.savez(
+    filename,
+    phi_values=np.asarray(phi_values),
+    surface_angles_d=np.asarray(surface_angles_d),
+    transport_d=np.asarray(transport_d))
+
+print(f"Saved to: {filename}")
+        
+#%%%
+# ===============================
+# LOAD SAVED DATA
+# ===============================
+
+data = np.load("numerical_SUBC_linear_d_DATA.npz")
+
+phi_values = data["phi_values"]
+surface_angles_d = data["surface_angles_d"]
+transport_d = data["transport_d"]
+
+
 #%%
 # ===============================
 # Plotting surface angle
@@ -126,34 +149,6 @@ plt.ylim(0,95)
 plt.yticks([0, 15, 30, 45, 60, 75, 90])
 plt.xticks(np.arange(0, extent + 0.5, 0.5))
 save_name="numerical_SUBC_linear_d_angle"
-plt.savefig(f"plots/{save_name}.png", dpi=400)
-plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{save_name}.png", dpi=400)
-
-plt.show()
-
-#%%
-# ===============================
-# Plotting Transport 
-# ===============================
-
-plt.figure(figsize=(8,5))
-
-Tx = [T[0] for T in transport_d]
-Ty = [T[1] for T in transport_d]
-
-plt.plot(phi_values, Tx, label=r'$T_x$', color='C0')
-plt.plot(phi_values, Ty, label=r'$T_y$', color='C0', linestyle="--")
-
-plt.xlabel(r"Dimensionless layer thickness, $\varphi$ [-]", fontsize=11)
-plt.ylabel(r"Transport, $T$ [m$^2$/s]",fontsize=11)
-plt.suptitle("Ekman Transport for the SUBC Linear Decreasing Model", fontsize=14)
-plt.grid(True, linestyle='--', alpha=0.6)
-plt.legend(fontsize=11)
-
-
-plt.xticks(np.arange(0, extent + 0.5, 0.5))
-
-save_name="numerical_SUBC_linear_transport"
 plt.savefig(f"plots/{save_name}.png", dpi=400)
 plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{save_name}.png", dpi=400)
 
@@ -210,6 +205,38 @@ plt.savefig(f"plots/{save_name}.png", dpi=400)
 plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{save_name}.png", dpi=400)
 plt.show()
 
+#%%
+# ===============================
+# Plotting Transport 
+# ===============================
+
+plt.figure(figsize=(8,5))
+
+Tx = [T[0] for T in transport_d]
+Ty = [T[1] for T in transport_d]
+
+print(min(Tx))
+print(min(Ty))
+print(np.angle(Tx[0]+ 1j* Ty[0], deg=True))
+
+
+plt.plot(phi_values, Tx, label=r'$T_x$', color='C0')
+plt.plot(phi_values, Ty, label=r'$T_y$', color='C0', linestyle="--")
+
+plt.xlabel(r"Dimensionless layer thickness, $\varphi$ [-]", fontsize=11)
+plt.ylabel(r"Transport, $T$ [m$^2$/s]",fontsize=11)
+plt.suptitle("Ekman Transport for the SUBC Linear Decreasing Model", fontsize=14)
+plt.grid(True, linestyle='--', alpha=0.6)
+plt.legend(fontsize=11)
+plt.ylim(-10, 10)
+
+plt.xticks(np.arange(0, extent + 0.5, 0.5))
+
+save_name="numerical_SUBC_linear_d_transport"
+plt.savefig(f"plots/{save_name}.png", dpi=400)
+plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{save_name}.png", dpi=400)
+
+plt.show()
 
 
 

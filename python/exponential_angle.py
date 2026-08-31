@@ -13,9 +13,10 @@ k = 0.01 # do not need in reality
 
 
 def tau(z, phi, k=k):
+    hek0 = (phi*k)**(-1)
     arg_z = 2 * (1 + 1j) * phi * np.exp(k * z / 2)
     arg_0 = 2 * (1 + 1j) * phi
-    return ((1 + 1j) * f * U0) / (2 * k * phi) * kv(0, arg_z) / kv(1, arg_0)
+    return ((1 + 1j) * f * U0 * hek0) / (2) * kv(0, arg_z) / kv(1, arg_0)
 
 
 def surface_angle(phi):
@@ -28,7 +29,7 @@ def surface_angle(phi):
     theta = np.angle(ans, deg=True)
     return theta
 
-def ekman_transport(phi):
+def ekman_transport(phi, k):
     T = (1j/f) * tau(0, phi, k=k)
     return T
 
@@ -156,11 +157,12 @@ plt.show()
 # ===============================
 # Plotting Transport 
 # ===============================
+k = 0.1 
 
 plt.figure(figsize=(8, 5))
 plt.suptitle("Transport for Exponetial Model", fontsize=14)
 
-T = np.array([ekman_transport(phi) for phi in phis])
+T = np.array([ekman_transport(phi, k) for phi in phis])
 Tr, Ti = np.real(T), np.imag(T)
 plt.plot(phis, Tr, color="C0", label=r"$T_x$")
 plt.plot(phis, Ti, linestyle="--", color="C0", label=r"$T_y$")
@@ -170,7 +172,7 @@ plt.xlabel(r"Dimensionless layer thickness, $\varphi$ [-]",fontsize=11)
 plt.ylabel(r"Transport, $T$ [m$^2$/s]",fontsize=11)
 plt.grid(True, linestyle='--', alpha=0.6)
 
-plt.yscale("symlog", linthresh=100)
+plt.yscale("symlog", linthresh=10)
 plt.xticks(np.arange(0, extent + 0.5, 0.5))
 plt.legend(fontsize=11)
 
@@ -192,8 +194,6 @@ z = np.linspace(0, zmax, Nz)
 
 
 fig, axes = plt.subplots(1, 1, figsize=(6, 5), sharex="row", sharey="row")
-
-axes.axhline((2/k_val) * np.log(1/phis_to_plot[0]), c="black", linestyle="-.", label=r"$\frac{2}{k}\log\left(\frac{1}{\varphi_\text{exp}}\right)$")
 
 ax = axes
 for j, phi in enumerate(phis_to_plot):

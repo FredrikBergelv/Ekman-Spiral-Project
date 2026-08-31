@@ -2,7 +2,7 @@
 \subsection{The theoretical surface angles}
 
 \subsubsection{The vertical structure of the momentum flux}
-The vertical profiles from the numerical SUBC model can be viewed in \autoref{fig:numerical_SUBC_linear_d_structure}--\ref{fig:numerical_SUBC_parabolic_structure} together with the normalized Ekman height for the different layers. An important note is that when $\varphi<1$ then the Ekman heights become larger than the limit $H$, and the spiral therefore extends over a large height. In contrast, if $\varphi\gg1$, then the Ekman height is much smaller than the layer depth, $h_\text{EK}\ll H$, such that the spiral is closer ot the surface as $z\ll H$. Another important observation in \autoref{fig:numerical_SUBC_linear_d_structure}--\ref{fig:numerical_SUBC_parabolic_structure} is that for $ \varphi < 1 $, almost linear profiles are observed. This supports the claim above that when $ \varphi \ll 1 $, then $ \tau(z) $ in \autoref{eq:MomentumFlux} behaves as a linear function. 
+The vertical profiles from the numerical SUBC model can be viewed in \autoref{fig:numerical_SUBC_linear_d_structure}--\ref{fig:numerical_SUBC_parabolic_structure} together with the normalized Ekman height for the different layers. An important note is that when $\varphi<1$ then the Ekman heights become larger than the limit $H$, and the spiral therefore extends over a large height. In contrast, if $\varphi\gg1$, then the Ekman height is much smaller than the layer depth, $h_\text{Ek}\ll H$, such that the spiral is closer ot the surface as $z\ll H$. Another important observation in \autoref{fig:numerical_SUBC_linear_d_structure}--\ref{fig:numerical_SUBC_parabolic_structure} is that for $ \varphi < 1 $, almost linear profiles are observed. This supports the claim above that when $ \varphi \ll 1 $, then $ \tau(z) $ in \autoref{eq:MomentumFlux} behaves as a linear function. 
 
 Since the surface wind angle is calculated by comparing the initial change of the viscosity, both the linear increasing and the parabolic models are dependent on the background viscosity $\epsilon$. The effect of varying $\epsilon$ can be observed in \autoref{fig:numerical_SUBC_linear_i_structure}--\ref{fig:numerical_SUBC_parabolic_structure}. However for the linear decreasing model, no major effect could be observed by varying the background viscosity. Thus, a background viscosity of \SI{1e-6}{} was used for this specific model. 
 
@@ -42,7 +42,7 @@ The result from the linearly decreasing SUBC model is shown in \autoref{fig:nume
 
 For the linearly increasing viscosity in \autoref{fig:numerical_SUBC_linear_i_angle} a different result can be seen. The upper limit is again located at \ang{45}, but at very large non-dimensional heights. For smaller background viscosities the limit occurs at many magnitudes higher then for the previous models due to a much larger $1/{\tilde\nu_\uparrow}$-factors.  
 
-The curve obtains values smaller then \ang{45} outside of the limits discussed above. Since the limits are the extreme cases, this interior is the more interesting part of the result. The surface wind angle is smaller then \ang{45} since a larger viscosity at a higher altitude means that the rotation of the wind is smaller near the surface and greater aloft. This forces the surface angles to become less then \ang{45}. This can be compared to the two-layer model with a small lower viscosity $\nu_1$ and small interface height $H$. Observing \autoref{fig:2layer_angle}, one can see that this scenario also yielded angles smaller than \ang{45}, like in this figure.
+The curve obtains values smaller then \ang{45} outside of the limits discussed above. Since the lower limit is an inherent property of the SUBC model and the upper limit is well understood, makes the interior more interesting. The surface wind angle is smaller then \ang{45} since a larger viscosity at a higher altitude means that the rotation of the wind is smaller near the surface and greater aloft. This forces the surface angles to become less then \ang{45}. This can be compared to the two-layer model with a small lower viscosity $\nu_1$ and small interface height $H$. Observing \autoref{fig:2layer_angle}, one can see that this scenario also yielded angles smaller than \ang{45}, like in this figure.
 
 Another interesting observation is that, away from the limits, she surface wind angle is more sensitive to the background viscosity than to the non-dimensional height. If the background viscosity is much smaller then the maximal viscosity then a smaller $\epsilon$ gives a huge $1/{\tilde\nu_\uparrow}$ jump from the surface. In the theoretical limit when $\epsilon\to0$, the initial jump would be infinite, and the surface angle would be zero. 
 
@@ -58,15 +58,38 @@ The SUBC model with a parabolic viscosity profile gave \autoref{fig:numerical_SU
 \begin{figure*}[hbt!]
     \centering    
     \includegraphics[height=0.42\textwidth]{Figures/numerical_SUBC_parabolic_angle_broken.png}
-    \caption{Numerically computed surface angles for a parabolic viscosity profile in the SUBC model. The angles are dependent on the dimensionless parameter $\varphi=H/h_\text{Ek}$ and the background viscosity $\epsilon$. }
+    \caption{Numerically computed surface angles for a parabolic viscosity profile in the SUBC model. The values are dependent on the dimensionless parameter $\varphi=H/h_\text{Ek}$ and the background viscosity $\epsilon$. }
     \label{fig:numerical_SUBC_parabolic_angle}
 \end{figure*}
 
 \subsubsection{The Ekman transport}
-Computing the transport with the surface vertical momentum flux as \autoref{eq:Transport} yielded exactly the same shapes as seen in \autoref{fig:2layer_angle}--\ref{fig:numerical_SUBC_parabolic_angle}, but centred around \ang{135} rather then \ang{45}. The angle differences between the surface angles and the transport angle was thus always \ang{90}, just like in the classical Ekman theory. 
+Computing the transport with the surface vertical momentum flux as \autoref{eq:Transport} yielded exactly the same shapes as seen in \autoref{fig:numerical_SUBC_linear_d_angle}--\ref{fig:numerical_SUBC_parabolic_angle}, but centred around \ang{135} rather then \ang{45}, thus a difference of \ang{90} like in the classical Ekman theory. 
+
+The transport values in \autoref{fig:numerical_SUBC_linear_d_transport}--\ref{fig:numerical_SUBC_parabolic_transport} show similar behaviour with maximum zonal transport when $\varphi\to0$ and maximal meridional transport between $\varphi\in(0,1)$. 
+
+\begin{figure*}[hbt!]
+    \centering    
+    \includegraphics[height=0.42\textwidth]{Figures/numerical_SUBC_linear_d_transport.png}
+    \caption{Numerically computed surface angles for a linear decreasing viscosity profile in the SUBC model. The values are dependent on the dimensionless parameter $\varphi=H/h_\text{Ek}$. }
+    \label{fig:numerical_SUBC_linear_d_transport}
+\end{figure*}
+
+\begin{figure*}[hbt!]
+    \centering    
+    \includegraphics[height=0.42\textwidth]{Figures/numerical_SUBC_linear_i_transport_broken.png}
+    \caption{Numerically computed Ekman transport for a linear increasing viscosity profile in the SUBC model. The values are dependent on the dimensionless parameter $\varphi=H/h_\text{Ek}$ and the background viscosity $\epsilon$. }
+    \label{fig:numerical_SUBC_linear_i_transport}
+\end{figure*}
+
+\begin{figure*}[hbt!]
+    \centering    
+    \includegraphics[height=0.42\textwidth]{Figures/numerical_SUBC_parabolic_transport_broken.png}
+    \caption{Numerically computed Ekman transport for a parabolic viscosity profile in the SUBC model. The angles are dependent on the dimensionless parameter $\varphi=H/h_\text{Ek}$ and the background viscosity $\epsilon$. }
+    \label{fig:numerical_SUBC_parabolic_transport}
+\end{figure*}
 
 \subsection{The ERA5 surface angles}
-\SI{24535}{} data points were fit for analysis from the ERA5 dataset. These surface wind angles, due to the presence of a jet stream for flat land points in the northern midlatitudes, are shown in \autoref{fig:ERA5_angles}. The geographical spread of the data points can be observed in \autoref{fig:ERA5_angle_map}, while \autoref{fig:ERA5_angle_histogram} shows the probability distribution. \autoref{fig:ERA5_angle_histogram} shows a wide range of surface angles, but with a clear peak between \ang{0}--\ang{60}. Comparing this peak with the reference value of \ang{45} shows that a clear majority of the surface angles are smaller than the reference, although a minority can be observed to be greater than the reference angle. The larger spread between -\ang{180} to \ang{180} may arise from other mereological processes, such as the presence of a semi-permanent high- and low-pressure system, causing surface winds. Due to the smoothness of these values, these can be dismissed as outliers and the focus can be on the peak between \ang{0}--\ang{60}.
+\SI{24535}{} data points were fit for analysis from the ERA5 dataset. These surface wind angles, due to the presence of a jet stream for flat land points in the northern midlatitudes, are shown in \autoref{fig:ERA5_angles}. The geographical spread of the data points can be observed in \autoref{fig:ERA5_angle_map}, while \autoref{fig:ERA5_angle_histogram} shows the probability distribution. \autoref{fig:ERA5_angle_histogram} shows a wide range of surface angles, but with a clear peak between \ang{0}--\ang{60}. Comparing this peak with the reference value of \ang{45} shows that a clear majority of the surface angles are smaller than the reference, although a minority can be observed to be greater than the reference angle. The larger spread between -\ang{180} to \ang{180} may arise from other mereological processes, such as the presence of a semi-permanent high- and low-pressure system, causing surface winds. Due to the smoothness of these values, these can be dismissed as outliers and the focus can lie on the peak between \ang{0}--\ang{60}.
 
 \begin{figure*}[hbt!]
     \centering
