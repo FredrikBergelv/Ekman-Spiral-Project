@@ -164,8 +164,9 @@ plt.suptitle("Transport for Exponetial Model", fontsize=14)
 
 T = np.array([ekman_transport(phi, k) for phi in phis])
 Tr, Ti = np.real(T), np.imag(T)
-plt.plot(phis, Tr, color="C0", label=r"$T_x$")
-plt.plot(phis, Ti, linestyle="--", color="C0", label=r"$T_y$")
+idx = 2
+plt.plot(phis[idx:], Tr[idx:], color="C0", label=r"$T_x$")
+plt.plot(phis[idx:], Ti[idx:], linestyle="--", color="C0", label=r"$T_y$")
 
 
 plt.xlabel(r"Dimensionless layer thickness, $\varphi$ [-]",fontsize=11)

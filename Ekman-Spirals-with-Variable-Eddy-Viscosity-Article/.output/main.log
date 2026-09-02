@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2024.11.25)  31 AUG 2026 16:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2024.11.25)  1 SEP 2026 16:52
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -1152,9 +1152,9 @@ File: Figures/ERA5_angle_histogram.png Graphic file (type png)
 <use Figures/ERA5_angle_histogram.png>
 Package pdftex.def Info: Figures/ERA5_angle_histogram.png  used on input line 105.
 (pdftex.def)             Requested size: 305.92049pt x 191.20169pt.
-) (./Textfiles/5.Discussion.tex [16 <./Figures/numerical_SUBC_linear_d_transport.png> <./Figures/numerical_SUBC_linear_i_transport_broken.png>] [17 <./Figures/numerical_SUBC_parabolic_transport_broken.png> <./Figures/ERA5_angle_map.png> <./Figures/ERA5_angle_histogram.png>] [18
+) (./Textfiles/5.Discussion.tex [16 <./Figures/numerical_SUBC_linear_d_transport.png> <./Figures/numerical_SUBC_linear_i_transport_broken.png>] [17 <./Figures/numerical_SUBC_parabolic_transport_broken.png> <./Figures/ERA5_angle_map.png> <./Figures/ERA5_angle_histogram.png>]) (./Textfiles/6.Conclusion.tex [18
 
-]) (./Textfiles/6.Conclusion.tex) (./Textfiles/Appendix.tex) (.output/main.bbl [19]) [20] 
+]) (./Textfiles/Appendix.tex) (.output/main.bbl [19]) [20] 
 enddocument/afterlastpage: lastpage setting LastPage.
 (.output/main.aux)
  ***********
@@ -1173,7 +1173,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  99i,18n,96p,2463b,1075s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx0700.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx2074.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0500.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0600.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0700.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on .output/main.pdf (21 pages, 6375501 bytes).
+Output written on .output/main.pdf (21 pages, 6374895 bytes).
 PDF statistics:
  736 PDF objects out of 1000 (max. 8388607)
  591 compressed objects within 6 object streams
