@@ -101,7 +101,7 @@ for j, epsilon in enumerate(min_viscosities):
 
 # Save
 np.savez(
-    "numerical_SUBC_linear_i_DATA.npz",
+    "numerical_SUBC_linear_i_broken_DATA.npz",
     phi_values=phi_values,
     min_viscosities=np.array(min_viscosities),
     surface_angles=np.array([
@@ -112,7 +112,7 @@ np.savez(
     ])
 )
 
-print("Saved numerical data to numerical_SUBC_linear_i_DATA.npz")
+print("Saved numerical data to numerical_SUBC_linear_i_broken_DATA.npz")
 
 #%%
 
@@ -120,7 +120,7 @@ print("Saved numerical data to numerical_SUBC_linear_i_DATA.npz")
 # LOAD NUMERICAL RESULTS
 # ===============================
 
-data = np.load("numerical_SUBC_linear_i_DATA.npz")
+data = np.load("numerical_SUBC_linear_i_broken_DATA.npz")
 
 phi_values = data["phi_values"]
 min_viscosities = data["min_viscosities"]
@@ -140,21 +140,6 @@ T_results = {
     for j, eps in enumerate(min_viscosities)
 }
     
-#%%
-
-np.savez(
-    "numerical_SUBC_linear_i_DATA.npz",
-    phi_values=phi_values,
-    min_viscosities=np.array(min_viscosities),
-    surface_angles=np.array([
-        results[eps] for eps in min_viscosities
-    ]),
-    transport=np.array([
-        T_results[eps] for eps in min_viscosities
-    ])
-)
-
-print("Saved numerical data to numerical_SUBC_linear_i_DATA.npz")
 
 #%%
 # ===============================
@@ -199,7 +184,7 @@ ax2.tick_params(left=False)
 
 
 # Labels
-fig.text(0.5, 0.03, r"Dimensionless layer thickness, $\varphi$ [-]",
+fig.text(0.5, 0.03, r"Dimensionless layer thickness, $\varphi_\text{BL}$ [-]",
          ha='center', fontsize=11)
 ax1.set_xlabel("")
 ax2.set_xlabel("")
@@ -279,7 +264,7 @@ ax2.tick_params(left=False)
 
 # Labels
 fig.text(0.5, 0.03,
-    r"Dimensionless layer thickness, $\varphi$ [-]",
+    r"Dimensionless layer thickness, $\varphi_\text{BL}$ [-]",
     ha='center', fontsize=11)
 
 ax1.set_xlabel("")

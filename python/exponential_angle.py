@@ -173,7 +173,7 @@ plt.xlabel(r"Dimensionless layer thickness, $\varphi$ [-]",fontsize=11)
 plt.ylabel(r"Transport, $T$ [m$^2$/s]",fontsize=11)
 plt.grid(True, linestyle='--', alpha=0.6)
 
-plt.yscale("symlog", linthresh=10)
+#plt.yscale("symlog", linthresh=10)
 plt.xticks(np.arange(0, extent + 0.5, 0.5))
 plt.legend(fontsize=11)
 

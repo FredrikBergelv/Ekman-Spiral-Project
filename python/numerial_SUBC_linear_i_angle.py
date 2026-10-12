@@ -27,7 +27,6 @@ def nu_increasing(z, eps):
 # SOLVER
 # -------------------------
 def solve_profile(phi, eps, prev_sol):
-    z = np.linspace(0, 1, 300)
 
     def fun(z, Y):
         taux, taupx, tauy, taupy = Y
@@ -91,7 +90,7 @@ def transport_angle(z, Y):
 extent = 4
 phi_values = np.linspace(0, extent, 200)
 
-
+#%%
 surface_angles_i = []
 transport_angles_i = []
 prev_sol = None
@@ -113,16 +112,39 @@ for i, phi in enumerate(phi_values):
         prev_sol = sol
         
         #if surf<45.0001:
-            #print("Bingo!, varphi = ", phi)
+            #print("Bingo!, varphi_\text{BL} = ", phi)
             #break
 
         percent = 100 * (i * len(min_viscosities) + j + 1) / (len(phi_values) * len(min_viscosities))
         print(f"{percent:.2f}% (surf = {surf:.2f} deg)")
         
-    surface_angles_i.append([surface_angles_i_now])
+    surface_angles_i.append(surface_angles_i_now)
     transport_angles_i.append(transport_angles_i_now)
-    
+
+filename = "numerical_SUBC_linear_i_DATA.npz"
+
+np.savez(
+    filename,
+    phi_values=np.asarray(phi_values),
+    min_viscosities=np.asarray(min_viscosities),
+    surface_angles_i=np.asarray(surface_angles_i),
+    transport_angles_i=np.asarray(transport_angles_i)
+)
+
+print(f"Saved to: {filename}")
         
+#%%
+# ===============================
+# LOAD NUMERICAL RESULTS
+# ===============================
+
+data = np.load("numerical_SUBC_linear_i_DATA.npz")
+
+phi_values = data["phi_values"]
+min_viscosities = data["min_viscosities"]
+surface_angles_i = data["surface_angles_i"]
+transport_angles_i = data["transport_angles_i"]
+
 #%%
 plt.figure(figsize=(8,5))
 
@@ -133,7 +155,7 @@ for j, epsilon in enumerate(min_viscosities):
     
 plt.hlines(45, min(phi_values), max(phi_values), color="black", linestyle='--', label="45° reference")
 
-plt.xlabel(r"Dimensionless layer thickness, $\varphi$ [-]",fontsize=11)
+plt.xlabel(r"Dimensionless layer thickness, $\varphi_\text{BL}$ [-]",fontsize=11)
 plt.ylabel(r"Surface angle, $\theta$ [deg]",fontsize=11)
 plt.suptitle("Surface Angle for the the SUBC Linear Increasing Model", fontsize=14)
 plt.grid(True, linestyle='--', alpha=0.6)
@@ -165,7 +187,7 @@ for j, epsilon in enumerate(min_viscosities):
 
 plt.hlines(135, min(phi_values), max(phi_values), color="black", linestyle='--', label="135° reference")
 
-plt.xlabel(r"Dimensionless layer thickness, $\varphi$ [-]", fontsize=11)
+plt.xlabel(r"Dimensionless layer thickness, $\varphi_\text{BL}$ [-]", fontsize=11)
 plt.ylabel(r"Transport angle, $\theta_T$ [deg]", fontsize=11)
 plt.suptitle("Ekman Transport Angle the SUBC Linear Increasing Model", fontsize=14)
 plt.grid(True, linestyle='--', alpha=0.6)
@@ -204,7 +226,7 @@ for i, epsilon in enumerate(epsilons_to_plot[:2]):  # two columns
         taux_interp = np.interp(z_plot, z_sol, taux)
         tauy_interp = np.interp(z_plot, z_sol, tauy)
 
-        ax.plot(taux_interp, z_plot, c=f"C{j}", label=fr'$\varphi={phi:.1f}$')
+        ax.plot(taux_interp, z_plot, c=f"C{j}", label=fr'$\varphi_\text{{BL}}={phi:.1f}$')
         ax.plot(tauy_interp, z_plot, '--', c=f"C{j}")
         xaxis = -0.1e-3+1.1e-3
         position = [j*0.1*xaxis+1.03e-3, xaxis/30+j*0.1*xaxis+1.03e-3]
@@ -213,7 +235,7 @@ for i, epsilon in enumerate(epsilons_to_plot[:2]):  # two columns
             position = [j*0.1*xaxis+0.53e-3, xaxis/30+j*0.1*xaxis+0.53e-3]
         ax.fill_between(position, 0, 1/phi, color=f"C{j}", alpha=0.5, ec="gray")
            
-    ax.axhline(1, c="black", linestyle=":", label=r'$H$')
+    ax.axhline(1, c="black", linestyle=":", label=r'$H_\text{BL}$')
     ax.fill_between([], [], [], color='gray',  alpha=0.6, label=r"$\tilde h_\text{Ek}$", ec="gray")
 
     ax.set_xlabel(r"Momentum flux, $\tau$ [m$^2$/s$^2$]", fontsize=11)

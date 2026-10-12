@@ -106,7 +106,7 @@ mask_wide = phi_values >= 4
 
 # Save
 np.savez(
-    "numerical_SUBC_parabolic_DATA.npz",
+    "numerical_SUBC_parabolic_broken_DATA.npz",
     phi_values=phi_values,
     min_viscosities=np.array(min_viscosities),
     surface_angles=np.array([
@@ -116,7 +116,7 @@ np.savez(
         T_results[eps] for eps in min_viscosities
     ]))
 
-print("Saved numerical data to numerical_SUBC_parabolic_DATA.npz")
+print("Saved numerical data to numerical_SUBC_parabolic_broken_DATA.npz")
 
 #%%
 
@@ -124,7 +124,7 @@ print("Saved numerical data to numerical_SUBC_parabolic_DATA.npz")
 # LOAD NUMERICAL RESULTS
 # ===============================
 
-data = np.load("numerical_SUBC_parabolic_DATA.npz")
+data = np.load("numerical_SUBC_parabolic_broken_DATA.npz")
 
 phi_values = data["phi_values"]
 min_viscosities = data["min_viscosities"]
@@ -176,7 +176,7 @@ ax1.spines['right'].set_visible(False)
 ax2.spines['left'].set_visible(False)
 ax2.tick_params(left=False)   
 
-fig.text(0.5, 0.03, r"Dimensionless layer thickness, $\varphi$ [-]",
+fig.text(0.5, 0.03, r"Dimensionless layer thickness, $\varphi_\text{BL}$ [-]",
          ha='center', fontsize=11)
 ax1.set_xlabel("")
 ax2.set_xlabel("")
@@ -253,7 +253,7 @@ ax2.tick_params(left=False)
 
 # Labels
 fig.text(0.5, 0.03,
-    r"Dimensionless layer thickness, $\varphi$ [-]",
+    r"Dimensionless layer thickness, $\varphi_\text{BL}$ [-]",
     ha='center', fontsize=11)
 
 ax1.set_xlabel("")

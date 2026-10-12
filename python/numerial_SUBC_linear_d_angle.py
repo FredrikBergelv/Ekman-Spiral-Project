@@ -89,7 +89,7 @@ phi_values = np.linspace(0, extent, 200)
 
 surface_angles_d = []
 transport_d = []
-
+#%%
 for i, phi in enumerate(phi_values):
 
         
@@ -101,7 +101,7 @@ for i, phi in enumerate(phi_values):
         transport_d.append(T_d)
         
         #if surf_angle_i<45.0001:
-            #print("Bingo!, varphi = ", phi)
+            #print("Bingo!, varphi_\text{BL} = ", phi)
             #break
         
         percent = 100* i / len(phi_values)
@@ -122,6 +122,9 @@ print(f"Saved to: {filename}")
 # ===============================
 # LOAD SAVED DATA
 # ===============================
+import numpy as np
+import matplotlib.pyplot as plt
+
 
 data = np.load("numerical_SUBC_linear_d_DATA.npz")
 
@@ -140,7 +143,7 @@ plt.plot(phi_values, surface_angles_d)
 
 plt.hlines(45, min(phi_values), max(phi_values), color="black", linestyle='--', label="45° reference")
 
-plt.xlabel(r"Dimensionless layer thickness, $\varphi$ [-]",fontsize=11)
+plt.xlabel(r"Dimensionless layer thickness, $\varphi_\text{BL}$ [-]",fontsize=11)
 plt.ylabel(r"Surface angle, $\theta$ [deg]",fontsize=11)
 plt.suptitle("Surface Angle for SUBC Linear Decreasing Model", fontsize=14)
 plt.grid(True, linestyle='--', alpha=0.6)
@@ -176,14 +179,14 @@ for j, phi in enumerate(phis_to_plot):
         taux_interp = np.interp(z_plot, z_sol, taux)
         tauy_interp = np.interp(z_plot, z_sol, tauy)
 
-        ax.plot(taux_interp, z_plot, c=f"C{j}", label=fr'$\varphi={phi:.1f}$')
+        ax.plot(taux_interp, z_plot, c=f"C{j}", label=fr'$\varphi_\text{{BL}}={phi:.1f}$')
         ax.plot(tauy_interp, z_plot, '--', c=f"C{j}")
         
         xaxis = -0.1e-3+1.1e-3
         position = [j*0.1*xaxis+1e-3, xaxis/30+j*0.1*xaxis+1e-3]
         ax.fill_between(position, 0, 1/phi, color=f"C{j}", alpha=0.5, ec="gray")
    
-ax.axhline(1, c="black", linestyle=":", label=r'$H$')
+ax.axhline(1, c="black", linestyle=":", label=r'$H_\text{BL}$')
 ax.fill_between([], [], [], color='gray',  alpha=0.6, label=r"$\tilde h_\text{Ek}$", ec="gray")
 
 ax.set_xlabel(r"Momentum flux, $\tau$ [m$^2$/s$^2$]", fontsize=11)
@@ -223,7 +226,7 @@ print(np.angle(Tx[0]+ 1j* Ty[0], deg=True))
 plt.plot(phi_values, Tx, label=r'$T_x$', color='C0')
 plt.plot(phi_values, Ty, label=r'$T_y$', color='C0', linestyle="--")
 
-plt.xlabel(r"Dimensionless layer thickness, $\varphi$ [-]", fontsize=11)
+plt.xlabel(r"Dimensionless layer thickness, $\varphi_\text{BL}$ [-]", fontsize=11)
 plt.ylabel(r"Transport, $T$ [m$^2$/s]",fontsize=11)
 plt.suptitle("Ekman Transport for the SUBC Linear Decreasing Model", fontsize=14)
 plt.grid(True, linestyle='--', alpha=0.6)
@@ -237,7 +240,6 @@ plt.savefig(f"plots/{save_name}.png", dpi=400)
 plt.savefig(f"../Ekman-Spirals-with-Variable-Eddy-Viscosity-Article/Figures/{save_name}.png", dpi=400)
 
 plt.show()
-
 
 
 

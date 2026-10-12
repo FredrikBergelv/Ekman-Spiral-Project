@@ -1,16 +1,16 @@
 \section{Methodology}
-\subsection{Numerical method}
+\subsection{The numerical method}
 \autoref{eq:MomentumFlux} was solved numerically as a boundary value problem using the \texttt{solve\_bvp} routine available in \texttt{SciPy} \citep{virtanen2020}. For the SUBC model, the equation was shown to be expressed in terms of a dimensionless layer thickness by using an height-normalized eddy viscosity profile, $\tilde{\nu}(z)$. Separating \autoref{eq:SUBCLinearIncreasing}, \ref{eq:SUBCLinearDecreasing} and \ref{eq:SUBCParabolic} into zonal and meridional components yields
 \begin{subequations}
     \label{eq:Method}
     \begin{align}
     \frac{\mathrm{d^2\tau_x}}{\mathrm{d} z^2}
     &=
-    -\frac{1}{\tilde\nu(z)}2\varphi^2 \tau_y,
+    -\frac{1}{\tilde\nu(z)}2\varphi_\text{BL}^2 \tau_y,
     \\
     \frac{\mathrm{d^2\tau_y}}{\mathrm{d} z^2}
     &=
-    \frac{1}{\tilde\nu(z)}2\varphi^2 \tau_x.
+    \frac{1}{\tilde\nu(z)}2\varphi_\text{BL}^2 \tau_x.
 \end{align}
 \end{subequations}
 To apply the numerical boundary value solver, the equations were rewritten as a first-order system by introducing the variables
@@ -27,26 +27,26 @@ Expanding \autoref{eq:Method} into four coupled first-order equations gives
     \\
     \frac{\mathrm{d} \tau_x^\prime}{\mathrm{d} z}
     &=
-    -\frac{2\varphi^2 \tau_y}{\tilde\nu(z)}
+    -\frac{2\varphi_\text{BL}^2 \tau_y}{\tilde\nu(z)}
     \\
     \frac{\mathrm{d} \tau_y}{\mathrm{d} z}
     &= \tau_y^\prime
     \\
     \frac{\mathrm{d} \tau_y^\prime}{\mathrm{d} z}
-    &=\frac{2\varphi^2 \tau_x}{\tilde\nu(z)},
+    &=\frac{2\varphi_\text{BL}^2 \tau_x}{\tilde\nu(z)},
     \end{cases}
     \label{eq:modelsolver}
 \end{align}
 with the boundary conditions
 \begin{subequations}
     \begin{align}
-    \tau_x^\prime(\varphi=0) &= 0,
+    \tau_x^\prime(\varphi_\text{BL}=0) &= 0,
     &
-    \tau_x(\varphi=1) &= 0,
+    \tau_x(\varphi_\text{BL}=1) &= 0,
     \\
-    \tau_y^\prime(\varphi=0) &= -fU_g,
+    \tau_y^\prime(\varphi_\text{BL}=0) &= -fU_g,
     &
-    \tau_y(\varphi=1) &= 0.
+    \tau_y(\varphi_\text{BL}=1) &= 0.
 \end{align}
 \end{subequations}
 If the viscosity profile, $\tilde\nu$, includes a zero value in the domain, then the coupled \autoref{eq:modelsolver} becomes singular. We therefore add a constant background viscosity, $\epsilon$
@@ -62,8 +62,8 @@ Reanalysed atmospheric data for different pressure levels was downloaded from th
 \begin{itemize}
 \item Northern mid-latitude band between $\left[\ang{30}, \ang{60}\right]$.
 \item Land points only.
-\item Flat points with a linear slope below \SI{1000}{\meter\per\kilo\meter}.
+\item Non-mountainous points with a linear slope below \SI{1000}{\meter\per\kilo\meter}.
 \item Surface wind speeds above \SI{1}{\meter\per\second}.
-\item A standard deviation below \ang{60}. 
+\item A standard deviation below \ang{45}. 
 \end{itemize}
 Lastly, a circular mean was calculated for the different times in order to obtain a average value for the temporal series. Thus, a geographical map together with angle distributions for the surface wind angles was obtained.
