@@ -1,0 +1,7 @@
+#!/bin/bash -f
+
+export ECE_USE_CPLNG=inactive
+
+# Launch model
+mpirun -n 1 ./master1c.exe
+

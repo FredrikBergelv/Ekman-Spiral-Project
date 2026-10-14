@@ -1,0 +1,54 @@
+ACCOUNT:
+std3
+
+PASSWORD:
+nVb1JCFbl58Z
+
+
+PASSPHRASE:
+1708
+
+-----------------------------------------------------
+
+
+1. HOW TO EXPORT SCM_IN:
+scp -P 23715 ./create_new_in/scm_in_A_rough_strongwind.nc std3@130.237.189.40:~/scm/data/
+scp -P 23715 ./create_new_in/scm_in_B_stable.nc std3@130.237.189.40:~/scm/data/
+scp -P 23715 ./create_new_in/scm_in_C_soil_dry.nc std3@130.237.189.40:~/scm/data/
+scp -P 23715 ./create_new_in/scm_in_C_soil_wet.nc std3@130.237.189.40:~/scm/data/
+
+scp -P 23715 scm_in_smooth.nc std3@130.237.189.40:~/scm/data/
+
+
+2. HOW TO LOG IN: 
+ssh -p 23715 std3@130.237.189.40
+
+
+3. HOW TO EDIT THE FILE?
+vi runscm_c43
+      i          ← start editing
+     Esc         ← stop editing
+     :w          ← save
+     :q          ← quit
+    Enter
+
+we edit the in file and the outfile 
+
+
+4. HOW TO RUN:
+./runscm_c43
+
+
+5. HOW TO IMPORT THE RUN:
+exit
+scp -r -P 23715 std3@130.237.189.40:~/scm/scm-runs/A_rough_strongwind ./scm_runs/
+scp -r -P 23715 std3@130.237.189.40:~/scm/scm-runs/B_stable ./scm_runs/
+scp -r -P 23715 std3@130.237.189.40:~/scm/scm-runs/C_soil_dry ./scm_runs/
+scp -r -P 23715 std3@130.237.189.40:~/scm/scm-runs/C_soil_wet ./scm_runs/
+
+
+
+
+--------------------------------------
+
+cp nml_c43.sh nml_test.sh

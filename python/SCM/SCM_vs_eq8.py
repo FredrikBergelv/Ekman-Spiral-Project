@@ -6,7 +6,6 @@ Created on Mon Oct 12 18:53:30 2026
 import numpy as np
 import matplotlib.pyplot as plt
 import xarray as xr
-from scipy.interpolate import interp1d
 from scipy.integrate import solve_bvp
 
 scm_run_name = "ctrl"
@@ -19,8 +18,10 @@ RUNDIR = f'SCM/scm_runs/{scm_run_name}/'
 
 #This is the ERA5 data saved in 15 min intervalls
 dsin = xr.load_dataset(RUNDIR + 'scm_in.nc', decode_times=False)
+
 # Thiis is the SCM data that has new variables (such as tau)
 dsd  = xr.load_dataset(RUNDIR + 'diagvar.nc', decode_times=False)
+dsp = xr.load_dataset(RUNDIR + 'progvar.nc', decode_times=False)
 
 # Rougness length
 z0 = dsd.rough_len_mom.mean().item()
@@ -31,23 +32,20 @@ TIME_SEC_IN = dsin.time.data.astype(float)
 NT = dsd.sizes['time'] # Number of timesteps
 
 # The data is in both half and full levels
-zfull = dsin.height_f.data
+zfull = dsp.height_f.data
 Zhalf = dsd.height_h.data
 
 # The idx for the height limit
 izfull0 = np.nonzero(zfull.mean(axis=0) >= ZMAX)[0][-1]
 iZhalf0 = np.nonzero(Zhalf.mean(axis=0) >= ZMAX)[0][-1]
 
-def interp_time(field_in, t_in=TIME_SEC_IN, t_out=TIME_SEC_DIAG):
-    "Converts in.nc (ERA5) into same time as diagvar.n (SCM)"
-    return np.array([np.interp(t_out, t_in, field_in[:, k]) for k in range(field_in.shape[1])]).T
-
 # Extract the data on the height limit in 
-U  = interp_time(dsin.u.data)[:, izfull0:]
-V = interp_time(dsin.v.data)[:, izfull0:]
-UG = interp_time(dsin.ug.data)[:, izfull0:]
-VG = interp_time(dsin.vg.data)[:, izfull0:]
-Zfull = interp_time(dsin.height_f.data)[:, izfull0:]
+U = dsp.u.data[:, izfull0:]
+V = dsp.v.data[:, izfull0:]
+Zfull = dsp.height_f.data[:, izfull0:]
+
+UG = np.broadcast_to(U[:, 0:1], U.shape).copy() # use the U at the top
+VG = np.broadcast_to(V[:, 0:1], V.shape).copy()
 
 TAU_U = dsd.turb_flx_u.data[:, iZhalf0:]
 TAU_V = dsd.turb_flx_v.data[:, iZhalf0:]
@@ -104,10 +102,14 @@ def mean_profiles(mask):
     tau_v_mean = np.nanmean(TAU_V_rot, axis=0)
     
     # Extract the turning angle
-    angle_deg = np.degrees(np.arctan2(v_mean[-1], u_mean[-1]))
+    # SCM turning angle at the lowest level 
+    i_ref = np.argmin(np.abs(Z_SCM_AVG))
+    z_angle_scm = Z_SCM_AVG[i_ref]
+    
+    angle_deg = np.degrees(np.arctan2(v_mean[i_ref], u_mean[i_ref]))
 
     return dict(tau_u=tau_u_mean, tau_v=tau_v_mean, u=u_mean, v=v_mean, ug=ug_mean, vg=vg_mean,
-                nu=np.nanmean(NU_EDDY[mask, :], axis=0), angle=angle_deg, vg_rot=ug_mean[-1])
+                nu=np.nanmean(NU_EDDY[mask, :], axis=0), z_angle=z_angle_scm, angle=angle_deg, vg_rot=ug_mean[-1])
 
 profiles = {'day': mean_profiles(DAY_MASK), 'night': mean_profiles(NIGHT_MASK)}
 
@@ -140,6 +142,8 @@ def interp_nu_surf(z_arr, SCM):
     u_ref = np.interp(z_ref, z_u, u_u)
     u_star = kappa_VK * abs(u_ref) / np.log(z_ref / z0)
     nu_z0 = kappa_VK * z0 * u_star
+    
+    print("u_*²=",u_star**2)
 
     # Sort viscosity data and retain positive, finite heights
     z = np.asarray(z_arr)
@@ -275,9 +279,15 @@ def plot_regime(regime, color):
     ek = ekman[regime]
     taur_ek, _, taui_ek, _ = ek['sol_tau'].sol(Z_PLOT_EK)
     Ur_ek, Ui_ek, _, _     = ek['sol_vel'].sol(Z_PLOT_EK)
+    # Compare SCM and Ekman turning angles at the same height
+    z_ref = SCM['z_angle']
+    u_ek_ref = np.interp(z_ref, Z_PLOT_EK, Ur_ek)
+    v_ek_ref = np.interp(z_ref, Z_PLOT_EK, Ui_ek)
+    angle_ek_ref = np.degrees(np.arctan2(v_ek_ref, u_ek_ref))
 
     fig, axs = plt.subplots(ncols=3, sharey=True, figsize=(10, 5))
-
+    print("|tau(0)|=",np.sqrt(np.hypot(SCM['tau_u'][-1], SCM['tau_v'][-1])))   # u* in m/s   
+    
     # Turbulent momentum flux: SCM solid, Ekman dashed
     axs[0].plot(SCM['tau_u'], Z_SCM_AVG_half, color=color, label=r"$\tau_x$ SCM")
     axs[0].plot(SCM['tau_v'], Z_SCM_AVG_half, color=color, ls='--', label=r"$\tau_y$ SCM")
@@ -299,7 +309,7 @@ def plot_regime(regime, color):
     axs[1].text(
         0.97, 0.03,
         rf'$\theta_\text{{SCM}}$ = {SCM["angle"]:.1f}$^\circ$' + '\n'
-        rf'$\theta_\text{{eq. 8}}$ = {ek["angle_tau"]:.1f}$^\circ$',
+        rf'$\theta_\text{{eq. 8}}$ = {angle_ek_ref:.1f}$^\circ$',
         transform=axs[1].transAxes, ha='right', va='bottom', fontsize=11,
         bbox=dict(boxstyle='round', facecolor='white', edgecolor='gray', alpha=0.9)
         )
